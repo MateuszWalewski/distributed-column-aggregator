@@ -8,6 +8,9 @@ add_executable(server server.cpp)
 target_link_libraries(server PUBLIC rpc ${CMAKE_THREAD_LIBS_INIT})
 #set_property(TARGET server PROPERTY CXX_STANDARD 14)
 
+add_executable(server2 server2.cpp)
+target_link_libraries(server2 PUBLIC rpc ${CMAKE_THREAD_LIBS_INIT})
+
 add_executable(client client.cpp)
 target_link_libraries(client PUBLIC rpc ${CMAKE_THREAD_LIBS_INIT})
 #set_property(TARGET client PROPERTY CXX_STANDARD 14)
