@@ -5,21 +5,13 @@
 class SessionHandler
 {
     public:
-    SessionHandler(std::shared_ptr<rpc::server> srv): mNodes(srv)
-    {};
+    SessionHandler(std::shared_ptr<rpc::server> srv);
 
-    SessionHandler(std::shared_ptr<rpc::client> client): mHub(client)
-    {};
+    SessionHandler(std::shared_ptr<rpc::client> client);
 
-    std::shared_ptr<rpc::server> GetNode() const
-    {
-        return mNodes;
-    }
+    std::shared_ptr<rpc::server> GetNode() const;
 
-    std::shared_ptr<rpc::client> GetHub() const
-    {
-        return mHub;
-    }
+    std::shared_ptr<rpc::client> GetHub() const;
 
     private:
     // make a vector of shared_ptrs

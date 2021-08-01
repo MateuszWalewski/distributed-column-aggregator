@@ -1,15 +1,13 @@
-#cmake_minimum_required(VERSION 3.0.0)
-#project(Networking)
 add_library(
     Networking
     SHARED
-    SessionHandler.h)
+    SessionHandler.h
+    SessionHandler.cpp)
 
-#target_link_libraries(Networking PUBLIC rpc ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(Networking PUBLIC rpc)
+find_package(Threads REQUIRED)
 
-#INSTALL(TARGETS GlobalContext DESTINATION lib)
-#find_package(rpclib REQUIRED)
+target_link_libraries(Networking PUBLIC rpc ${CMAKE_THREAD_LIBS_INIT})
+#target_link_libraries(Networking rpc)
 
-#set_property(TARGET server PROPERTY CXX_STANDARD 14)
+
 
