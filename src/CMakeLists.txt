@@ -10,3 +10,6 @@ target_link_libraries(server PUBLIC Networking)
 
 add_executable(client client.cpp)
 target_link_libraries(client PUBLIC Networking)
+
+#check why its problem with share lib when uncommented
+#INSTALL(TARGETS server client DESTINATION bin)
