@@ -6,3 +6,9 @@ add_library(
     SimpleAggs.h
     SimpleAggs.cpp)
 
+add_library(
+    ContainerAggregationsDist
+    SHARED
+    SimpleAggsDist.h
+    SimpleAggsDist.cpp)
+

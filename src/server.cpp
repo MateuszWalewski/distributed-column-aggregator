@@ -13,6 +13,7 @@ void bad(int x) {
 int main() {
     SessionHandler session(std::make_shared<rpc::server>("0.0.0.0", 5555));
 
+    // TODO: make RPCMethodsBinder singleton class which makes all this stuff in a ctr and call it here
     session.GetNode()->bind("foo", &foo);
     session.GetNode()->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
 
