@@ -8,11 +8,12 @@ ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(Aggregations)
 
 add_executable(server server.cpp)
-target_link_libraries(server PUBLIC Networking)
+target_link_libraries(server PUBLIC Networking ContainerAggregations)
 
 add_executable(client client.cpp)
-target_link_libraries(client PUBLIC Networking)
+target_link_libraries(client PUBLIC Networking ContainerAggregations)
 
 #check why its problem with share lib when uncommented
 INSTALL(TARGETS server client RUNTIME DESTINATION bin)
 INSTALL(TARGETS Networking LIBRARY DESTINATION lib)
+INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)

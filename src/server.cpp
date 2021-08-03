@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Networking/SessionHandler.h"
+#include "Aggregations/SimpleAggs.h"
 
 void foo() { std::cout << "foo was called!" << std::endl; }
 
@@ -13,6 +14,7 @@ int main() {
     SessionHandler session(std::make_shared<rpc::server>("0.0.0.0", 5555));
 
     session.GetNode()->bind("foo", &foo);
+    session.GetNode()->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
 
     session.GetNode()->bind("add", [](int a, int b) { return a + b; });
 
