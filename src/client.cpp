@@ -3,7 +3,9 @@
 
 int main() {
     SessionHandler session(std::make_shared<rpc::client>("127.0.0.1", 5555));
-    auto result = session.GetHub()->call("add", 2, 3).as<int>();
+    int size = 6;
+    int key = 4;
+    auto result = session.GetHub()->call("add", size, key).as<int>();
     std::cout << "The result is: " << result << std::endl;
     return 0;
 }
