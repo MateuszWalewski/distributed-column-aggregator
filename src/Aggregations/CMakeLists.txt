@@ -8,7 +8,8 @@ add_library(
 
 add_library(
     ContainerAggregationsDist
-    SHARED
+    STATIC
     SimpleAggsDist.h
     SimpleAggsDist.cpp)
 
+target_link_libraries(ContainerAggregationsDist PUBLIC GlobalContext)

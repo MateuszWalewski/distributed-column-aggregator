@@ -3,28 +3,30 @@
 #include <string>
 #include <memory>
 
-#define CTX() GlobalContext::Instance()
+// #define CTX() GlobalContext::Instance()
 
 class GlobalContext
 {
 
     private:
-    GlobalContext();
-    std::unique_ptr<SessionHandler> mSessionHanlderServer;
-    std::unique_ptr<SessionHandler> mSessionHanlderClient;
+    GlobalContext(bool hub);
+    std::shared_ptr<SessionHandler> mSessionHandler;
 
 
     std::string mHubIP;
     uint mHubPort;
     uint mNodePort;
     std::string mNodeIP;
+    // Kick if off!!
+    bool mIsHub = false;
 
 
     public:
-    static GlobalContext & Instance();
+    static GlobalContext & Instance(bool hub);
 
-    SessionHandler & GetSessionHandlerServer();
-    SessionHandler & GetSessionHandlerClient();
+    SessionHandler & GetSessionHandler();
+
+    void Hello();
 
 
 };
