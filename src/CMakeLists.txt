@@ -6,6 +6,7 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 ADD_SUBDIRECTORY(Networking)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(Aggregations)
+ADD_SUBDIRECTORY(Context)
 
 add_executable(server server.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 

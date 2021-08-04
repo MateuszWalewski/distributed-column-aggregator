@@ -1,6 +1,6 @@
 add_library(
     Networking
-    SHARED
+    STATIC
     SessionHandler.h
     SessionHandler.cpp)
 
