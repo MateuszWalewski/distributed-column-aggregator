@@ -1,19 +1,17 @@
-#include <iostream>
 #include "Aggregations/SimpleAggsDist.h"
+#include "ParameterController/ParameterController.h"
 #include <string>
+#include <iostream>
 
-int main() {
-    // SessionHandler session(std::make_shared<rpc::client>("127.0.0.1", 5555));
+int main(int argc, char * argv[]) {
+   
+    PCTRL().LoadParameter(std::string(argv[1]));
+
     int size = 6;
     int key = 4;
-    std::string methodName = "add";
-    //auto result = session.GetHub()->call(methodName, size, key).as<int>();
-    // auto result = GlobalContext::Instance(false).GetSessionHandler().GetHub()->call(methodName, size, key).as<int>();
-    // std::cout << "The result is: " << result << std::endl;
+  
+    auto result = calcs::AllocateAndAggregateDist(size, key);
 
-    auto result2 = calcs::AllocateAndAggregateDist(size, key);
-    // auto result2 = CTX().GetSessionHandlerClient().GetHub()->call(methodName, size, key).as<int>();
-
-    std::cout << "The result2 is: " << result2 << std::endl;
+    std::cout << "The result is: " << result << std::endl;
     return 0;
 }

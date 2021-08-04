@@ -1,31 +1,13 @@
-#include <iostream>
-// #include "Networking/SessionHandler.h"
 #include "Context/GlobalContext.h"
+#include "ParameterController/ParameterController.h"
 #include "Aggregations/SimpleAggs.h"
 
-void foo() { std::cout << "foo was called!" << std::endl; }
+int main(int argc, char * argv[]) {
 
-void bad(int x) {
-    if (x == 5) {
-        throw std::runtime_error("x == 5. I really don't like 5.");
-    }
-}
-
-int main() {
-    // SessionHandler session(std::make_shared<rpc::server>("0.0.0.0", 5555));
-    GlobalContext::Instance(false).GetSessionHandler().GetNode()->bind("foo", &foo);
-    GlobalContext::Instance(false).GetSessionHandler().GetNode()->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
-    GlobalContext::Instance(false).GetSessionHandler().GetNode()->bind("add", [](int a, int b) { return a + b; });
-    GlobalContext::Instance(false).GetSessionHandler().GetNode()->run();
-
-    // TODO: make RPCMethodsBinder singleton class which makes all this stuff in a ctr and call it here
-    // session.GetNode()->bind("foo", &foo);
-    // session.GetNode()->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
-
-    // session.GetNode()->bind("add", [](int a, int b) { return a + b; });
-
-    // Run the server loop.
-    // session.GetNode()->run();
+    PCTRL().LoadParameter(std::string(argv[1]));
+    // TODO: move all binds to the separate class
+    CTX().GetSessionHandler().GetNode()->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
+    CTX().GetSessionHandler().GetNode()->run();
 
     return 0;
 }

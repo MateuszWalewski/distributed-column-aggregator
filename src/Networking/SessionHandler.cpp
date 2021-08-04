@@ -4,6 +4,7 @@
 #include "SessionHandler.h"
 #include <iostream>
 
+// TODO: Make it as one ctr
   SessionHandler::SessionHandler(std::shared_ptr<rpc::server> srv): mNodes(srv)
   {
     std::cout << "SessionHandler ctor on the server side called ! " << std::endl;

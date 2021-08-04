@@ -2,19 +2,17 @@
 #include <iostream>
 
 
-GlobalContext::GlobalContext(bool hub) : mHubIP("0.0.0.0"), mHubPort(5555), mNodeIP("127.0.0.1")//, 
-//    mSessionHanlderServer(std::make_shared<SessionHandler>(std::make_shared<rpc::server>(mHubIP, mHubPort)))
-   // mSessionHanlderClient(std::make_shared<SessionHandler>(std::make_shared<rpc::client>(mNodeIP, mHubPort)))
+GlobalContext::GlobalContext() : mHubIP("0.0.0.0"), mHubPort(5555), mNodeIP("127.0.0.1")
 {
-    mSessionHandler = hub ? std::make_shared<SessionHandler>(std::make_shared<rpc::client>(mNodeIP, mHubPort)) :
+    mSessionHandler = PCTRL().IsHub() ? std::make_shared<SessionHandler>(std::make_shared<rpc::client>(mNodeIP, mHubPort)) :
     std::make_shared<SessionHandler>(std::make_shared<rpc::server>(mHubIP, mHubPort));
 }
 
 
 
-GlobalContext & GlobalContext::Instance(bool hub)
+GlobalContext & GlobalContext::Instance()
 {
-    static GlobalContext instance(hub);
+    static GlobalContext instance;
     return instance;
 }
 

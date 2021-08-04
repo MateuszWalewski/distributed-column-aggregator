@@ -1,15 +1,17 @@
 #pragma once
+// TODO: fix this ../
 #include "../Networking/SessionHandler.h"
+#include "../ParameterController/ParameterController.h"
 #include <string>
 #include <memory>
 
-// #define CTX() GlobalContext::Instance()
+#define CTX() GlobalContext::Instance()
 
 class GlobalContext
 {
 
     private:
-    GlobalContext(bool hub);
+    GlobalContext();
     std::shared_ptr<SessionHandler> mSessionHandler;
 
 
@@ -17,12 +19,9 @@ class GlobalContext
     uint mHubPort;
     uint mNodePort;
     std::string mNodeIP;
-    // Kick if off!!
-    bool mIsHub = false;
-
 
     public:
-    static GlobalContext & Instance(bool hub);
+    static GlobalContext & Instance();
 
     SessionHandler & GetSessionHandler();
 
