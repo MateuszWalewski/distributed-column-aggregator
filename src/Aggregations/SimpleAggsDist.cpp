@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 
-#include "../Context/GlobalContext.h"
+#include "Context/GlobalContext.h"
 
 namespace calcs
 {

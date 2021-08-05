@@ -3,7 +3,7 @@
 #include <memory>
 #include "SessionHandler.h"
 #include <iostream>
-#include "../Aggregations/SimpleAggs.h"
+#include "Aggregations/SimpleAggs.h"
 
 // TODO: Make it as one ctr
 SessionHandler::SessionHandler(std::shared_ptr<rpc::server> srv): mNodes(srv)

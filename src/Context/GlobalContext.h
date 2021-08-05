@@ -1,7 +1,6 @@
 #pragma once
-// TODO: fix this ../
-#include "../Networking/SessionHandler.h"
-#include "../ParameterController/ParameterController.h"
+#include "Networking/SessionHandler.h"
+#include "ParameterController/ParameterController.h"
 #include <string>
 #include <memory>
 

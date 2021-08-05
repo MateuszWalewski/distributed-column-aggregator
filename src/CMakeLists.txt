@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
+include_directories(".")
+
 ADD_SUBDIRECTORY(Networking)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(Aggregations)
