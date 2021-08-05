@@ -1,8 +1,9 @@
 - simple param controller taking arguments from command input
 - introduction hub and nodes ( > 1 )
 
-- unit tests
+- debuggin part to attach gdb
+
 - code cleaner & static analysis
 - add logger
+- code coverage
 
-- debuggin part to attach gdb
