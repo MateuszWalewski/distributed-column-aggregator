@@ -8,7 +8,7 @@ BOOST_AUTO_TEST_CASE(AllocateAndAggregate_test3)
 {
     auto result = calcs::AllocateAndAggregate(3,2);
 
-    BOOST_TEST(result == 12); 
+    BOOST_TEST(result == 6); 
 }
 
 BOOST_AUTO_TEST_SUITE_END()
