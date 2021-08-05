@@ -1,10 +1,5 @@
-
-
 - simple param controller taking arguments from command input
-- abstraction over rpc:server and rpc:client to kick of GetHub and GetNode methods
 - introduction hub and nodes ( > 1 )
-
-
 
 - unit tests
 - code cleaner & static analysis
