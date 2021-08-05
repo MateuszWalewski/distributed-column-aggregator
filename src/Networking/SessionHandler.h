@@ -9,9 +9,12 @@ class SessionHandler
 
     SessionHandler(std::shared_ptr<rpc::client> client);
 
-    std::shared_ptr<rpc::server> GetNode() const;
+    void RunServer();
+    void BindMethods();
 
-    std::shared_ptr<rpc::client> GetHub() const;
+    // Make it as a variadic template
+    int CallRPCMethod(std::string methodName, int arg1);
+    int CallRPCMethod(std::string methodName, int arg1, int arg2);
 
     private:
     // make a vector of shared_ptrs
