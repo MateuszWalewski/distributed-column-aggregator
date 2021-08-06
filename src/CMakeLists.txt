@@ -11,15 +11,15 @@ ADD_SUBDIRECTORY(Aggregations)
 ADD_SUBDIRECTORY(Context)
 ADD_SUBDIRECTORY(ParameterController)
 
-add_executable(server server.cpp)
+add_executable(miniDBServer miniDBServer.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(server PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist)
+target_link_libraries(miniDBServer PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist)
 
-add_executable(client client.cpp)
-target_link_libraries(client PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist)
+add_executable(miniDB miniDB.cpp)
+target_link_libraries(miniDB PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist)
 
 # TODO: ditto
-INSTALL(TARGETS server client RUNTIME DESTINATION bin)
+INSTALL(TARGETS miniDBServer miniDB RUNTIME DESTINATION bin)
 INSTALL(TARGETS GlobalContext LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregationsDist LIBRARY DESTINATION lib)
