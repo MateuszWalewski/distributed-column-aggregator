@@ -15,4 +15,4 @@ int AllocateAndAggregateDist( int containerSize, int fillValue )
 
     return CTX().GetSessionHandler().CallRPCMethod( "AllocateAndAggregate", containerSize, fillValue );
 }
-}  // namespace calcs
+} // namespace calcs

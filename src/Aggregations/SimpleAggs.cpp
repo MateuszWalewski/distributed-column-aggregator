@@ -15,4 +15,4 @@ int AllocateAndAggregate( int containerSize, int fillValue )
     }
     return std::accumulate( container.begin(), container.end(), 0 );
 }
-}  // namespace calcs
+} // namespace calcs

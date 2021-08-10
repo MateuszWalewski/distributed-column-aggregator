@@ -6,4 +6,4 @@
 namespace calcs
 {
 int AllocateAndAggregate( int containerSize, int initValue );
-}  // namespace calcs
+} // namespace calcs
