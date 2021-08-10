@@ -1,5 +1,14 @@
+----- highet priority --------
+
+- Introduction hub and nodes ( > 1 ) 
+- Column class
+- Column Keeper
+- Filling (from x to y values)
+- Dockerization
+
+------------------------------
+
 - simple param controller taking arguments from command input
-- introduction hub and nodes ( > 1 )
 
 - static analysis
 - add logger
@@ -7,4 +16,4 @@
 
 - loading data module
 - distributing data from hub to node module
-
+- versioning
