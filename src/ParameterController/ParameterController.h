@@ -5,17 +5,15 @@
 
 class ParameterController
 {
-
-    private:
+private:
     ParameterController();
 
     bool mIsHub;
 
-    public:
+public:
     static ParameterController & Instance();
 
-    void LoadParameter(std::string parameter);
+    void LoadParameter( std::string parameter );
 
     bool IsHub();
-
 };

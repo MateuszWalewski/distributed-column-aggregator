@@ -1,9 +1,9 @@
 #pragma once
 
-#include <vector>
 #include <numeric>
+#include <vector>
 
 namespace calcs
 {
-    int AllocateAndAggregate(int containerSize, int initValue);
+int AllocateAndAggregate( int containerSize, int initValue );
 }  // namespace calcs

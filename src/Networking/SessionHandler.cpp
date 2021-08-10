@@ -1,22 +1,22 @@
-#include "rpc/server.h"
-#include "rpc/client.h"
-#include <memory>
 #include "SessionHandler.h"
+
 #include <iostream>
+#include <memory>
+
 #include "Aggregations/SimpleAggs.h"
+#include "rpc/client.h"
+#include "rpc/server.h"
 
 // TODO: Make it as one ctr
-SessionHandler::SessionHandler(std::shared_ptr<rpc::server> srv): mNodes(srv)
+SessionHandler::SessionHandler( std::shared_ptr<rpc::server> srv ) : mNodes( srv )
 {
-  std::cout << "SessionHandler ctor on the server side called ! " << std::endl;
-
+    std::cout << "SessionHandler ctor on the server side called ! " << std::endl;
 };
 
-SessionHandler::SessionHandler(std::shared_ptr<rpc::client> client): mHub(client)
+SessionHandler::SessionHandler( std::shared_ptr<rpc::client> client ) : mHub( client )
 {
-  std::cout << "SessionHandler ctor on the client side called ! " << std::endl;
+    std::cout << "SessionHandler ctor on the client side called ! " << std::endl;
 };
-
 
 void SessionHandler::RunServer()
 {
@@ -26,23 +26,17 @@ void SessionHandler::RunServer()
 void SessionHandler::BindMethods()
 {
     // TODO: move all binds to the separate class
-    mNodes->bind("AllocateAndAggregate", &calcs::AllocateAndAggregate);
-
-
+    mNodes->bind( "AllocateAndAggregate", &calcs::AllocateAndAggregate );
 }
 
 // must be templated!!!
-int SessionHandler::CallRPCMethod(std::string methodName, int arg1)
+int SessionHandler::CallRPCMethod( std::string methodName, int arg1 )
 {
-    return mHub->call(methodName, arg1).as<int>();
-
+    return mHub->call( methodName, arg1 ).as<int>();
 }
 
 // must be templated!!!
-int SessionHandler::CallRPCMethod(std::string methodName, int arg1, int arg2)
+int SessionHandler::CallRPCMethod( std::string methodName, int arg1, int arg2 )
 {
-   return mHub->call(methodName, arg1, arg2).as<int>();
-
+    return mHub->call( methodName, arg1, arg2 ).as<int>();
 }
-
-

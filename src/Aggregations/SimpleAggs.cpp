@@ -1,17 +1,18 @@
 #include "SimpleAggs.h"
-#include <vector>
+
 #include <iostream>
+#include <vector>
 
 namespace calcs
 {
-    int AllocateAndAggregate(int containerSize, int fillValue)
+int AllocateAndAggregate( int containerSize, int fillValue )
+{
+    std::vector<int> container( containerSize, fillValue );
+    // Make it as a separate function in Tools module
+    for ( auto & x : container )
     {
-        std::vector<int> container (containerSize, fillValue);
-        // Make it as a separate function in Tools module
-        for (auto & x : container)
-        {
-            std::cout << x << std::endl;
-        } 
-        return std::accumulate(container.begin(), container.end(), 0);
+        std::cout << x << std::endl;
     }
+    return std::accumulate( container.begin(), container.end(), 0 );
+}
 }  // namespace calcs

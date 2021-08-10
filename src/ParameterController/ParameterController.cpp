@@ -1,8 +1,8 @@
 #include "ParameterController.h"
+
 #include <iostream>
 
-
-ParameterController::ParameterController() 
+ParameterController::ParameterController()
 {
 }
 
@@ -12,13 +12,10 @@ ParameterController & ParameterController::Instance()
     return instance;
 }
 
-
-
-void ParameterController::LoadParameter(std::string parameter)
+void ParameterController::LoadParameter( std::string parameter )
 {
     mIsHub = parameter == "hub";
 }
-
 
 bool ParameterController::IsHub()
 {
