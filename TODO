@@ -1,9 +1,10 @@
 - simple param controller taking arguments from command input
 - introduction hub and nodes ( > 1 )
 
-- debuggin part to attach gdb
-
-- code cleaner & static analysis
+- static analysis
 - add logger
 - code coverage
+
+- loading data module
+- distributing data from hub to node module
 

@@ -13,8 +13,6 @@ int main( int argc, char * argv[] )
     int size = 6;
     int key = 4;
 
-    usleep( 10000000 );
-
     auto result = calcs::AllocateAndAggregateDist( size, key );
 
     std::cout << "The result is: " << result << std::endl;
