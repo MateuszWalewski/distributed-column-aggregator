@@ -61,3 +61,23 @@ bool ParameterController::IsHub()
 {
     return mIsHub;
 }
+
+std::vector<std::string> ParameterController::GetHubIPs()
+{
+    return mHubIPs;
+}
+
+std::vector<std::string> ParameterController::GetHubPorts()
+{
+    return mHubPorts;
+}
+
+std::string ParameterController::GetNodeIP()
+{
+    return mNodeIP;
+}
+
+std::string ParameterController::GetNodePort()
+{
+    return mNodePort;
+}

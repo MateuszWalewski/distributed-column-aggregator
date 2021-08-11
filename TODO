@@ -1,6 +1,7 @@
 ----- highet priority --------
 
-- Introduction hub and nodes ( > 1 ) 
+- Find a tool allowing for determine if the code is clean/effective or not (static analysis subject but maybe sth else?)
+- Introduction hub and nodes ( > 1 ) - REFACTORIZATION 
 - Column class
 - Column Keeper
 - Filling (from x to y values)
