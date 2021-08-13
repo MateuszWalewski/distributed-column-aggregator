@@ -13,11 +13,6 @@ private:
     GlobalContext();
     std::shared_ptr<SessionHandler> mSessionHandler;
 
-    std::string mHubIP;
-    uint mHubPort;
-    uint mNodePort;
-    std::string mNodeIP;
-
 public:
     static GlobalContext & Instance();
 

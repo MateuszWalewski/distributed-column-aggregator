@@ -7,14 +7,12 @@
 #include "rpc/client.h"
 #include "rpc/server.h"
 
-// TODO: Make it as one ctr
-SessionHandler::SessionHandler( std::shared_ptr<rpc::server> srv ) : mNode( srv )
+SessionHandler::SessionHandler( std::shared_ptr<rpc::server> srv ) : mNode( move( srv ) )
 {
     std::cout << "SessionHandler ctor on the server side called ! " << std::endl;
 }
 
-// Look out on the parameter form! Is it clean? Move semantics?
-SessionHandler::SessionHandler( std::vector<std::shared_ptr<rpc::client>> clients ) : mHub( clients )
+SessionHandler::SessionHandler( std::vector<std::shared_ptr<rpc::client>> clients ) : mHub( move( clients ) )
 {
     std::cout << "SessionHandler ctor on the client side called ! " << std::endl;
 }
@@ -34,9 +32,9 @@ void SessionHandler::BindMethods()
 // must be templated!!!
 // forloop change to runlambda by threads
 //  check if it is generic enough
-std::vector<int> SessionHandler::CallRPCMethod( std::string methodName, int arg1 )
+auto SessionHandler::CallRPCMethod( const std::string & methodName, int arg1 ) -> std::vector<int>
 {
-    std::vector<int> results;
+    std::vector<int> results( 0, 0 );
 
     for ( auto & x : mHub )
     {
@@ -50,9 +48,9 @@ std::vector<int> SessionHandler::CallRPCMethod( std::string methodName, int arg1
 // must be templated!!!
 // forloop change to runlambda by threads
 //  check if it is generic enough
-std::vector<int> SessionHandler::CallRPCMethod( std::string methodName, int arg1, int arg2 )
+auto SessionHandler::CallRPCMethod( const std::string & methodName, int arg1, int arg2 ) -> std::vector<int>
 {
-    std::vector<int> results;
+    std::vector<int> results( 0, 0 );
 
     for ( auto & x : mHub )
     {

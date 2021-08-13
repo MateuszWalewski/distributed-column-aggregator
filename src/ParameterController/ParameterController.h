@@ -21,7 +21,8 @@ private:
 public:
     static ParameterController & Instance();
 
-    void LoadParameter( std::string parameter );
+    // TODO: change name and consider removing it
+    void LoadParameter( const std::string & parameter );
 
     void LoadHubConnectionInfo( char * args[], int argc );
 

@@ -5,5 +5,5 @@
 
 namespace calcs
 {
-int AllocateAndAggregate( int containerSize, int initValue );
+int AllocateAndAggregate( int containerSize, int fillValue );
 } // namespace calcs

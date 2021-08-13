@@ -7,16 +7,16 @@
 class SessionHandler
 {
 public:
-    SessionHandler( std::shared_ptr<rpc::server> srv );
+    explicit SessionHandler( std::shared_ptr<rpc::server> srv );
     // make it && to enable move semantics
-    SessionHandler( std::vector<std::shared_ptr<rpc::client>> clients );
+    explicit SessionHandler( std::vector<std::shared_ptr<rpc::client>> clients );
 
     void RunServer();
     void BindMethods();
 
     // Make it as a variadic template
-    std::vector<int> CallRPCMethod( std::string methodName, int arg1 );
-    std::vector<int> CallRPCMethod( std::string methodName, int arg1, int arg2 );
+    auto CallRPCMethod( const std::string & methodName, int arg1 ) -> std::vector<int>;
+    auto CallRPCMethod( const std::string & methodName, int arg1, int arg2 ) -> std::vector<int>;
 
 private:
     // make a vector of shared_ptrs

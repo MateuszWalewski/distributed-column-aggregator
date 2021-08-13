@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-ParameterController::ParameterController()
+ParameterController::ParameterController() : mIsHub( false )
 {
 }
 
@@ -12,7 +12,7 @@ ParameterController & ParameterController::Instance()
     return instance;
 }
 
-void ParameterController::LoadParameter( std::string parameter )
+void ParameterController::LoadParameter( const std::string & parameter )
 {
     mIsHub = parameter == "hub";
 }

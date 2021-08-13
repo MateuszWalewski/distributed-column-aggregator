@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-GlobalContext::GlobalContext() : mHubIP( "0.0.0.0" ), mHubPort( 5555 ), mNodeIP( "127.0.0.1" )
+GlobalContext::GlobalContext()
 {
     std::vector<std::shared_ptr<rpc::client>> clients;
+    // TODO: move it to the separate function or sth
     if ( PCTRL().IsHub() )
     {
         auto hubPorts = PCTRL().GetHubPorts();
