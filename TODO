@@ -9,9 +9,7 @@
 
 ------------------------------
 
-- simple param controller taking arguments from command input
-
-- static analysis
+- VALGRIND
 - add logger
 - code coverage
 
