@@ -20,7 +20,6 @@ GlobalContext::GlobalContext()
         }
     }
 
-    // move semantics here!!
     mSessionHandler = PCTRL().IsHub() ? std::make_shared<SessionHandler>( clients )
                                       : std::make_shared<SessionHandler>( std::make_shared<rpc::server>(
                                             PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
@@ -35,9 +34,4 @@ GlobalContext & GlobalContext::Instance()
 SessionHandler & GlobalContext::GetSessionHandler()
 {
     return *mSessionHandler;
-}
-
-void GlobalContext::Hello()
-{
-    std::cout << "Hello I'm singleton!!!" << std::endl;
 }
