@@ -12,7 +12,7 @@ GlobalContext::GlobalContext() : mHubIP( "0.0.0.0" ), mHubPort( 5555 ), mNodeIP(
 
         clients.resize( hubPorts.size() );
 
-        for ( int i = 0; i < clients.size(); i++ )
+        for ( size_t i = 0; i < clients.size(); i++ )
         {
             // LOOK OUT! EMPLACE BACK HERE!!
             clients[i] = std::make_shared<rpc::client>( hubIps[i], std::stoi( hubPorts[i] ) );

@@ -4,7 +4,7 @@ project(distDB)
 if (MSVC)
     add_compile_options(/W4)
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic -Werror -Wfatal-errors -Wredundant-move -Wpessimizing-move -Wmaybe-uninitialized -Wuninitialized)
+    add_compile_options(-Wall -Wextra -Wpedantic -Wfatal-errors -Wredundant-move -Wpessimizing-move -Wmaybe-uninitialized -Wuninitialized)
 endif()
 
 SET(CMAKE_CXX_STANDARD 17)

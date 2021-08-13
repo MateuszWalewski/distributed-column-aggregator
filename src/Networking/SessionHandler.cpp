@@ -11,13 +11,13 @@
 SessionHandler::SessionHandler( std::shared_ptr<rpc::server> srv ) : mNode( srv )
 {
     std::cout << "SessionHandler ctor on the server side called ! " << std::endl;
-};
+}
 
 // Look out on the parameter form! Is it clean? Move semantics?
 SessionHandler::SessionHandler( std::vector<std::shared_ptr<rpc::client>> clients ) : mHub( clients )
 {
     std::cout << "SessionHandler ctor on the client side called ! " << std::endl;
-};
+}
 
 void SessionHandler::RunServer()
 {
