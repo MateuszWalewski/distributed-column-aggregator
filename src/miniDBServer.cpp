@@ -1,10 +1,9 @@
-#include "Context/GlobalContext.h"
+#include "Context/GlobalContextNode.h"
 #include "ParameterController/ParameterController.h"
 
 int main( int argc, char * argv[] )
 {
     // TODO: input sanity check!!!
-    PCTRL().LoadParameter( std::string( argv[1] ) );
     PCTRL().LoadNodeConnectionInfo( argv );
     PCTRL().PrintNodeConnectionInfo();
 

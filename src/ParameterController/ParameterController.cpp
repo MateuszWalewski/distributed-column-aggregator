@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-ParameterController::ParameterController() : mIsHub( false )
+ParameterController::ParameterController()
 {
 }
 
@@ -12,20 +12,15 @@ ParameterController & ParameterController::Instance()
     return instance;
 }
 
-void ParameterController::LoadParameter( const std::string & parameter )
-{
-    mIsHub = parameter == "hub";
-}
-
 // maybe could be done better than passing raw char*[] ?
 void ParameterController::LoadHubConnectionInfo( char * args[], int argc )
 {
-    for ( int i = 2; i < argc / 2 + 1; i++ )
+    for ( int i = 1; i < argc / 2 + 1; i++ )
     {
         // add checker/assert
-        mHubIPs.push_back( std::string( args[2 * i - 2] ) );
+        mHubIPs.push_back( std::string( args[2 * i - 1] ) );
         // add checker/assert
-        mHubPorts.push_back( std::string( args[2 * i - 1] ) );
+        mHubPorts.push_back( std::string( args[2 * i] ) );
     }
 }
 
@@ -33,9 +28,9 @@ void ParameterController::LoadHubConnectionInfo( char * args[], int argc )
 void ParameterController::LoadNodeConnectionInfo( char * args[] )
 {
     // add checker/assert
-    mNodeIP = std::string( args[2] );
+    mNodeIP = std::string( args[1] );
     // add checker/assert
-    mNodePort = std::string( args[3] );
+    mNodePort = std::string( args[2] );
 }
 
 void ParameterController::PrintHubConnectionInfo()
@@ -55,11 +50,6 @@ void ParameterController::PrintNodeConnectionInfo()
 {
     std::cout << "mNodeIP: " << mNodeIP << std::endl;
     std::cout << "mNodePort: " << mNodePort << std::endl;
-}
-
-bool ParameterController::IsHub()
-{
-    return mIsHub;
 }
 
 std::vector<std::string> ParameterController::GetHubIPs()

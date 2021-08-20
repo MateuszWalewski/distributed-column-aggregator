@@ -9,7 +9,6 @@
 int main( int argc, char * argv[] )
 {
     // TODO: input sanity check!!!
-    PCTRL().LoadParameter( std::string( argv[1] ) );
     PCTRL().LoadHubConnectionInfo( argv, argc );
     PCTRL().PrintHubConnectionInfo();
 

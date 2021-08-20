@@ -9,7 +9,6 @@ class ParameterController
 private:
     ParameterController();
 
-    bool mIsHub;
     // check the correctnes of the naming convention i.e
     // on hub there are rather info about node detials than hub details
     std::vector<std::string> mHubIPs;
@@ -20,9 +19,6 @@ private:
 
 public:
     static ParameterController & Instance();
-
-    // TODO: change name and consider removing it
-    void LoadParameter( const std::string & parameter );
 
     void LoadHubConnectionInfo( char * args[], int argc );
 

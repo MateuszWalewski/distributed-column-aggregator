@@ -1,8 +1,10 @@
 add_library(
     Networking
     STATIC
-    SessionHandler.h
-    SessionHandler.cpp)
+    SessionHandlerHub.h
+    SessionHandlerHub.cpp
+    SessionHandlerNode.h
+    SessionHandlerNode.cpp)
 
 find_package(Threads REQUIRED)
 
