@@ -28,9 +28,7 @@ void ParameterController::LoadHubConnectionInfo( char * args[], int argc )
 void ParameterController::LoadNodeConnectionInfo( char * args[] )
 {
     // add checker/assert
-    mNodeIP = std::string( args[1] );
-    // add checker/assert
-    mNodePort = std::string( args[2] );
+    mNodePort = std::string( args[1] );
 }
 
 void ParameterController::PrintHubConnectionInfo()
@@ -48,7 +46,6 @@ void ParameterController::PrintHubConnectionInfo()
 
 void ParameterController::PrintNodeConnectionInfo()
 {
-    std::cout << "mNodeIP: " << mNodeIP << std::endl;
     std::cout << "mNodePort: " << mNodePort << std::endl;
 }
 
@@ -64,7 +61,7 @@ std::vector<std::string> ParameterController::GetHubPorts()
 
 std::string ParameterController::GetNodeIP()
 {
-    return mNodeIP;
+    return "0.0.0.0";
 }
 
 std::string ParameterController::GetNodePort()

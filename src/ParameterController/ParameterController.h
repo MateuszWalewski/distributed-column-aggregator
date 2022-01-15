@@ -14,7 +14,6 @@ private:
     std::vector<std::string> mHubIPs;
     std::vector<std::string> mHubPorts;
 
-    std::string mNodeIP;
     std::string mNodePort;
 
 public:
