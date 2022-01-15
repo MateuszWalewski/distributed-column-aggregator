@@ -8,7 +8,7 @@
 
 namespace calcs
 {
-int AllocateAndAggregateDist( int containerSize, int fillValue )
+template <typename T> T AllocateAndAggregateDist( T containerSize, T fillValue )
 {
     // TODO: make the funtion making calls in parallel on many nodes
     // (simple parallelism in C++ with saving res to vector will be probably enough)

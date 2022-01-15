@@ -5,5 +5,5 @@
 
 namespace calcs
 {
-int AllocateAndAggregateDist( int containerSize, int fillValue );
+template <typename T> T AllocateAndAggregateDist( T containerSize, T fillValue );
 } // namespace calcs
