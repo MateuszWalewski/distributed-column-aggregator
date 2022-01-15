@@ -15,10 +15,10 @@ and then:
 
 Setup nodes first by executing:
 
-- ./miniDBServer <NODE1_IP> <NODE1_PORT>
+- ./miniDBNode <NODE1_IP> <NODE1_PORT>
 .
 .
-- ./miniDBServer <NODEn_IP> <NODEn_PORT>
+- ./miniDBNode <NODEn_IP> <NODEn_PORT>
 
 for n nodes.
 
@@ -26,7 +26,7 @@ One can launch many nodes with the same or differrent IPs
 
 Setup client/hub aplication:
 
-- ./miniDB <NODE1_IP> <NODE1_PORT> <NODE2_IP> <NODE2_PORT> ... <NODEn_IP> <NODEn_PORT>
+- ./miniDBHub <NODE1_IP> <NODE1_PORT> <NODE2_IP> <NODE2_PORT> ... <NODEn_IP> <NODEn_PORT>
 
 
 ---------------------------------------------------
