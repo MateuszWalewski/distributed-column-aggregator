@@ -16,7 +16,7 @@ SessionHandlerHub::SessionHandlerHub( std::vector<std::shared_ptr<rpc::client>> 
 // must be templated!!!
 // forloop change to runlambda by threads
 //  check if it is generic enough
-template <typename T> auto SessionHandlerHub::CallRPCMethod( const std::string & methodName, T arg1 ) -> std::vector<T>
+template <typename T> std::vector<T> SessionHandlerHub::CallRPCMethod( const std::string & methodName, T arg1 )
 {
     std::vector<T> results( 0, 0 );
 
@@ -32,15 +32,15 @@ template <typename T> auto SessionHandlerHub::CallRPCMethod( const std::string &
 // must be templated!!!
 // forloop change to runlambda by threads
 //  check if it is generic enough
-template <typename T> auto SessionHandlerHub::CallRPCMethod( const std::string & methodName, T arg1, T arg2 ) -> std::vector<T>
-{
-    std::vector<T> results( 0, 0 );
+// template <typename T> std::vector<T> SessionHandlerHub::CallRPCMethod( const std::string & methodName, T arg1, T arg2 )
+// {
+//     std::vector<T> results( 0, 0 );
 
-    for ( auto & x : mHub )
-    {
-        // emplace back?
-        results.push_back( x->call( methodName, arg1, arg2 ).template as<T>() );
-    }
+//     for ( auto & x : mHub )
+//     {
+//         // emplace back?
+//         results.push_back( x->call( methodName, arg1, arg2 ).template as<T>() );
+//     }
 
-    return results;
-}
+//     return results;
+// }
