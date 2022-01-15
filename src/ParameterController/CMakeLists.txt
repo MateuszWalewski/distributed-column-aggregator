@@ -1,7 +1,10 @@
 add_library(
     ParameterController
     STATIC
-    ParameterController.h
-    ParameterController.cpp)
+    ParameterControllerHub.h
+    ParameterControllerHub.cpp
+    ParameterControllerNode.h
+    ParameterControllerNode.cpp
+    )
 
 

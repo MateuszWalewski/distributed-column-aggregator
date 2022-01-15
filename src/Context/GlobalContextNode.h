@@ -3,7 +3,7 @@
 #include <string>
 
 #include "Networking/SessionHandlerNode.h"
-#include "ParameterController/ParameterController.h"
+#include "ParameterController/ParameterControllerNode.h"
 
 #define CTX() GlobalContextNode::Instance()
 

@@ -4,7 +4,7 @@
 #include <string>
 
 #include "Aggregations/SimpleAggsDist.h"
-#include "ParameterController/ParameterController.h"
+#include "ParameterController/ParameterControllerHub.h"
 
 int main( int argc, char * argv[] )
 {

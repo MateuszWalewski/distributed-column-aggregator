@@ -3,7 +3,7 @@
 #include <string>
 
 #include "Networking/SessionHandlerHub.h"
-#include "ParameterController/ParameterController.h"
+#include "ParameterController/ParameterControllerHub.h"
 
 #define CTX() GlobalContextHub::Instance()
 
