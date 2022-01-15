@@ -7,14 +7,13 @@
 
 namespace calcs
 {
-template <typename T> T AllocateAndAggregate( int containerSize, T fillValue )
+template <typename T> T AllocateAndAggregate( std::vector<T> container )
 {
-    std::vector<T> container( containerSize, fillValue );
     // Make it as a separate function in Tools module
     for ( auto & x : container )
     {
         std::cout << x << std::endl;
     }
-    return std::accumulate( container.begin(), container.end(), 0 );
+    return std::accumulate( container.begin(), container.end(), static_cast<T>( 0 ) );
 }
 } // namespace calcs

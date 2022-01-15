@@ -24,6 +24,19 @@ public:
         return results;
     }
 
+    template <typename T> std::vector<T> CallRPCMethod( const std::string & methodName, std::vector<T> arg1 )
+    {
+        std::vector<T> results( 0, 0.0 );
+
+        for ( auto & x : mHub )
+        {
+            // emplace back?
+            results.push_back( x->call( methodName, arg1 ).template as<T>() );
+        }
+
+        return results;
+    }
+
 private:
     std::vector<std::shared_ptr<rpc::client>> mHub;
 };
