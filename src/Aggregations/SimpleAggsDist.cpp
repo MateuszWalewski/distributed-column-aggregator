@@ -2,5 +2,4 @@
 
 namespace calcs
 {
-
 } // namespace calcs

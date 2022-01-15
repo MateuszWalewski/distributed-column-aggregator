@@ -20,6 +20,6 @@ void SessionHandlerNode::RunServer()
 void SessionHandlerNode::BindMethods()
 {
     // TODO: move all binds to the separate class
-    mNode->bind( "AllocateAndAggregate", &calcs::AllocateAndAggregate );
+    mNode->bind( "AllocateAndAggregated", &calcs::AllocateAndAggregate<double> );
+    mNode->bind( "AllocateAndAggregatei", &calcs::AllocateAndAggregate<int> );
 }
-
