@@ -1,12 +1,21 @@
 ----- highet priority --------
 
+- Merge branch 'templating_methods' to 'master'
+-- make CallRPCMethod more generic, accepting not only vectors
+-- make the function generating function names to bind on nodes
+-- make the separate 'utility' module and move there all the helper funcions like
+this above and prints etc.
+
+- Handle unit testing
 - Introduction hub and nodes ( > 1 ) - REFACTORIZATION 
 - Column class
 - Column Keeper
 - Filling (from x to y values)
 - Dockerization
-
+- Refactorization (make clang-tidy silent)
+- Handle unit testing
 ------------------------------
+- Handling dependencies -- > Conan
 
 - VALGRIND
 - add logger

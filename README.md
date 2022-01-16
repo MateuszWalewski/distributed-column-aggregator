@@ -29,6 +29,10 @@ Setup client/hub aplication:
 - ./miniDBHub <NODE1_IP> <NODE1_PORT> <NODE2_IP> <NODE2_PORT> ... <NODEn_IP> <NODEn_PORT>
 
 
+4. Static analysis:
+For ex.
+- clang-tidy -p ./src/ ./src/ParameterController/ParameterControllerHub.cpp -checks=* -header-filter=.* --
+
 ---------------------------------------------------
 
 
