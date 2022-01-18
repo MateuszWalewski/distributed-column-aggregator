@@ -6,6 +6,8 @@
 -- make the separate 'utility' module and move there all the helper funcions like
 this above and prints etc.
 
+
+- pack all the classes into unique namespace ( for the case when I want to make the project as separate shared library)
 - Handle unit testing
 - Introduction hub and nodes ( > 1 ) - REFACTORIZATION 
 - Column class

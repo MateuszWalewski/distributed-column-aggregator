@@ -1,4 +1,5 @@
 #include "ParameterControllerHub.h"
+#include "Tools/Utility.h"
 
 #include <iostream>
 
@@ -26,17 +27,9 @@ void ParameterControllerHub::LoadHubConnectionInfo( char * args[], int argc )
 
 void ParameterControllerHub::PrintHubConnectionInfo()
 {
-    for ( auto & x : mNodesIPs )
-    {
-        std::cout << "mNodesIPs: " << x << std::endl;
-    }
-
-    for ( auto & x : mNodesPorts )
-    {
-        std::cout << "mNodesPorts: " << x << std::endl;
-    }
+    PrintVector( mNodesIPs, "mNodesIPs" );
+    PrintVector( mNodesPorts, "mNodesPorts" );
 }
-
 
 std::vector<std::string> ParameterControllerHub::GetNodesIPs()
 {
@@ -47,4 +40,3 @@ std::vector<std::string> ParameterControllerHub::GetNodesPorts()
 {
     return mNodesPorts;
 }
-
