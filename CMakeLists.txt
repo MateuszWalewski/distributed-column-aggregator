@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(distDB)
+project(distributedDBPrototype)
 
 if (MSVC)
     add_compile_options(/W4)

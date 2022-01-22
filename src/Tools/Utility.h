@@ -1,6 +1,8 @@
 #pragma once
 
+#include <fstream>
 #include <iostream>
+#include <string>
 #include <vector>
 
 template <typename T> void PrintVector( std::vector<T> container, const std::string & label )
@@ -32,4 +34,30 @@ template <typename T> std::vector<std::vector<T>> PartitionDataToSendOnNodes( co
     }
 
     return outVec;
+}
+
+template <typename T> void LoadCsvToDataColumn( const std::string & dataFilePath, std::vector<T> & destination )
+{
+    T tempValue;
+    std::ifstream myfile( dataFilePath );
+    try
+    {
+        if ( !myfile.is_open() )
+        {
+            throw std::exception(); // Throw an exception when a problem arise
+        }
+        else
+        {
+            std::cout << "File opened!!" << std::endl;
+        }
+    }
+    catch ( ... )
+    {
+        std::cout << "PRoblem with file" << std::endl;
+    }
+
+    while ( myfile >> tempValue )
+    {
+        destination.push_back( tempValue );
+    }
 }

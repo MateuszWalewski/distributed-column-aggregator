@@ -2,8 +2,10 @@
 
 #include "Context/GlobalContextHub.h"
 #include "SimpleAggs.h"
+#include "Tools/Utility.h"
 #include <iostream>
 #include <numeric>
+#include <string>
 #include <vector>
 
 namespace calcs
@@ -11,6 +13,9 @@ namespace calcs
 template <typename T> T AllocateAndAggregateDist( std::vector<T> container )
 {
     std::string funcName = "AllocateAndAggregate" + std::string( typeid( T ).name() );
+
+    constexpr int numberOfNodes = 4; // this should be taken form PCTRL()
+    auto vectors = PartitionDataToSendOnNodes( container, numberOfNodes );
 
     // distribute data before sending it on nodes
     // consider adding Distribution class taking std::vector<T> container and
@@ -20,11 +25,12 @@ template <typename T> T AllocateAndAggregateDist( std::vector<T> container )
     // - roundrobin
     // - etc.
 
-    auto results = CTX().GetSessionHandler().CallRPCMethod( funcName, container );
-
+    auto results = CTX().GetSessionHandler().CallRPCMethod( funcName, vectors );
+    int nodeNo = 1;
     for ( auto & x : results )
     {
-        std::cout << x << std::endl;
+        std::cout << "result from node" + std::to_string( nodeNo ) << " " << x << std::endl;
+        nodeNo++;
     }
 
     return std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );

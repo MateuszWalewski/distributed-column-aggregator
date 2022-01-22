@@ -1,5 +1,6 @@
 #include <unistd.h>
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <typeinfo>
@@ -14,20 +15,15 @@ int main( int argc, char * argv[] )
     PCTRL().LoadHubConnectionInfo( argv, argc );
     PCTRL().PrintHubConnectionInfo();
 
-    std::vector<int> containerI( 6, 4 );
-    std::cout << "calling AllocateAndAggregateDist" << std::endl;
-    usleep( 2000000 );
+    std::vector<double> containerI;
+
+    LoadCsvToDataColumn( "/home/mwal/distributedDBPrototype/src/data1.csv", containerI );
+
+    PrintVector( containerI, "containerI on Hub" );
+
     auto result = calcs::AllocateAndAggregateDist( containerI );
 
-    std::cout << "The result is: " << result << std::endl;
-    std::cout << "The result type is: " << typeid( result ).name() << std::endl;
-
-    std::vector<double> containerD( 6, 5.6 );
-
-    auto resultD = calcs::AllocateAndAggregateDist( containerD );
-
-    std::cout << "The result with double is: " << resultD << std::endl;
-    std::cout << "The result with double type is: " << typeid( resultD ).name() << std::endl;
+    std::cout << "Result on hub: " << result << std::endl;
 
     return 0;
 }
