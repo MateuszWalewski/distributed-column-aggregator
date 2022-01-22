@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <typeinfo>
+#include <unistd.h>
 
 #include "Aggregations/SimpleAggsDist.h"
 #include "ParameterController/ParameterControllerHub.h"
@@ -14,7 +15,8 @@ int main( int argc, char * argv[] )
     PCTRL().PrintHubConnectionInfo();
 
     std::vector<int> containerI( 6, 4 );
-
+    std::cout << "calling AllocateAndAggregateDist" << std::endl;
+    usleep( 2000000 );
     auto result = calcs::AllocateAndAggregateDist( containerI );
 
     std::cout << "The result is: " << result << std::endl;
