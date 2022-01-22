@@ -1,7 +1,9 @@
 ----- highet priority --------
 
-- Merge branch 'templating_methods' to 'master'
--- make CallRPCMethod more generic, accepting not only vectors
+-- kickof implementations from headers
+-- fix the issue with file paths
+-- fix ctests
+
 -- make the function generating function names to bind on nodes
 -- make the separate 'utility' module and move there all the helper funcions like
 this above and prints etc.

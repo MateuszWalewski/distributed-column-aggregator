@@ -40,3 +40,8 @@ std::vector<std::string> ParameterControllerHub::GetNodesPorts()
 {
     return mNodesPorts;
 }
+
+size_t ParameterControllerHub::GetNumberOfNodes()
+{
+    return mNodesPorts.size();
+}

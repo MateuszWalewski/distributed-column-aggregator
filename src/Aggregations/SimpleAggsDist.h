@@ -14,8 +14,7 @@ template <typename T> T AllocateAndAggregateDist( std::vector<T> container )
 {
     std::string funcName = "AllocateAndAggregate" + std::string( typeid( T ).name() );
 
-    constexpr int numberOfNodes = 4; // this should be taken form PCTRL()
-    auto vectors = PartitionDataToSendOnNodes( container, numberOfNodes );
+    auto vectors = PartitionDataToSendOnNodes( container, PCTRL().GetNumberOfNodes() );
 
     // distribute data before sending it on nodes
     // consider adding Distribution class taking std::vector<T> container and
