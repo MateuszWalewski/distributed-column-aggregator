@@ -15,7 +15,7 @@ private:
 public:
     static ParameterControllerHub & Instance();
 
-    void LoadHubConnectionInfo( char * args[], int argc );
+    void LoadHubConnectionInfo( std::vector<std::string> connInfo );
 
     void PrintHubConnectionInfo();
 

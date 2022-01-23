@@ -68,6 +68,9 @@ set(CMAKE_CXX_FLAGS_UBSAN
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++-10")
 SET(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
+
 include_directories(".")
 
 ADD_SUBDIRECTORY(src)

@@ -1,8 +1,6 @@
 #include "ParameterControllerHub.h"
 #include "Tools/Utility.h"
 
-#include <iostream>
-
 ParameterControllerHub::ParameterControllerHub()
 {
 }
@@ -13,15 +11,14 @@ ParameterControllerHub & ParameterControllerHub::Instance()
     return instance;
 }
 
-// maybe could be done better than passing raw char*[] ?
-void ParameterControllerHub::LoadHubConnectionInfo( char * args[], int argc )
+void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> connInfo )
 {
-    for ( int i = 1; i < argc / 2 + 1; i++ )
+    for ( int i = 0; i < connInfo.size() / 2; i++ )
     {
         // add checker/assert
-        mNodesIPs.push_back( std::string( args[2 * i - 1] ) );
+        mNodesIPs.push_back( connInfo[2 * i] );
         // add checker/assert
-        mNodesPorts.push_back( std::string( args[2 * i] ) );
+        mNodesPorts.push_back( connInfo[2 * i + 1] );
     }
 }
 

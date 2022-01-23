@@ -3,6 +3,8 @@
 -- kickof implementations from headers
 -- fix the issue with file paths
 -- fix ctests
+-- error Handling
+-- making CMake configuration and modules clean and as it should be
 
 -- make the function generating function names to bind on nodes
 -- make the separate 'utility' module and move there all the helper funcions like

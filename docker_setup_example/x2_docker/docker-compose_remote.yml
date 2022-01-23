@@ -1,0 +1,66 @@
+version: '2.3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  datanode1:
+    image: pg_x2_cluster
+    build: "."
+    container_name: datanode1
+    networks:
+      - default
+    command: '/home/postgres/init_datanode.sh'
+    ports:
+      - "5444:5432"
+    privileged: true
+    environment:
+      GTM_IP: "192.168.1.15"
+      GTM_PORT: "6666"
+
+  datanode2:
+    image: pg_x2_cluster
+    build: "."
+    container_name: datanode2
+    networks:
+      - default
+    command: '/home/postgres/init_datanode.sh'
+    ports:
+      - "5445:5432"
+    privileged: true
+    environment:
+      GTM_IP: "192.168.1.15"
+      GTM_PORT: "6666"
+
+  datanode3:
+    image: pg_x2_cluster
+    build: "."
+    container_name: datanode3
+    networks:
+      - default
+    command: '/home/postgres/init_datanode.sh'
+    ports:
+      - "5446:5432"
+    privileged: true
+    environment:
+      GTM_IP: "192.168.1.15"
+      GTM_PORT: "6666"
+
+  datanode4:
+    image: pg_x2_cluster
+    build: "."
+    container_name: datanode4
+    networks:
+      - default
+    command: '/home/postgres/init_datanode.sh'
+    ports:
+      - "5447:5432"
+    privileged: true
+    environment:
+      GTM_IP: "192.168.1.15"
+      GTM_PORT: "6666"
+
+
+
+ 

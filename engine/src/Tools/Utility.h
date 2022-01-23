@@ -2,6 +2,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <iterator>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -60,4 +62,14 @@ template <typename T> void LoadCsvToDataColumn( const std::string & dataFilePath
     {
         destination.push_back( tempValue );
     }
+}
+
+// think about this 'inline' here
+inline std::vector<std::string> SplitStringToVector( std::string stringToSplit )
+{
+    std::stringstream ss( stringToSplit );
+    std::istream_iterator<std::string> begin( ss );
+    std::istream_iterator<std::string> end;
+    std::vector<std::string> vstrings( begin, end );
+    return vstrings;
 }
