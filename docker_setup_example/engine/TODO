@@ -1,0 +1,32 @@
+----- highet priority --------
+
+-- kickof implementations from headers
+-- fix the issue with file paths
+-- fix ctests
+-- error Handling
+-- making CMake configuration and modules clean and as it should be
+
+-- make the function generating function names to bind on nodes
+-- make the separate 'utility' module and move there all the helper funcions like
+this above and prints etc.
+
+
+- pack all the classes into unique namespace ( for the case when I want to make the project as separate shared library)
+- Handle unit testing
+- Introduction hub and nodes ( > 1 ) - REFACTORIZATION 
+- Column class
+- Column Keeper
+- Filling (from x to y values)
+- Dockerization
+- Refactorization (make clang-tidy silent)
+- Handle unit testing
+------------------------------
+- Handling dependencies -- > Conan
+
+- VALGRIND
+- add logger
+- code coverage
+
+- loading data module
+- distributing data from hub to node module
+- versioning

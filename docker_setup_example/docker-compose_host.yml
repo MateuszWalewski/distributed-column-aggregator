@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  hub:
+    image: minidb_1.0
+    build: "."
+    container_name: hub
+    networks: 
+      - default
+    ports:
+      - "5443:5432"
+    privileged: true
+
+
+  
+
