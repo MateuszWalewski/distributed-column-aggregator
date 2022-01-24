@@ -41,9 +41,14 @@ RUN apt-get install -y libboost-all-dev
 
 RUN chown -R guest1:guest1 engine
 RUN cd engine && mkdir build && cd build && cmake .. && make -j2 && make install
+RUN chown guest1:guest1 /usr/local/lib/interpreter.so
+RUN chmod +x /usr/local/lib/interpreter.so
+RUN cp /usr/local/lib/interpreter.so /home/guest1/engine
+ADD setup_scripts/init_node1.sh /home/guest1/
+ADD setup_scripts/init_node2.sh /home/guest1/
 USER guest1
 
 
 #COPY setup_scripts/entrypoint.sql /home/postgres/entrypoint.sql
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
 

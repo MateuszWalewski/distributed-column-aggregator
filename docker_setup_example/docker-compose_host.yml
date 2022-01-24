@@ -11,7 +11,33 @@ services:
     ports:
       - "5443:5432"
     privileged: true
+    environment:
+        CONN_CONF: "0.0.0.0 8081 0.0.0.0 8082"
+    command: "tail -f /dev/null"
 
+  node1:
+    image: minidb_1.0
+    container_name: node1
+    networks: 
+      - default
+    ports:
+      - "5444:5432"
+    environment:
+        NODE1_IP: "8081"
+    command: "./init_node1.sh"
+    privileged: true
+
+  node2:
+    image: minidb_1.0
+    container_name: node2
+    networks: 
+      - default
+    ports:
+      - "5445:5432"
+    environment:
+        NODE2_IP: "8082"
+    command: "./init_node2.sh"
+    privileged: true
 
   
 

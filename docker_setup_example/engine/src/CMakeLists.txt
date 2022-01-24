@@ -36,7 +36,9 @@ target_link_libraries(miniDBNode PUBLIC ParameterController GlobalContext Contai
 # target_link_libraries(miniDBHub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
 
 # TODO: ditto
-# INSTALL(TARGETS miniDBNode miniDBHub RUNTIME DESTINATION bin)
+
+INSTALL(TARGETS miniDBNode RUNTIME DESTINATION bin)
+INSTALL(TARGETS interpreter LIBRARY DESTINATION lib)
 INSTALL(TARGETS GlobalContext LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregationsDist LIBRARY DESTINATION lib)
