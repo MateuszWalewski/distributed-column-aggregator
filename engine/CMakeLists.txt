@@ -65,7 +65,7 @@ set(CMAKE_CXX_FLAGS_UBSAN
 
 # Taken from (http://www.stablecoder.ca/2018/02/01/analyzer-build-types.html)
 
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++-10")
+#set(CMAKE_CXX_COMPILER "/usr/bin/clang++-10")
 SET(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic")

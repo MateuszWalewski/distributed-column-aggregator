@@ -1,0 +1,67 @@
+version: '3.9'
+
+services:
+
+  hub:
+    image: minidb_1.0
+    build: "."
+    container_name: hub
+    networks: 
+      - default
+    ports:
+      - "5443:5432"
+    privileged: true
+    environment:
+        CONN_CONF: "node1 8081 node2 8082 node3 8083 node4 8084"
+    command: "tail -f /dev/null"
+
+  node1:
+    image: minidb_1.0
+    container_name: node1
+    networks: 
+      - default
+    ports:
+      - "5444:5432"
+    environment:
+        NODE1_IP: "8081"
+    command: "./init_node1.sh"
+    privileged: true
+
+  node2:
+    image: minidb_1.0
+    container_name: node2
+    networks: 
+      - default
+    ports:
+      - "5445:5432"
+    environment:
+        NODE2_IP: "8082"
+    command: "./init_node2.sh"
+    privileged: true
+
+  node3:
+    image: minidb_1.0
+    container_name: node3
+    networks: 
+      - default
+    ports:
+      - "5446:5432"
+    environment:
+        NODE3_IP: "8083"
+    command: "./init_node3.sh"
+    privileged: true
+
+  node4:
+    image: minidb_1.0
+    container_name: node4
+    networks: 
+      - default
+    ports:
+      - "5447:5432"
+    environment:
+        NODE4_IP: "8084"
+    command: "./init_node4.sh"
+    privileged: true
+
+  
+

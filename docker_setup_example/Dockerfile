@@ -44,8 +44,10 @@ RUN cd engine && mkdir build && cd build && cmake .. && make -j2 && make install
 RUN chown guest1:guest1 /usr/local/lib/interpreter.so
 RUN chmod +x /usr/local/lib/interpreter.so
 RUN cp /usr/local/lib/interpreter.so /home/guest1/engine
-ADD setup_scripts/init_node1.sh /home/guest1/
-ADD setup_scripts/init_node2.sh /home/guest1/
+ADD docker_setup_example/setup_scripts/init_node1.sh /home/guest1/
+ADD docker_setup_example/setup_scripts/init_node2.sh /home/guest1/
+ADD docker_setup_example/setup_scripts/init_node3.sh /home/guest1/
+ADD docker_setup_example/setup_scripts/init_node4.sh /home/guest1/
 USER guest1
 
 

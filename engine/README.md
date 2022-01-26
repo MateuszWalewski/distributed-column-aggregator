@@ -13,6 +13,22 @@ and then:
 
 3. Running the application
 
+Build the docker image from the project dir:
+- docker build -f docker_setup_example/Dockerfile .
+
+- docker-compose -f 1_hub_2_node.yml up -d
+
+--------- SIMPLE EXAMPLE --------------------
+a = DoubleColumn()
+a.LoadData("/home/guest1/engine/src/data1.csv")
+a.Print()
+a.Sum()
+
+----------------------------------------------
+
+
+4. Running the application (olad way)
+
 Setup nodes first by executing:
 
 - ./miniDBNode <NODE1_IP> <NODE1_PORT>
@@ -32,7 +48,7 @@ is located
 
 
 
-4. Static analysis:
+5. Static analysis:
 For ex.
 - clang-tidy -p ./src/ ./src/ParameterController/ParameterControllerHub.cpp -checks=* -header-filter=.* --
 

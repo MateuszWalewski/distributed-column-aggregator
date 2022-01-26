@@ -1,5 +1,0 @@
-#!/bin/bash
-
-git diff --diff-filter=d --name-only master | grep -E '(\.h|\.hpp|\.cpp|\.cu|\.c|\.inl)$' | xargs clang-format -style=file -i
-
-#find src tests \( -name 'CMakeLists.txt' \)  | xargs cmake-format -i
