@@ -12,7 +12,7 @@ services:
       - "5443:5432"
     privileged: true
     environment:
-        CONN_CONF: "0.0.0.0 8081 0.0.0.0 8082"
+        CONN_CONF: "node1 8081 node2 8082"
     command: "tail -f /dev/null"
 
   node1:
