@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-find_package(PythonLibs 3.8 REQUIRED)
+find_package(PythonLibs 3 REQUIRED)
 find_package(Boost COMPONENTS python REQUIRED)
 
 # Without this, any build libraries automatically have names "lib{x}.so"

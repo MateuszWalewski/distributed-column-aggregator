@@ -14,7 +14,8 @@ and then:
 3. Running the application
 
 Build the docker image from the project dir:
-- docker build -f docker_setup_example/Dockerfile .
+
+- docker build -t minidb_1.0 -f docker_setup_example/Dockerfile .
 
 - docker-compose -f 1_hub_2_node.yml up -d
 
