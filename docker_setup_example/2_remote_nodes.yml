@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+
+  node3:
+    image: minidb_1.0
+    container_name: node3
+    networks: 
+      - default
+    environment:
+        NODE3_IP: "8083"
+    ports:
+      - 8083:8083
+    command: "./setup_scripts/init_node3.sh"
+
+  node4:
+    image: minidb_1.0
+    container_name: node4
+    networks: 
+      - default
+    environment:
+        NODE4_IP: "8084"
+    ports:
+      - 8084:8084
+    command: "./setup_scripts/init_node4.sh"
+
+  
+

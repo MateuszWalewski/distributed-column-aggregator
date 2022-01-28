@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+
+  hub:
+    image: minidb_1.0
+    container_name: hub
+    networks: 
+      - default
+    environment:
+        CONN_CONF: "node1 8081 node2 8082 192.168.1.33 8083 192.168.1.33 8084"
+    command: "tail -f /dev/null"
+
+  node1:
+    image: minidb_1.0
+    container_name: node1
+    networks: 
+      - default
+    environment:
+        NODE1_IP: "8081"
+    command: "./setup_scripts/init_node1.sh"
+
+  node2:
+    image: minidb_1.0
+    container_name: node2
+    networks: 
+      - default
+    environment:
+        NODE2_IP: "8082"
+    command: "./setup_scripts/init_node2.sh"
+
+  
+
