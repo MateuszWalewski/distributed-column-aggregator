@@ -3,7 +3,6 @@
 #include <iostream>
 #include <memory>
 
-#include "Aggregations/SimpleAggs.h"
 #include "rpc/client.h"
 #include "rpc/server.h"
 

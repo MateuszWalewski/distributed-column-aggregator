@@ -1,9 +1,10 @@
-#include "Context/GlobalContextNode.h"
+#include "ContextNode/GlobalContextNode.h"
 #include "ParameterController/ParameterControllerNode.h"
 
 int main( int argc, char * argv[] )
 {
     // TODO: input sanity check!!!
+    (void) argc; // to silent warning
     PCTRL().LoadNodeConnectionInfo( argv );
     PCTRL().PrintNodeConnectionInfo();
 

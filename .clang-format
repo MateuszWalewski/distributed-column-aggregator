@@ -6,6 +6,7 @@ AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: 'false'
 AllowShortLoopsOnASingleLine: 'false'
 BreakBeforeBraces: Allman
+AlwaysBreakTemplateDeclarations: 'true'
 ColumnLimit: '130'
 CompactNamespaces: 'false'
 Cpp11BracedListStyle: 'true'

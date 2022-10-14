@@ -23,6 +23,4 @@ public:
     std::vector<std::string> GetNodesIPs();
     std::vector<std::string> GetNodesPorts();
     size_t GetNumberOfNodes();
-
-    bool IsHub();
 };

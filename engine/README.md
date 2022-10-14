@@ -17,16 +17,16 @@ Build the docker image from the project dir:
 
 - docker build -t minidb_1.0 -f docker_setup_example/Dockerfile .
 
-- docker-compose -f 1_hub_2_node.yml up -d
+- docker-compose -f 1_hub_2_nodes.yml up -d
 
 - docker exec -it hub bash -c "python3.8 -i engine/initDB.py"
 
 --------- SIMPLE EXAMPLE --------------------
-a = DoubleColumn()
+a = IntColumn()
 a.LoadData("/home/guest1/engine/src/data1.csv")
 a.Print()
 a.Sum()
-
+a = None
 ----------------------------------------------
 
 

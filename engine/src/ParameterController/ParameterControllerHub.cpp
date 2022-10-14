@@ -13,7 +13,7 @@ ParameterControllerHub & ParameterControllerHub::Instance()
 
 void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> connInfo )
 {
-    for ( int i = 0; i < connInfo.size() / 2; i++ )
+    for ( int i = 0; i < (int) connInfo.size() / 2; i++ )
     {
         // add checker/assert
         mNodesIPs.push_back( connInfo[2 * i] );

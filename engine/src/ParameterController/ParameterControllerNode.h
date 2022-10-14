@@ -33,6 +33,4 @@ public:
 
     std::string GetNodeIP();
     std::string GetNodePort();
-
-    bool IsHub();
 };

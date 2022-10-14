@@ -12,9 +12,13 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 include_directories(".")
 
 ADD_SUBDIRECTORY(Networking)
+ADD_SUBDIRECTORY(NetworkingNode)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(Aggregations)
+ADD_SUBDIRECTORY(AggregationsNode)
 ADD_SUBDIRECTORY(Context)
+ADD_SUBDIRECTORY(ColumnStorage)
+ADD_SUBDIRECTORY(ContextNode)
 ADD_SUBDIRECTORY(ParameterController)
 ADD_SUBDIRECTORY(Tools)
 
@@ -24,13 +28,13 @@ ADD_SUBDIRECTORY(Tools)
 add_library(interpreter MODULE miniDBHub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist DataColumn Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
+target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
 add_executable(miniDBNode miniDBNode.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(miniDBNode PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist DataColumn Tools)
+target_link_libraries(miniDBNode PUBLIC ParameterController ColumnStorageNode GlobalContextNode NetworkingNode ContainerAggregations DataColumn Tools)
 
 # add_executable(miniDBHub miniDBHub.cpp)
 # target_link_libraries(miniDBHub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
@@ -40,6 +44,7 @@ target_link_libraries(miniDBNode PUBLIC ParameterController GlobalContext Contai
 INSTALL(TARGETS miniDBNode RUNTIME DESTINATION bin)
 INSTALL(TARGETS interpreter LIBRARY DESTINATION lib)
 INSTALL(TARGETS GlobalContext LIBRARY DESTINATION lib)
+INSTALL(TARGETS GlobalContextNode LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregationsDist LIBRARY DESTINATION lib)
 INSTALL(TARGETS ParameterController LIBRARY DESTINATION lib)

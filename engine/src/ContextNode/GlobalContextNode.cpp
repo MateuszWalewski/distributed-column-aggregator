@@ -4,8 +4,10 @@
 
 GlobalContextNode::GlobalContextNode()
 {
-    mSessionHandler = std::make_shared<SessionHandlerNode>( std::make_shared<rpc::server>(
-                                            PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
+    mSessionHandler = std::make_shared<SessionHandlerNode>(
+        std::make_shared<rpc::server>( PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
+
+    std::cout << "GlobalContextNode called" << std::endl;
 }
 
 GlobalContextNode & GlobalContextNode::Instance()

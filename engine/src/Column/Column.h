@@ -1,32 +1,24 @@
+#include "Aggregations/SimpleAggsDist.h"
 #include "Tools/Utility.h"
 #include <iostream>
 #include <vector>
 
-template <typename T> class Column
+template <typename T>
+class Column
 {
 public:
-    Column()
-    {
-    }
-    void AddElement( int element )
-    {
-        data.push_back( element );
-    }
-    void Print()
-    {
-        PrintVector( data, "Column elements:" );
-    }
-
-    void LoadData( const std::string & dataFilePath )
-    {
-        LoadCsvToDataColumn( dataFilePath, data );
-    }
-
-    T Sum()
-    {
-        return calcs::AllocateAndAggregateDist( data );
-    }
+    // Add rule of 5 -> Scot Meyers!
+    Column();
+    ~Column();
+    void CreateColumnOnNode();
+    void DeleteColumnOnNode();
+    void AddElement( int elem );
+    void Print();
+    void LoadData( const std::string & dataFilePath );
+    T Sum();
 
 private:
-    std::vector<T> data;
+    std::string colId;
+    std::string typeName;
+    std::string GenerateUniqueColumnId() const;
 };

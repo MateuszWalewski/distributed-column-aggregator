@@ -3,11 +3,13 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <mutex>
 #include <sstream>
 #include <string>
 #include <vector>
 
-template <typename T> void PrintVector( std::vector<T> container, const std::string & label )
+template <typename T>
+void PrintVector( std::vector<T> container, const std::string & label )
 {
     for ( auto & x : container )
     {
@@ -16,7 +18,8 @@ template <typename T> void PrintVector( std::vector<T> container, const std::str
 }
 
 // make it cleaner
-template <typename T> std::vector<std::vector<T>> PartitionDataToSendOnNodes( const std::vector<T> & vec, size_t n )
+template <typename T>
+std::vector<std::vector<T>> PartitionDataToSendOnNodes( const std::vector<T> & vec, size_t n )
 {
     std::vector<std::vector<T>> outVec;
 
@@ -38,9 +41,12 @@ template <typename T> std::vector<std::vector<T>> PartitionDataToSendOnNodes( co
     return outVec;
 }
 
-template <typename T> void LoadCsvToDataColumn( const std::string & dataFilePath, std::vector<T> & destination )
+template <typename T>
+void LoadCsvToDataColumn( const std::string & dataFilePath, std::vector<T> & destination )
 {
     T tempValue;
+    std::mutex m;
+    m.lock();
     std::ifstream myfile( dataFilePath );
     try
     {
@@ -62,6 +68,7 @@ template <typename T> void LoadCsvToDataColumn( const std::string & dataFilePath
     {
         destination.push_back( tempValue );
     }
+    m.unlock();
 }
 
 // think about this 'inline' here

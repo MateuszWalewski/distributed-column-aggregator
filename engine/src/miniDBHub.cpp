@@ -18,8 +18,8 @@ void ConnectToNodes( std::string connectionDetails )
     PCTRL().PrintHubConnectionInfo();
 }
 
-BOOST_PYTHON_FUNCTION_OVERLOADS( ConnectToNodesP, ConnectToNodes, 1, 1 );
-BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDataP, LoadData, 1, 1 );
+BOOST_PYTHON_FUNCTION_OVERLOADS( ConnectToNodesP, ConnectToNodes, 1, 1 )
+BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDataP, LoadData, 1, 1 )
 
 BOOST_PYTHON_MODULE( interpreter )
 {
