@@ -1,4 +1,6 @@
 #include "Column.h"
+#include "Context/GlobalContextHub.h"
+#include "Aggregations/SimpleAggsDist.h"
 
 template class Column<double>;
 template class Column<float>;

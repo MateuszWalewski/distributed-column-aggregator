@@ -16,7 +16,7 @@ def test_sum_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
 
-    #assert result == 43.11
+    assert result == 80
 
 
 def doAll():
@@ -25,4 +25,5 @@ def doAll():
     a.Sum()
 
 def test_sum_bench_2(benchmark):
-    benchmark(doAll)
+    result = benchmark(doAll)
+

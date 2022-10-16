@@ -20,6 +20,7 @@ ADD_SUBDIRECTORY(Context)
 ADD_SUBDIRECTORY(ColumnStorage)
 ADD_SUBDIRECTORY(ContextNode)
 ADD_SUBDIRECTORY(ParameterController)
+ADD_SUBDIRECTORY(ParameterControllerNode)
 ADD_SUBDIRECTORY(Tools)
 
 
@@ -34,7 +35,7 @@ target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 add_executable(node node.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(node PUBLIC ParameterController ColumnStorageNode GlobalContextNode NetworkingNode ContainerAggregations DataColumn Tools)
+target_link_libraries(node PUBLIC ParameterControllerNode ColumnStorageNode GlobalContextNode NetworkingNode ContainerAggregations DataColumn Tools)
 
 # add_executable(hub hub.cpp)
 # target_link_libraries(hub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
@@ -48,4 +49,5 @@ INSTALL(TARGETS GlobalContextNode LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)
 INSTALL(TARGETS ContainerAggregationsDist LIBRARY DESTINATION lib)
 INSTALL(TARGETS ParameterController LIBRARY DESTINATION lib)
+INSTALL(TARGETS ParameterControllerNode LIBRARY DESTINATION lib)
 INSTALL(TARGETS Tools LIBRARY DESTINATION lib)

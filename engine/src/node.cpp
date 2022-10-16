@@ -1,5 +1,5 @@
 #include "ContextNode/GlobalContextNode.h"
-#include "ParameterController/ParameterControllerNode.h"
+#include "ParameterControllerNode/ParameterControllerNode.h"
 
 int main( int argc, char * argv[] )
 {

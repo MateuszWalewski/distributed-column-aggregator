@@ -6,25 +6,24 @@
 #include <typeinfo>
 #include <unistd.h>
 
-#include "Aggregations/SimpleAggsDist.h"
 #include "Column/Column.h"
 #include "ParameterController/ParameterControllerHub.h"
+#include "Tools/Utility.h"
 
 #include <boost/python.hpp>
 
-void ConnectToNodes( std::string connectionDetails )
+void LoadConnectionDetails( std::string connectionDetails )
 {
     PCTRL().LoadHubConnectionInfo( SplitStringToVector( connectionDetails ) );
     PCTRL().PrintHubConnectionInfo();
 }
 
-BOOST_PYTHON_FUNCTION_OVERLOADS( ConnectToNodesP, ConnectToNodes, 1, 1 )
-BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDataP, LoadData, 1, 1 )
+BOOST_PYTHON_FUNCTION_OVERLOADS( LoadConnectionDetailsP, LoadConnectionDetails, 1, 1 )
 
 BOOST_PYTHON_MODULE( interpreter )
 {
     using namespace boost::python;
-    def( "ConnectToNodes", &ConnectToNodes, ConnectToNodesP( args( "args" ) ) );
+    def( "LoadConnectionDetails", &LoadConnectionDetails, LoadConnectionDetailsP( args( "args" ) ) );
 
     class_<Column<double>>( "DoubleColumn" )
         .def( "AddElement", &Column<double>::AddElement )

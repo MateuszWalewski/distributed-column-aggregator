@@ -1,5 +1,4 @@
-#include "Aggregations/SimpleAggsDist.h"
-#include "Tools/Utility.h"
+#pragma once
 #include <iostream>
 #include <vector>
 

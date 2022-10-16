@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "ParameterControllerNode/ParameterControllerNode.h"
+
 GlobalContextNode::GlobalContextNode()
 {
     mSessionHandler = std::make_shared<SessionHandlerNode>(

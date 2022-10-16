@@ -1,4 +1,5 @@
 #include "ColumnNode.h"
+#include "Tools/Utility.h"
 
     template class ColumnNode<double>;
     template class ColumnNode<float>;

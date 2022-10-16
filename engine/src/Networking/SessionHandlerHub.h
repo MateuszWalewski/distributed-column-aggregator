@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 
+#pragma once
 #include "rpc/client.h"
 #include "rpc/server.h"
 
