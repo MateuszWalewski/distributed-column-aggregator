@@ -1,4 +1,4 @@
 #!/bin/bash
 
-miniDBNode $NODE1_IP
+node $NODE1_IP
 

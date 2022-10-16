@@ -25,23 +25,23 @@ ADD_SUBDIRECTORY(Tools)
 
 # Add a shared module - modules are intended to be imported at runtime.
 # - This is where you add the source files
-add_library(interpreter MODULE miniDBHub.cpp)
+add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
 target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
-add_executable(miniDBNode miniDBNode.cpp)
+add_executable(node node.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(miniDBNode PUBLIC ParameterController ColumnStorageNode GlobalContextNode NetworkingNode ContainerAggregations DataColumn Tools)
+target_link_libraries(node PUBLIC ParameterController ColumnStorageNode GlobalContextNode NetworkingNode ContainerAggregations DataColumn Tools)
 
-# add_executable(miniDBHub miniDBHub.cpp)
-# target_link_libraries(miniDBHub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
+# add_executable(hub hub.cpp)
+# target_link_libraries(hub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
 
 # TODO: ditto
 
-INSTALL(TARGETS miniDBNode RUNTIME DESTINATION bin)
+INSTALL(TARGETS node RUNTIME DESTINATION bin)
 INSTALL(TARGETS interpreter LIBRARY DESTINATION lib)
 INSTALL(TARGETS GlobalContext LIBRARY DESTINATION lib)
 INSTALL(TARGETS GlobalContextNode LIBRARY DESTINATION lib)

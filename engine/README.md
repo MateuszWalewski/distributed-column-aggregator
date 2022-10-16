@@ -34,10 +34,10 @@ a = None
 
 Setup nodes first by executing:
 
-- ./miniDBNode <NODE1_IP> <NODE1_PORT>
+- ./node <NODE1_IP> <NODE1_PORT>
 .
 .
-- ./miniDBNode <NODEn_IP> <NODEn_PORT>
+- ./node <NODEn_IP> <NODEn_PORT>
 
 for n nodes.
 
@@ -45,7 +45,7 @@ One can launch many nodes with the same or differrent IPs
 
 Setup hub aplication using python interpreter:
 
-- move the "initDB.py" when the interpreter.so ( shared library compiled from miniDBHub.cpp )
+- move the "initDB.py" when the interpreter.so ( shared library compiled from hub.cpp )
 is located
 - run "python -i initDB.py"
 
