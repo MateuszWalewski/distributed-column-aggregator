@@ -1,18 +1,17 @@
+#pragma once
 #include <iostream>
 #include <memory>
 #include <vector>
 
-#pragma once
 #include "rpc/client.h"
 #include "rpc/server.h"
 
-class SessionHandlerHub
+class RPCManager
 {
 public:
-    explicit SessionHandlerHub( std::vector<std::shared_ptr<rpc::client>> clients );
-
-    template <typename T, typename... Args> std::vector<T> CallRPCMethod( const std::string & methodName, Args... args )
-    {
+    template <typename T, typename... Args> 
+    std::vector<T> CallRPCMethod( const std::string & methodName, Args... args )
+     {
         std::vector<T> results;
         for ( auto & x : mHub )
         {
@@ -24,7 +23,8 @@ public:
         return results;
     }
 
-    template <typename... Args> void CallRPCMethod( const std::string & methodName, Args... args )
+    template <typename... Args> 
+    void CallRPCMethod( const std::string & methodName, Args... args )
     {
         for ( auto & x : mHub )
         {
@@ -34,11 +34,17 @@ public:
         }
     }
 
-    std::vector<std::shared_ptr<rpc::client>> getClient()
-    {
-        return mHub;
-    }
+
+    void RunServer();
+    void BindMethods();
+
+    void SetRPCClients(std::vector<std::shared_ptr<rpc::client>> clients);
+    void SetRPCServer(std::shared_ptr<rpc::server> srv);
+
+    std::shared_ptr<rpc::server> GetRPCServer();
+
 
 private:
     std::vector<std::shared_ptr<rpc::client>> mHub;
+    std::shared_ptr<rpc::server> mNode;
 };

@@ -1,6 +1,6 @@
 #include "Column.h"
-#include "Context/GlobalContextHub.h"
 #include "Aggregations/SimpleAggsDist.h"
+#include "Context/GlobalContextHub.h"
 
 template class Column<double>;
 template class Column<float>;
@@ -23,37 +23,37 @@ Column<T>::~Column()
 template <typename T>
 void Column<T>::CreateColumnOnNode()
 {
-    CTX().GetSessionHandler().CallRPCMethod( "CreateColumn" + typeName, colId );
+    CTX().GetRPCManager().CallRPCMethod( "CreateColumn" + typeName, colId );
 }
 
 template <typename T>
 void Column<T>::DeleteColumnOnNode()
 {
-    CTX().GetSessionHandler().CallRPCMethod( "DeleteColumn" + typeName, colId );
+    CTX().GetRPCManager().CallRPCMethod( "DeleteColumn" + typeName, colId );
 }
 
 template <typename T>
 void Column<T>::AddElement( int elem )
 {
-    CTX().GetSessionHandler().CallRPCMethod( "AddElement" + typeName, elem, colId );
+    CTX().GetRPCManager().CallRPCMethod( "AddElement" + typeName, elem, colId );
 }
 
 template <typename T>
 void Column<T>::Print()
 {
-    CTX().GetSessionHandler().CallRPCMethod( "PrintColumn" + typeName, colId );
+    CTX().GetRPCManager().CallRPCMethod( "PrintColumn" + typeName, colId );
 }
 
 template <typename T>
 void Column<T>::LoadData( const std::string & dataFilePath )
 {
-    CTX().GetSessionHandler().CallRPCMethod( "LoadCsvData" + typeName, dataFilePath, colId );
+    CTX().GetRPCManager().CallRPCMethod( "LoadCsvData" + typeName, dataFilePath, colId );
 }
 
 template <typename T>
 T Column<T>::Sum()
 {
-    auto results = CTX().GetSessionHandler().CallRPCMethod<T>( "Sum" + typeName, colId );
+    auto results = CTX().GetRPCManager().CallRPCMethod<T>( "Sum" + typeName, colId );
     return std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
     ;
 }

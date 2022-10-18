@@ -1,13 +1,11 @@
 #include "GlobalContextNode.h"
-
-#include <iostream>
-
 #include "ParameterControllerNode/ParameterControllerNode.h"
+#include <iostream>
 
 GlobalContextNode::GlobalContextNode()
 {
-    mSessionHandler = std::make_shared<SessionHandlerNode>(
-        std::make_shared<rpc::server>( PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
+    mRpcManager = std::make_shared<RPCManager>();
+    mRpcManager->SetRPCServer( std::make_shared<rpc::server>( PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
 
     std::cout << "GlobalContextNode called" << std::endl;
 }
@@ -18,7 +16,7 @@ GlobalContextNode & GlobalContextNode::Instance()
     return instance;
 }
 
-SessionHandlerNode & GlobalContextNode::GetSessionHandler()
+RPCManager & GlobalContextNode::GetRPCManager()
 {
-    return *mSessionHandler;
+    return *mRpcManager;
 }

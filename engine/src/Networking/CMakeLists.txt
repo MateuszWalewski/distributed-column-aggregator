@@ -1,8 +1,8 @@
 add_library(
     Networking
     STATIC
-    SessionHandlerHub.h
-    SessionHandlerHub.cpp
+    RPCManager.h
+    RPCManager.cpp
     )
 
 find_package(Threads REQUIRED)

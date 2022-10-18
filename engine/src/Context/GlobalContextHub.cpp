@@ -15,7 +15,8 @@ GlobalContextHub::GlobalContextHub()
         clients[i] = std::make_shared<rpc::client>( PCTRL().GetNodesIPs()[i], std::stoi( PCTRL().GetNodesPorts()[i] ) );
     }
 
-    mSessionHandler = std::make_shared<SessionHandlerHub>( clients );
+    mRpcManager = std::make_shared<RPCManager>();
+    mRpcManager->SetRPCClients( clients );
 }
 
 GlobalContextHub & GlobalContextHub::Instance()
@@ -24,7 +25,7 @@ GlobalContextHub & GlobalContextHub::Instance()
     return instance;
 }
 
-SessionHandlerHub & GlobalContextHub::GetSessionHandler()
+RPCManager & GlobalContextHub::GetRPCManager()
 {
-    return *mSessionHandler;
+    return *mRpcManager;
 }

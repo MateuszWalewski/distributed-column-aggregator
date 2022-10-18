@@ -1,8 +1,8 @@
 #pragma once
+#include "Networking/RPCManager.h"
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include "NetworkingNode/SessionHandlerNode.h"
 
 #define CTX() GlobalContextNode::Instance()
 
@@ -10,10 +10,10 @@ class GlobalContextNode
 {
 private:
     GlobalContextNode();
-    std::shared_ptr<SessionHandlerNode> mSessionHandler;
+    std::shared_ptr<RPCManager> mRpcManager;
 
 public:
     static GlobalContextNode & Instance();
 
-    SessionHandlerNode & GetSessionHandler();
+    RPCManager & GetRPCManager();
 };
