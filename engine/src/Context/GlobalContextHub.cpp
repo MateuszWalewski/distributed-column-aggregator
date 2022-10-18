@@ -4,19 +4,16 @@
 
 GlobalContextHub::GlobalContextHub()
 {
-    std::vector<std::shared_ptr<rpc::client>> clients;
-    // TODO: move it to the separate function or sth
+    RPCClientHandlers rpcClientHandlers;
+    rpcClientHandlers.resize( PCTRL().GetNodesPorts().size() );
 
-    clients.resize( PCTRL().GetNodesPorts().size() );
-
-    for ( size_t i = 0; i < clients.size(); i++ )
+    for ( size_t i = 0; i < rpcClientHandlers.size(); i++ )
     {
         // LOOK OUT! EMPLACE BACK HERE!!
-        clients[i] = std::make_shared<rpc::client>( PCTRL().GetNodesIPs()[i], std::stoi( PCTRL().GetNodesPorts()[i] ) );
+        rpcClientHandlers[i] = std::make_shared<rpc::client>( PCTRL().GetNodesIPs()[i], std::stoi( PCTRL().GetNodesPorts()[i] ) );
     }
 
-    mRpcManager = std::make_shared<RPCManager>();
-    mRpcManager->SetRPCClients( clients );
+    mRPCManager = std::make_shared<RPCManager>( rpcClientHandlers );
 }
 
 GlobalContextHub & GlobalContextHub::Instance()
@@ -27,5 +24,5 @@ GlobalContextHub & GlobalContextHub::Instance()
 
 RPCManager & GlobalContextHub::GetRPCManager()
 {
-    return *mRpcManager;
+    return *mRPCManager;
 }

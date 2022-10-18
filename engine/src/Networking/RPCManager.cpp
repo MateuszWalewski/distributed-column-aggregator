@@ -6,26 +6,22 @@
 #include "rpc/client.h"
 #include "rpc/server.h"
 
-//circual dependency should be removed. Move BindMethods to SimpleAgs or to implementation of rpc interface
+RPCManager::RPCManager( RPCClientHandlers rpcClientHandlers ) : mRPCClientHandlers( move( rpcClientHandlers ) )
+{
+}
 
+RPCManager::RPCManager( std::shared_ptr<rpc::server> rpcServerHandler ) : mRPCServerHandler( move( rpcServerHandler ) )
+{
+}
 
 void RPCManager::RunServer()
 {
-    mNode->run();
-}
-
-void RPCManager::SetRPCClients(std::vector<std::shared_ptr<rpc::client>> clients)
-{
-    mHub = move( clients );
-}
-void RPCManager::SetRPCServer(std::shared_ptr<rpc::server> srv)
-{
-    mNode = move( srv );
+    mRPCServerHandler->run();
 }
 
 std::shared_ptr<rpc::server> RPCManager::GetRPCServer()
 {
-    return mNode;
+    return mRPCServerHandler;
 }
 
 void RPCManager::BindMethods()

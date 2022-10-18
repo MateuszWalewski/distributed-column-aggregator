@@ -11,7 +11,7 @@ class GlobalContextHub
 {
 private:
     GlobalContextHub();
-    std::shared_ptr<RPCManager> mRpcManager;
+    std::shared_ptr<RPCManager> mRPCManager;
 
 public:
     static GlobalContextHub & Instance();

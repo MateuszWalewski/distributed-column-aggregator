@@ -10,7 +10,7 @@ class GlobalContextNode
 {
 private:
     GlobalContextNode();
-    std::shared_ptr<RPCManager> mRpcManager;
+    std::shared_ptr<RPCManager> mRPCManager;
 
 public:
     static GlobalContextNode & Instance();
