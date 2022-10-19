@@ -1,16 +1,6 @@
 #include "ColumnStorage.h"
 #include <iostream>
 
-ColumnStorage::ColumnStorage()
-{
-}
-
-ColumnStorage & ColumnStorage::Instance()
-{
-    static ColumnStorage instance;
-    return instance;
-}
-
 void ColumnStorage::CreateColumn( const std::string & id )
 {
     Storage[id] = std::make_shared<ColumnNode<int>>( id );

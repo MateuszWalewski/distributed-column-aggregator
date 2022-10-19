@@ -4,6 +4,7 @@
 
 GlobalContextNode::GlobalContextNode()
 {
+    mColumnStorage = std::make_shared<ColumnStorage>();
     mRPCManager =
         std::make_shared<RPCManager>( std::make_shared<rpc::server>( PCTRL().GetNodeIP(), std::stoi( PCTRL().GetNodePort() ) ) );
 
@@ -19,4 +20,9 @@ GlobalContextNode & GlobalContextNode::Instance()
 RPCManager & GlobalContextNode::GetRPCManager()
 {
     return *mRPCManager;
+}
+
+ColumnStorage & GlobalContextNode::GetColumnStorage()
+{
+    return *mColumnStorage;
 }

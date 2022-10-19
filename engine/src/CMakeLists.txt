@@ -13,6 +13,7 @@ include_directories(".")
 
 ADD_SUBDIRECTORY(Networking)
 ADD_SUBDIRECTORY(Column)
+ADD_SUBDIRECTORY(ColumnNode)
 ADD_SUBDIRECTORY(Aggregations)
 ADD_SUBDIRECTORY(AggregationsNode)
 ADD_SUBDIRECTORY(Context)
@@ -34,7 +35,7 @@ target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 add_executable(node node.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(node PUBLIC ParameterControllerNode ColumnStorageNode GlobalContextNode Networking ContainerAggregations DataColumn Tools)
+target_link_libraries(node PUBLIC ParameterControllerNode ColumnNode ColumnStorage GlobalContextNode Networking ContainerAggregations DataColumn Tools)
 
 # add_executable(hub hub.cpp)
 # target_link_libraries(hub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
