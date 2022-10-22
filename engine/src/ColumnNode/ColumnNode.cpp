@@ -18,7 +18,7 @@ void ColumnNode<T>::Print()
 }
 
 template <typename T>
-void ColumnNode<T>::LoadData( const std::string & dataFilePath )
+void ColumnNode<T>::LoadData( const std::string& dataFilePath )
 {
     LoadCsvToDataColumn( dataFilePath, data );
 }

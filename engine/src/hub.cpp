@@ -26,13 +26,11 @@ BOOST_PYTHON_MODULE( interpreter )
     def( "LoadConnectionDetails", &LoadConnectionDetails, LoadConnectionDetailsP( args( "args" ) ) );
 
     class_<Column<double>>( "DoubleColumn" )
-        .def( "AddElement", &Column<double>::AddElement )
         .def( "Print", &Column<double>::Print )
         .def( "LoadData", &Column<double>::LoadData )
         .def( "Sum", &Column<double>::Sum );
 
     class_<Column<int>>( "IntColumn" )
-        .def( "AddElement", &Column<int>::AddElement )
         .def( "Print", &Column<int>::Print )
         .def( "LoadData", &Column<int>::LoadData )
         .def( "Sum", &Column<int>::Sum );

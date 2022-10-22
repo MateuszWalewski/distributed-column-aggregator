@@ -14,6 +14,7 @@ include_directories(".")
 ADD_SUBDIRECTORY(Networking)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(ColumnNode)
+ADD_SUBDIRECTORY(ColumnEngine)
 ADD_SUBDIRECTORY(Aggregations)
 ADD_SUBDIRECTORY(AggregationsNode)
 ADD_SUBDIRECTORY(Context)
@@ -29,7 +30,7 @@ ADD_SUBDIRECTORY(Tools)
 add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
+target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn ColumnEngine Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 

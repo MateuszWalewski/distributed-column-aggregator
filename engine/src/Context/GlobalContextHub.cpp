@@ -1,4 +1,5 @@
 #include "GlobalContextHub.h"
+#include "ColumnEngine/ColumnFactory.h"
 
 #include <iostream>
 
@@ -16,13 +17,13 @@ GlobalContextHub::GlobalContextHub()
     mRPCManager = std::make_shared<RPCManager>( rpcClientHandlers );
 }
 
-GlobalContextHub & GlobalContextHub::Instance()
+GlobalContextHub& GlobalContextHub::Instance()
 {
     static GlobalContextHub instance;
     return instance;
 }
 
-RPCManager & GlobalContextHub::GetRPCManager()
+RPCManager& GlobalContextHub::GetRPCManager()
 {
     return *mRPCManager;
 }

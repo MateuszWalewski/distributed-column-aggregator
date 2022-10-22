@@ -12,8 +12,8 @@ private:
 
 public:
     ColumnStorage() = default;
-    void CreateColumn( const std::string & id );
-    void DeleteColumn( const std::string & id );
-    std::shared_ptr<ColumnNode<int>> GetColumn( const std::string & id );
+    void CreateColumn( const std::string& id );
+    void DeleteColumn( const std::string& id );
+    std::shared_ptr<ColumnNode<int>>& GetColumn( const std::string& id );
     int GetSize() const;
 };

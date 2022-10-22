@@ -29,21 +29,21 @@ void AddElement( int elem, std::string id )
 }
 
 template <typename T>
-void PrintColumn( const std::string & id )
+void PrintColumn( const std::string& id )
 {
     auto col = CTX().GetColumnStorage().GetColumn( id );
     col->Print();
 }
 
 template <typename T>
-void LoadCsvData( const std::string & dataPath, const std::string & id )
+void LoadCsvData( const std::string& dataPath, const std::string& id )
 {
     auto col = CTX().GetColumnStorage().GetColumn( id );
     col->LoadData( dataPath );
 }
 
 template <typename T>
-T Sum( const std::string & id )
+T Sum( const std::string& id )
 {
     auto col = CTX().GetColumnStorage().GetColumn( id );
     return std::accumulate( col->DBegin(), col->DEnd(), static_cast<T>( 0 ) );
