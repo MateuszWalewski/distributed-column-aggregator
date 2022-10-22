@@ -33,7 +33,7 @@ void Column<T>::DeleteColumnOnNode()
 }
 
 template <typename T>
-void Column<T>::AddElement( int elem )
+void Column<T>::AddElement( T elem )
 {
     CTX().GetRPCManager().CallRPCMethod( "AddElement" + typeName, elem, colId );
 }
@@ -61,6 +61,6 @@ T Column<T>::Sum()
 template <typename T>
 std::string Column<T>::GenerateUniqueColumnId() const
 {
-    // add proper implementation
+    // TODO: add proper implementation
     return "col1";
 }

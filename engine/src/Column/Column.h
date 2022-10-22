@@ -11,7 +11,7 @@ public:
     ~Column();
     void CreateColumnOnNode();
     void DeleteColumnOnNode();
-    void AddElement( int elem );
+    void AddElement( T elem );
     void Print();
     void LoadData( const std::string & dataFilePath );
     T Sum();

@@ -1,19 +1,25 @@
 #pragma once
 #include "ColumnNode/ColumnNode.h"
+#include <unordered_map>
 #include <memory>
 #include <string>
-#include <unordered_map>
+#include <tuple>
 
-using ColStorageInt = std::unordered_map<std::string, std::shared_ptr<ColumnNode<int>>>;
+using ColStorage = std::tuple<std::unordered_map<std::string, std::shared_ptr<ColumnNode<int>>>,
+                              std::unordered_map<std::string, std::shared_ptr<ColumnNode<double>>>,
+                              std::unordered_map<std::string, std::shared_ptr<ColumnNode<float>>>>;
 class ColumnStorage
 {
 private:
-    ColStorageInt Storage;
+    ColStorage colStorage;
 
 public:
-    ColumnStorage() = default;
-    void CreateColumn( const std::string & id );
-    void DeleteColumn( const std::string & id );
-    std::shared_ptr<ColumnNode<int>> GetColumn( const std::string & id );
-    int GetSize() const;
+    ColumnStorage();
+    ColStorage GetSuperMap();
+
+    template <typename T>
+    inline std::unordered_map<std::string, std::shared_ptr<ColumnNode<T>>> & GetColumnStorage()
+    {
+        return std::get<std::unordered_map<std::string, std::shared_ptr<ColumnNode<T>>>>( colStorage );
+    }
 };

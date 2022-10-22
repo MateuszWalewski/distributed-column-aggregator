@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <typeinfo>
 #include <vector>
 
 template <typename T>
@@ -11,13 +12,13 @@ public:
 
     ColumnNode( const std::string & colName ) : name( colName )
     {
-        std::cout << "Column " << name << " created on node" << std::endl;
+        std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " created on node" << std::endl;
     };
     ~ColumnNode()
     {
         std::cout << "Column " << name << " destructed on node" << std::endl;
     }
-    void AddElement( int element );
+    void AddElement( T element );
     void Print();
     void LoadData( const std::string & dataFilePath );
 

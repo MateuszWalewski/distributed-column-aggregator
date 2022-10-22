@@ -22,8 +22,8 @@ Build the docker image from the project dir:
 - docker exec -it hub bash -c "python3.8 -i engine/initDB.py"
 
 --------- SIMPLE EXAMPLE --------------------
-a = IntColumn()
-a.LoadData("/home/guest1/engine/src/data1.csv")
+a = DoubleColumn()
+a.LoadData("/home/guest1/engine/src/data3.csv")
 a.Print()
 a.Sum()
 a = None

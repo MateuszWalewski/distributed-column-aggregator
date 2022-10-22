@@ -6,9 +6,10 @@ template class ColumnNode<float>;
 template class ColumnNode<int>;
 
 template <typename T>
-void ColumnNode<T>::AddElement( int element )
+void ColumnNode<T>::AddElement( T element )
 {
     data.push_back( element );
+    std::cout << "Element: " << std::to_string( element ) << " added to column" << std::endl;
 }
 
 template <typename T>

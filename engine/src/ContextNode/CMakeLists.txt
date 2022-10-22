@@ -4,4 +4,4 @@ add_library(
     GlobalContextNode.h
     GlobalContextNode.cpp)
 
-target_link_libraries(GlobalContextNode PUBLIC ColumnStorage Networking)
+target_link_libraries(GlobalContextNode PUBLIC ColumnStorage Networking )

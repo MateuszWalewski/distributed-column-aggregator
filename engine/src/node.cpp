@@ -9,7 +9,6 @@ int main( int argc, char * argv[] )
 
     PCTRL().LoadNodeConnectionInfo( argv );
     PCTRL().PrintNodeConnectionInfo();
-
     auto rpcServer = CTX().GetRPCManager().GetRPCServer();
 
     rpcServer->bind( "CreateColumni", &calcs::CreateColumn<int> );
@@ -18,6 +17,13 @@ int main( int argc, char * argv[] )
     rpcServer->bind( "PrintColumni", &calcs::PrintColumn<int> );
     rpcServer->bind( "LoadCsvDatai", &calcs::LoadCsvData<int> );
     rpcServer->bind( "Sumi", &calcs::Sum<int> );
+
+    rpcServer->bind( "CreateColumnd", &calcs::CreateColumn<double> );
+    rpcServer->bind( "DeleteColumnd", &calcs::DeleteColumn<double> );
+    rpcServer->bind( "AddElementd", &calcs::AddElement<double> );
+    rpcServer->bind( "PrintColumnd", &calcs::PrintColumn<double> );
+    rpcServer->bind( "LoadCsvDatad", &calcs::LoadCsvData<double> );
+    rpcServer->bind( "Sumd", &calcs::Sum<double> );
 
     CTX().GetRPCManager().RunServer();
 
