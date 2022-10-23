@@ -37,6 +37,13 @@ void ColumnImpl<T>::PrintColumnOnNode()
 }
 
 template <typename T>
+void ColumnImpl<T>::AddElement( const std::any element )
+{
+    auto elem = std::any_cast<T>( element );
+    CTX().GetRPCManager().CallRPCMethod( "AddElement" + typeName, colId, elem );
+}
+
+template <typename T>
 void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
     CTX().GetRPCManager().CallRPCMethod( "LoadCsvData" + typeName, dataFilePath, colId );
@@ -53,6 +60,6 @@ std::any ColumnImpl<T>::Sum()
 template <typename T>
 std::string ColumnImpl<T>::GenerateUniqueColumnId() const
 {
-    // add proper implementation
+    // TODO: add proper implementation generating unique ID
     return "col1";
 }

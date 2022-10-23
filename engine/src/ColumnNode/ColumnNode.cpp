@@ -1,16 +1,10 @@
 #include "ColumnNode.h"
 #include "Tools/Utility.h"
+#include <numeric>
 
 template class ColumnNode<double>;
 template class ColumnNode<float>;
 template class ColumnNode<int>;
-
-template <typename T>
-void ColumnNode<T>::AddElement( T element )
-{
-    data.push_back( element );
-    std::cout << "Element: " << std::to_string( element ) << " added to column" << std::endl;
-}
 
 template <typename T>
 void ColumnNode<T>::Print()
@@ -25,13 +19,13 @@ void ColumnNode<T>::LoadData( const std::string& dataFilePath )
 }
 
 template <typename T>
-typename std::vector<T>::iterator ColumnNode<T>::DBegin()
+T ColumnNode<T>::Sum()
 {
-    return data.begin();
+    return std::accumulate( data.begin(), data.end(), static_cast<T>( 0 ) );
 }
 
 template <typename T>
-typename std::vector<T>::iterator ColumnNode<T>::DEnd()
+void ColumnNode<T>::AddElement( const T element )
 {
-    return data.end();
+    data.push_back( element );
 }

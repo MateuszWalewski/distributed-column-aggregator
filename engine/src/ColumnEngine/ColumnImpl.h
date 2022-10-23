@@ -13,6 +13,7 @@ public:
     ~ColumnImpl();
     void CreateColumnOnNode() override;
     void DeleteColumnOnNode() override;
+    void AddElement( const std::any element ) override;
     void PrintColumnOnNode() override;
     void LoadDataToNode( const std::string& dataFilePath ) override;
     std::any Sum() override;

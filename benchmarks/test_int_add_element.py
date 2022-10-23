@@ -7,14 +7,21 @@ from initDB import IntColumn
 @pytest.fixture(scope="module")
 def start_up():
     a = IntColumn()
-    a.LoadData("/home/guest1/engine/src/data1.csv")
     yield a
+
 
 @pytest.fixture(scope="module")
 def tear_down():
     a = None
 
 
-def testSum(start_up):
+def test_sum_bench_1(benchmark, start_up):
     a = start_up
-    assert a.Sum() == 80
+    a.AddElement(12)
+    a.AddElement(5)
+    a.AddElement(8)
+
+    result = benchmark(a.Sum)
+    assert result == 50
+
+

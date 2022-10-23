@@ -3,34 +3,56 @@
 - clang++ 10 
 - rpclib (https://github.com/rpclib/rpclib)
 
-2. Building project
 
-- in /build folder execute: 
-`cmake ..`
-and then:
-`make`
+2. Running the application
 
-
-3. Running the application
-
-Build the docker image from the project dir:
+Build the docker image from the project repo:
 
 - docker build -t minidb_1.0 -f docker_setup_example/Dockerfile .
 
+Setup the app in docker containers
+
 - docker-compose -f 1_hub_2_nodes.yml up -d
+
+Kick-off the interperter
 
 - docker exec -it hub bash -c "python3.8 -i engine/initDB.py"
 
---------- SIMPLE EXAMPLE --------------------
+Enable view from nodes in the separate windows:
+
+- docker logs -f node1
+- docker logs -f node2
+
+Run into simple example:
+
 a = DoubleColumn()
 a.LoadData("/home/guest1/engine/src/data3.csv")
 a.Print()
 print(a.Sum())
 a = None
-----------------------------------------------
+
+------------------------------------------------
+
+---------- RUNNING BENCHMARKS ------------------
+
+- docker exec -it hub bash -c "pytest" ( with app deployed in above steps )
+
+OR just use convenient script cleaning & starting containers from the scratch:
+
+- ./run_benchmarks.sh
+
+------------------------------------------------
 
 
 4. Running the application (olad way)
+
+Building the project
+
+- in /build folder execute:
+`cmake ..`
+and then:
+`make`
+
 
 Setup nodes first by executing:
 
@@ -59,11 +81,15 @@ For ex.
 
 
 FORMATTER:
---
+------------------
+Edit configuration:
+vim .clang-format
 
+Run:
+./formatter
 
 STATIC ANALYSIS:
-
+------------------
 -- clang-tidy etc..
 
 

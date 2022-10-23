@@ -25,6 +25,13 @@ int main( int argc, char* argv[] )
     rpcServer->bind( "LoadCsvDatad", &calcs::LoadCsvData<double> );
     rpcServer->bind( "Sumd", &calcs::Sum<double> );
 
+    rpcServer->bind( "CreateColumnf", &calcs::CreateColumn<float> );
+    rpcServer->bind( "DeleteColumnf", &calcs::DeleteColumn<float> );
+    rpcServer->bind( "AddElementf", &calcs::AddElement<float> );
+    rpcServer->bind( "PrintColumnf", &calcs::PrintColumn<float> );
+    rpcServer->bind( "LoadCsvDataf", &calcs::LoadCsvData<float> );
+    rpcServer->bind( "Sumf", &calcs::Sum<float> );
+
     CTX().GetRPCManager().RunServer();
 
     return 0;

@@ -11,19 +11,13 @@ def start_up():
     print("we entered start_up")
     yield a
 
+@pytest.fixture(scope="module")
+def tear_down():
+    a = None
+
 
 def test_sum_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-
     assert result == 80
-
-
-def doAll():
-    a = IntColumn()
-    a.LoadData("/home/guest1/engine/src/data1.csv")
-    a.Sum()
-
-def test_sum_bench_2(benchmark):
-    result = benchmark(doAll)
 

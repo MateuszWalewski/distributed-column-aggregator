@@ -12,18 +12,19 @@ public:
 
     ColumnNode( const std::string& colName ) : name( colName )
     {
+        // TODO: Introduce external logger
         std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " created on node" << std::endl;
     };
     ~ColumnNode()
     {
-        std::cout << "Column " << name << " destructed on node" << std::endl;
+        std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " destructed on node"
+                  << std::endl;
     }
-    void AddElement( T element );
     void Print();
     void LoadData( const std::string& dataFilePath );
+    void AddElement( const T element );
 
-    typename std::vector<T>::iterator DBegin();
-    typename std::vector<T>::iterator DEnd();
+    T Sum();
 
 private:
     std::vector<T> data;

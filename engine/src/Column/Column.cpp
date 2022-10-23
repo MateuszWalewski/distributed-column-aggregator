@@ -25,6 +25,12 @@ void Column<T>::Print()
 }
 
 template <typename T>
+void Column<T>::AddElement( const T element )
+{
+    columnEngine->AddElement( std::make_any<T>( element ) );
+}
+
+template <typename T>
 void Column<T>::LoadData( const std::string& dataFilePath )
 {
     columnEngine->LoadDataToNode( dataFilePath );
