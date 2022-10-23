@@ -5,4 +5,4 @@ add_library(
     GlobalContextHub.cpp
     )
 
-target_link_libraries(GlobalContext PUBLIC Networking)
+target_link_libraries(GlobalContext PUBLIC ColumnEngine Networking)

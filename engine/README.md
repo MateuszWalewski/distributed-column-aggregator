@@ -25,7 +25,7 @@ Build the docker image from the project dir:
 a = DoubleColumn()
 a.LoadData("/home/guest1/engine/src/data3.csv")
 a.Print()
-a.Sum()
+print(a.Sum())
 a = None
 ----------------------------------------------
 

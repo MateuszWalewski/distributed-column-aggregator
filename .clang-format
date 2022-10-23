@@ -18,7 +18,7 @@ KeepEmptyLinesAtTheStartOfBlocks: 'false'
 Language: Cpp
 MaxEmptyLinesToKeep: '1'
 NamespaceIndentation: None
-PointerAlignment: Middle
+PointerAlignment: Left
 SpaceAfterCStyleCast: 'true'
 SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeParens: ControlStatements

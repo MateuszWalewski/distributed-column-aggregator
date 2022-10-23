@@ -10,7 +10,7 @@ public:
     // Add rule of 5 -> Scott Meyers!
     ColumnNode() = default;
 
-    ColumnNode( const std::string & colName ) : name( colName )
+    ColumnNode( const std::string& colName ) : name( colName )
     {
         std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " created on node" << std::endl;
     };
@@ -20,7 +20,7 @@ public:
     }
     void AddElement( T element );
     void Print();
-    void LoadData( const std::string & dataFilePath );
+    void LoadData( const std::string& dataFilePath );
 
     typename std::vector<T>::iterator DBegin();
     typename std::vector<T>::iterator DEnd();

@@ -30,21 +30,21 @@ void AddElement( T elem, std::string id )
 }
 
 template <typename T>
-void PrintColumn( std::string & id )
+void PrintColumn( const std::string& id )
 {
     auto & map = CTX().GetColumnStorage().GetColumnStorage<T>();
     map[id]->Print();
 }
 
 template <typename T>
-void LoadCsvData( const std::string & dataPath, const std::string & id )
+void LoadCsvData( const std::string& dataPath, const std::string& id )
 {
     auto & map = CTX().GetColumnStorage().GetColumnStorage<T>();
     map[id]->LoadData( dataPath );
 }
 
 template <typename T>
-T Sum( const std::string & id )
+T Sum( const std::string& id )
 {
     auto & map = CTX().GetColumnStorage().GetColumnStorage<T>();
     auto col = map[id];
