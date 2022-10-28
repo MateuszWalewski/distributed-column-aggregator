@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Context/GlobalContextHub.h"
-#include "Tools/Utility.h"
 #include <iostream>
 #include <numeric>
 #include <string>
@@ -9,10 +7,10 @@
 
 namespace calcs
 {
-template <typename T> T AllocateAndAggregateDist( std::vector<T> container )
+template <typename T>
+T AllocateAndAggregateDist( std::vector<T> container )
 {
     std::string funcName = "AllocateAndAggregate" + std::string( typeid( T ).name() );
-
 
     // distribute data before sending it on nodes
     // consider adding Distribution class taking std::vector<T> container and
@@ -22,9 +20,7 @@ template <typename T> T AllocateAndAggregateDist( std::vector<T> container )
     // - roundrobin
     // - etc.
 
-
     return 5;
 }
-
 
 } // namespace calcs

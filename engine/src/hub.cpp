@@ -14,7 +14,7 @@
 
 void LoadConnectionDetails( std::string connectionDetails )
 {
-    PCTRL().LoadHubConnectionInfo( SplitStringToVector( connectionDetails ) );
+    PCTRL().LoadHubConnectionInfo( util::SplitStringToVector( connectionDetails ) );
     PCTRL().PrintHubConnectionInfo();
 }
 

@@ -5,7 +5,7 @@ ParameterControllerHub::ParameterControllerHub()
 {
 }
 
-ParameterControllerHub & ParameterControllerHub::Instance()
+ParameterControllerHub& ParameterControllerHub::Instance()
 {
     static ParameterControllerHub instance;
     return instance;
@@ -24,8 +24,8 @@ void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> con
 
 void ParameterControllerHub::PrintHubConnectionInfo()
 {
-    PrintVector( mNodesIPs, "mNodesIPs" );
-    PrintVector( mNodesPorts, "mNodesPorts" );
+    util::PrintVector( mNodesIPs, "mNodesIPs" );
+    util::PrintVector( mNodesPorts, "mNodesPorts" );
 }
 
 std::vector<std::string> ParameterControllerHub::GetNodesIPs()

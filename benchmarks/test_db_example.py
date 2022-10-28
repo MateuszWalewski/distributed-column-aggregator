@@ -17,4 +17,4 @@ def tear_down():
 
 def testSum(start_up):
     a = start_up
-    assert a.Sum() == 80
+    assert a.Sum() == 40

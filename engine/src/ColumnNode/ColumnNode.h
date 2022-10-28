@@ -21,7 +21,7 @@ public:
                   << std::endl;
     }
     void Print();
-    void LoadData( const std::string& dataFilePath );
+    void LoadData( const std::string& dataFilePath, const size_t begin, const size_t end );
     void AddElement( const T element );
 
     T Sum();

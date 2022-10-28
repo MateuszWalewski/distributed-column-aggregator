@@ -20,5 +20,5 @@ def tear_down():
 def test_sum_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-    assert round(result, 5) == 86.78155
+    assert round(result, 5) == 43.39077
 

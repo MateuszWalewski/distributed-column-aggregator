@@ -3,20 +3,61 @@
 #include <iostream>
 #include <vector>
 
-// TODO: move definitions from header here
+namespace calcs
+{
+template void CreateColumn<int>( const std::string& id );
+template void CreateColumn<double>( const std::string& id );
+template void CreateColumn<float>( const std::string& id );
 
-// namespace calcs
-// {
-// template void CreateColumn<int>(std::string id);
-// template void CreateColumn<double>(std::string id);
-// template void CreateColumn<float>(std::string id);
+template void DeleteColumn<int>( const std::string& id );
+template void DeleteColumn<double>( const std::string& id );
+template void DeleteColumn<float>( const std::string& id );
 
-// template <typename T>
-// void CreateColumn( std::string id )
-// {
-//     auto superMap = storage->GetSuperMap();
-//     auto map = std::get<std::map<std::string, std::shared_ptr<ColumnNode<T>>>>(superMap);
-//     map[id] = std::make_shared<ColumnNode<T>>(id);
-// }
+template void AddElement<int>( const std::string& id, const int elem );
+template void AddElement<double>( const std::string& id, const double elem );
+template void AddElement<float>( const std::string& id, const float elem );
 
-// } // namespace calcs
+template void PrintColumn<int>( const std::string& id );
+template void PrintColumn<double>( const std::string& id );
+template void PrintColumn<float>( const std::string& id );
+
+template void LoadCsvData<int>( size_t begin, size_t end, const std::string& dataPath, const std::string& id );
+template void LoadCsvData<double>( size_t begin, size_t end, const std::string& dataPath, const std::string& id );
+template void LoadCsvData<float>( size_t begin, size_t end, const std::string& dataPath, const std::string& id );
+
+template <typename T>
+void CreateColumn( const std::string& id )
+{
+    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    map[id] = std::make_shared<ColumnNode<T>>( id );
+}
+
+template <typename T>
+void DeleteColumn( const std::string& id )
+{
+    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    map.erase( id );
+}
+
+template <typename T>
+void AddElement( const std::string& id, const T elem )
+{
+    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    map[id]->AddElement( elem );
+}
+
+template <typename T>
+void PrintColumn( const std::string& id )
+{
+    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    map[id]->Print();
+}
+
+template <typename T>
+void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const std::string& id )
+{
+    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    map[id]->LoadData( dataPath, begin, end );
+}
+
+} // namespace calcs

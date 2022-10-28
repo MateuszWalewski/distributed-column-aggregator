@@ -9,13 +9,13 @@ template class ColumnNode<int>;
 template <typename T>
 void ColumnNode<T>::Print()
 {
-    PrintVector( data, "ColumnNode elements:" );
+    util::PrintVector( data, "ColumnNode elements:" );
 }
 
 template <typename T>
-void ColumnNode<T>::LoadData( const std::string& dataFilePath )
+void ColumnNode<T>::LoadData( const std::string& dataFilePath, const size_t begin, const size_t end )
 {
-    LoadCsvToDataColumn( dataFilePath, data );
+    util::LoadCsvToDataColumn( dataFilePath, begin, end, data );
 }
 
 template <typename T>

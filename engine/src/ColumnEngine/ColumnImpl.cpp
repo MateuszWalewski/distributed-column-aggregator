@@ -1,6 +1,8 @@
 #include "ColumnImpl.h"
 #include "Aggregations/SimpleAggsDist.h"
 #include "Context/GlobalContextHub.h"
+#include "ParameterController/ParameterControllerHub.h"
+#include "Tools/Utility.h"
 
 template class ColumnImpl<double>;
 template class ColumnImpl<float>;
@@ -46,7 +48,8 @@ void ColumnImpl<T>::AddElement( const std::any element )
 template <typename T>
 void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
-    CTX().GetRPCManager().CallRPCMethod( "LoadCsvData" + typeName, dataFilePath, colId );
+    auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, (int) PCTRL().GetNumberOfNodes() );
+    CTX().GetRPCManager().CallRPCMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
 }
 
 template <typename T>

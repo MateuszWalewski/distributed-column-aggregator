@@ -7,7 +7,7 @@ from initDB import DoubleColumn
 @pytest.fixture(scope="module")
 def start_up():
     a = DoubleColumn()
-    a.LoadData("/home/guest1/engine/src/data3.csv")
+    a.LoadData("/home/guest1/engine/src/data4.csv")
     print("we entered start_up")
     yield a
 
@@ -16,8 +16,7 @@ def tear_down():
     a = None
 
 
-
 def test_sum_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-    assert result == 86.78153999999999
+    assert result == 5082226.839999925

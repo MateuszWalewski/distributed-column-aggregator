@@ -8,39 +8,19 @@
 namespace calcs
 {
 template <typename T>
-void CreateColumn( std::string id )
-{
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
-    map[id] = std::make_shared<ColumnNode<T>>( id );
-}
+void CreateColumn( const std::string& id );
 
 template <typename T>
-void DeleteColumn( std::string id )
-{
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
-    map.erase( id );
-}
+void DeleteColumn( const std::string& id );
 
 template <typename T>
-void AddElement( std::string id, const T elem )
-{
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
-    map[id]->AddElement( elem );
-}
+void AddElement( const std::string& id, const T elem );
 
 template <typename T>
-void PrintColumn( const std::string& id )
-{
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
-    map[id]->Print();
-}
+void PrintColumn( const std::string& id );
 
 template <typename T>
-void LoadCsvData( const std::string& dataPath, const std::string& id )
-{
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
-    map[id]->LoadData( dataPath );
-}
+void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const std::string& id );
 
 template <typename T>
 T Sum( const std::string& id )
