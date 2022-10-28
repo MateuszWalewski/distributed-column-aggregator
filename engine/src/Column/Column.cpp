@@ -25,9 +25,9 @@ void Column<T>::Print()
 }
 
 template <typename T>
-void Column<T>::AddElement( const T element )
+void Column<T>::AddElement( const size_t nodeNumber, const T element )
 {
-    columnEngine->AddElement( std::make_any<T>( element ) );
+    columnEngine->AddElement( nodeNumber, std::make_any<T>( element ) );
 }
 
 template <typename T>

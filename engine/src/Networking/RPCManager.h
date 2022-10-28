@@ -56,6 +56,27 @@ public:
         }
     }
 
+    template <typename... Args>
+    void CallRPCMethodOnTheGivenNode( const std::string& methodName, const size_t nodeNumber, Args... args )
+    {
+        if ( nodeNumber <= 0 )
+        {
+            std::cout << "Error: Incorrect number of node: " + std::to_string( nodeNumber ) << std::endl;
+            return;
+        }
+
+        if ( nodeNumber > mRPCClientHandlers.size() )
+        {
+            std::cout << "Error: there is no " + std::to_string( nodeNumber ) + " nodes configured." << std::endl;
+            std::cout << "The number of available nodes is " + std::to_string( mRPCClientHandlers.size() ) << std::endl;
+            return;
+        }
+        size_t nodeIdx = nodeNumber - 1;
+        // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
+        // Promoted types should be included
+        mRPCClientHandlers[nodeIdx]->call( methodName, args... );
+    }
+
     void RunServer();
     void BindMethods();
 

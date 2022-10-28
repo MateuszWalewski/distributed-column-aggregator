@@ -28,4 +28,5 @@ template <typename T>
 void ColumnNode<T>::AddElement( const T element )
 {
     data.push_back( element );
+    std::cout << "Element: " << std::to_string( element ) << " added to node." << std::endl;
 }

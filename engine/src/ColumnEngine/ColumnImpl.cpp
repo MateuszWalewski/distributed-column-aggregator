@@ -39,10 +39,10 @@ void ColumnImpl<T>::PrintColumnOnNode()
 }
 
 template <typename T>
-void ColumnImpl<T>::AddElement( const std::any element )
+void ColumnImpl<T>::AddElement( const size_t nodeNumber, const std::any element )
 {
     auto elem = std::any_cast<T>( element );
-    CTX().GetRPCManager().CallRPCMethod( "AddElement" + typeName, colId, elem );
+    CTX().GetRPCManager().CallRPCMethodOnTheGivenNode( "AddElement" + typeName, nodeNumber, colId, elem );
 }
 
 template <typename T>

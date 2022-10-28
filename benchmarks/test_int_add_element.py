@@ -17,11 +17,11 @@ def tear_down():
 
 def test_sum_bench_1(benchmark, start_up):
     a = start_up
-    a.AddElement(12)
-    a.AddElement(5)
-    a.AddElement(8)
+    a.AddElement(1, 12)
+    a.AddElement(2, 5)
+    a.AddElement(1, 8)
 
     result = benchmark(a.Sum)
-    assert result == 50
+    assert result == 25
 
 
