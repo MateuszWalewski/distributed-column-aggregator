@@ -5,5 +5,4 @@ add_library(
     Column.cpp
     )
 
-
-
+target_link_libraries(DataColumn PUBLIC Factory)

@@ -4,9 +4,9 @@ add_library(
     IColumn.h
     ColumnImpl.h
     ColumnImpl.cpp
-    IColumnFactory.h
-    ColumnFactory.h
     )
+
+target_link_libraries(ColumnEngine PUBLIC GlobalContext)
 
 
 

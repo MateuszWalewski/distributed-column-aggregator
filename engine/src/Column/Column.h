@@ -19,5 +19,5 @@ public:
     T Sum();
 
 private:
-    std::shared_ptr<IColumn> columnEngine;
+    IColumn* columnEngine;
 };

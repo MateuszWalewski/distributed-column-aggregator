@@ -1,5 +1,7 @@
 #include "Column.h"
-#include "Context/GlobalContextHub.h"
+#include "Factory/Factory.h"
+#include "Loki/Singleton.h"
+#include "traits.h"
 
 template class Column<double>;
 template class Column<float>;
@@ -8,7 +10,10 @@ template class Column<int>;
 template <typename T>
 Column<T>::Column()
 {
-    columnEngine = CTX().GetColumnFactory<T>()->CreateColumnEngine();
+    auto& Instance = Loki::SingletonHolder<Factory>::Instance();
+    auto gadgetFactory = Instance.GetWidgetFactory( TypeName<T>::name );
+
+    columnEngine = gadgetFactory->template Create<IColumn>();
     columnEngine->CreateColumnOnNode();
 }
 
@@ -16,6 +21,7 @@ template <typename T>
 Column<T>::~Column()
 {
     columnEngine->DeleteColumnOnNode();
+    delete columnEngine;
 }
 
 template <typename T>

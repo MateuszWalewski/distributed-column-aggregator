@@ -1,8 +1,8 @@
 1. Dependencies
 
 - clang++ 10 
+- Loki by Andrei Alexandrescu (https://loki-lib.sourceforge.net/)
 - rpclib (https://github.com/rpclib/rpclib)
-
 
 2. Running the application
 

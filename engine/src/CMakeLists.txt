@@ -23,20 +23,21 @@ ADD_SUBDIRECTORY(ContextNode)
 ADD_SUBDIRECTORY(ParameterController)
 ADD_SUBDIRECTORY(ParameterControllerNode)
 ADD_SUBDIRECTORY(Tools)
-
+ADD_SUBDIRECTORY(Loki)
+ADD_SUBDIRECTORY(Factory)
 
 # Add a shared module - modules are intended to be imported at runtime.
 # - This is where you add the source files
 add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn ColumnEngine Tools ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
+target_link_libraries(interpreter PUBLIC ParameterController GlobalContext Networking ContainerAggregationsDist DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
 add_executable(node node.cpp)
 # TODO: Look on that. It is growing more and more - maybe there is some wiser method for doing that ? 
-target_link_libraries(node PUBLIC ParameterControllerNode ColumnNode ColumnStorage GlobalContextNode Networking ContainerAggregations DataColumn Tools)
+target_link_libraries(node PUBLIC ParameterControllerNode ColumnNode ColumnStorage GlobalContextNode Networking ContainerAggregations DataColumn Tools )
 
 # add_executable(hub hub.cpp)
 # target_link_libraries(hub PUBLIC ParameterController GlobalContext ContainerAggregations ContainerAggregationsDist Tools)
