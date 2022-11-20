@@ -28,35 +28,40 @@ template void LoadCsvData<float>( size_t begin, size_t end, const std::string& d
 template <typename T>
 void CreateColumn( const std::string& id )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     map[id] = std::make_shared<ColumnNode<T>>( id );
 }
 
 template <typename T>
 void DeleteColumn( const std::string& id )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     map.erase( id );
 }
 
 template <typename T>
 void AddElement( const std::string& id, const T elem )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     map[id]->AddElement( elem );
 }
 
 template <typename T>
 void PrintColumn( const std::string& id )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     map[id]->Print();
 }
 
 template <typename T>
 void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const std::string& id )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     map[id]->LoadData( dataPath, begin, end );
 }
 

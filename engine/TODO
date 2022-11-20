@@ -1,5 +1,10 @@
 ----- highet priority --------
 
+-- additional abstract layer separating implemenation from interface on nodes -> (like on hub)
+-- make working unit tests!
+
+
+
 -- kickof implementations from headers
 -- fix the issue with file paths
 -- fix ctests

@@ -2,18 +2,10 @@
 #include <string>
 #include <vector>
 
-#define PCTRL() ParameterControllerHub::Instance()
-
 class ParameterControllerHub
 {
-private:
-    ParameterControllerHub();
-
-    std::vector<std::string> mNodesIPs;
-    std::vector<std::string> mNodesPorts;
-
 public:
-    static ParameterControllerHub & Instance();
+    ParameterControllerHub() = default;
 
     void LoadHubConnectionInfo( std::vector<std::string> connInfo );
 
@@ -23,4 +15,8 @@ public:
     std::vector<std::string> GetNodesIPs();
     std::vector<std::string> GetNodesPorts();
     size_t GetNumberOfNodes();
+
+private:
+    std::vector<std::string> mNodesIPs;
+    std::vector<std::string> mNodesPorts;
 };

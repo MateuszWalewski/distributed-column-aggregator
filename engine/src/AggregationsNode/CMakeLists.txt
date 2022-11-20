@@ -5,6 +5,3 @@ add_library(
     STATIC
     SimpleAggs.h
     SimpleAggs.cpp)
-
-target_link_libraries(ContainerAggregations PUBLIC GlobalContextNode)
-# we have problem here

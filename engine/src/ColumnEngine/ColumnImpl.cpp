@@ -1,6 +1,7 @@
 #include "ColumnImpl.h"
 #include "Aggregations/SimpleAggsDist.h"
-#include "Context/GlobalContextHub.h"
+#include "Loki/Singleton.h"
+#include "Networking/RPCManager.h"
 #include "ParameterController/ParameterControllerHub.h"
 #include "Tools/Utility.h"
 
@@ -23,39 +24,46 @@ ColumnImpl<T>::~ColumnImpl()
 template <typename T>
 void ColumnImpl<T>::CreateColumnOnNode()
 {
-    CTX().GetRPCManager().CallRPCMethod( "CreateColumn" + typeName, colId );
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    RPCInstance.CallRPCMethod( "CreateColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::DeleteColumnOnNode()
 {
-    CTX().GetRPCManager().CallRPCMethod( "DeleteColumn" + typeName, colId );
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    RPCInstance.CallRPCMethod( "DeleteColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::PrintColumnOnNode()
 {
-    CTX().GetRPCManager().CallRPCMethod( "PrintColumn" + typeName, colId );
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    RPCInstance.CallRPCMethod( "PrintColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::AddElement( const size_t nodeNumber, const std::any element )
 {
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto elem = std::any_cast<T>( element );
-    CTX().GetRPCManager().CallRPCMethodOnTheGivenNode( "AddElement" + typeName, nodeNumber, colId, elem );
+    RPCInstance.CallRPCMethodOnTheGivenNode( "AddElement" + typeName, nodeNumber, colId, elem );
 }
 
 template <typename T>
 void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
-    auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, (int) PCTRL().GetNumberOfNodes() );
-    CTX().GetRPCManager().CallRPCMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
+    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, (int) pCInstance.GetNumberOfNodes() );
+    RPCInstance.CallRPCMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
 }
 
 template <typename T>
 std::any ColumnImpl<T>::Sum()
 {
-    auto results = CTX().GetRPCManager().CallRPCMethod<T>( "Sum" + typeName, colId );
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = RPCInstance.CallRPCMethod<T>( "Sum" + typeName, colId );
     this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
     return this->resultValue;
 }

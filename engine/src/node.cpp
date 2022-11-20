@@ -1,15 +1,20 @@
 #include "AggregationsNode/SimpleAggs.h"
-#include "ContextNode/GlobalContextNode.h"
+#include "Loki/Singleton.h"
+#include "Networking/RPCManager.h"
 #include "ParameterControllerNode/ParameterControllerNode.h"
+#include "rpc/server.h"
 
-int main( int argc, char* argv[] )
+void LoadDependencies( char* argv[] )
 {
-    // TODO: input sanity check!!!
-    (void) argc; // to silent warning
+    auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
 
-    PCTRL().LoadNodeConnectionInfo( argv );
-    PCTRL().PrintNodeConnectionInfo();
-    auto rpcServer = CTX().GetRPCManager().GetRPCServer();
+    pCInstance.LoadNodeConnectionInfo( argv );
+    pCInstance.PrintNodeConnectionInfo();
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+
+    RPCInstance.SetRPCServerInfo(
+        std::make_shared<rpc::server>( pCInstance.GetNodeIP(), std::stoi( pCInstance.GetNodePort() ) ) );
+    auto rpcServer = RPCInstance.GetRPCServer();
 
     rpcServer->bind( "CreateColumni", &calcs::CreateColumn<int> );
     rpcServer->bind( "DeleteColumni", &calcs::DeleteColumn<int> );
@@ -32,7 +37,14 @@ int main( int argc, char* argv[] )
     rpcServer->bind( "LoadCsvDataf", &calcs::LoadCsvData<float> );
     rpcServer->bind( "Sumf", &calcs::Sum<float> );
 
-    CTX().GetRPCManager().RunServer();
+    RPCInstance.RunServer();
+}
+
+int main( int argc, char* argv[] )
+{
+    // TODO: input sanity check!!!
+    (void) argc; // to silent warning
+    LoadDependencies( argv );
 
     return 0;
 }

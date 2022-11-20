@@ -2,26 +2,14 @@
 #include <string>
 #include <vector>
 
-#define PCTRL() ParameterControllerNode::Instance()
-
 class ParameterControllerNode
 {
-private:
-    ParameterControllerNode();
-
-    // check the correctnes of the naming convention i.e
-    // on hub there are rather info about node detials than hub details
-    std::vector<std::string> mHubIPs;
-    std::vector<std::string> mHubPorts;
-
-    std::string mNodePort;
-
 public:
-    static ParameterControllerNode & Instance();
+    ParameterControllerNode() = default;
 
-    void LoadHubConnectionInfo( char * args[], int argc );
+    void LoadHubConnectionInfo( char* args[], int argc );
 
-    void LoadNodeConnectionInfo( char * args[] );
+    void LoadNodeConnectionInfo( char* args[] );
 
     void PrintHubConnectionInfo();
 
@@ -33,4 +21,12 @@ public:
 
     std::string GetNodeIP();
     std::string GetNodePort();
+
+private:
+    // check the correctnes of the naming convention i.e
+    // on hub there are rather info about node detials than hub details
+    std::vector<std::string> mHubIPs;
+    std::vector<std::string> mHubPorts;
+
+    std::string mNodePort;
 };

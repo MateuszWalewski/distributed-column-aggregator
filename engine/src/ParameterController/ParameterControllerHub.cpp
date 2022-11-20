@@ -1,16 +1,6 @@
 #include "ParameterControllerHub.h"
 #include "Tools/Utility.h"
 
-ParameterControllerHub::ParameterControllerHub()
-{
-}
-
-ParameterControllerHub& ParameterControllerHub::Instance()
-{
-    static ParameterControllerHub instance;
-    return instance;
-}
-
 void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> connInfo )
 {
     for ( int i = 0; i < (int) connInfo.size() / 2; i++ )

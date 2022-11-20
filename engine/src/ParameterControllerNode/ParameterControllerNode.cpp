@@ -2,24 +2,12 @@
 
 #include <iostream>
 
-ParameterControllerNode::ParameterControllerNode()
-{
-}
-
-ParameterControllerNode & ParameterControllerNode::Instance()
-{
-    static ParameterControllerNode instance;
-    return instance;
-}
-
-
 // maybe could be done better than passing raw char*[] ?
-void ParameterControllerNode::LoadNodeConnectionInfo( char * args[] )
+void ParameterControllerNode::LoadNodeConnectionInfo( char* args[] )
 {
     // add checker/assert
     mNodePort = std::string( args[1] );
 }
-
 
 void ParameterControllerNode::PrintNodeConnectionInfo()
 {

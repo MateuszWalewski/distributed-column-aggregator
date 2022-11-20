@@ -2,7 +2,8 @@
 
 #include <vector>
 
-#include "ContextNode/GlobalContextNode.h"
+#include "ColumnStorage/ColumnStorage.h"
+#include "Loki/Singleton.h"
 #include <iostream>
 
 namespace calcs
@@ -25,7 +26,8 @@ void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const s
 template <typename T>
 T Sum( const std::string& id )
 {
-    auto& map = CTX().GetColumnStorage().GetColumnStorage<T>();
+    auto& cSInstance = Loki::SingletonHolder<ColumnStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
     return map[id]->Sum();
 }
 

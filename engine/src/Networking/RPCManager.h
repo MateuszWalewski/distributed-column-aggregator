@@ -11,8 +11,7 @@ using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
 class RPCManager
 {
 public:
-    explicit RPCManager( RPCClientHandlers rpcClientHandlers );
-    explicit RPCManager( std::shared_ptr<rpc::server> rpcServerHandler );
+    RPCManager() = default;
 
     template <typename T, typename... Args>
     std::vector<T> CallRPCMethod( const std::string& methodName, Args... args )
@@ -78,9 +77,10 @@ public:
     }
 
     void RunServer();
-    void BindMethods();
 
     std::shared_ptr<rpc::server> GetRPCServer();
+    void SetRPCClientInfo( RPCClientHandlers rpcClientHandlers );
+    void SetRPCServerInfo( std::shared_ptr<rpc::server> rpcServerHandler );
 
 private:
     RPCClientHandlers mRPCClientHandlers;
