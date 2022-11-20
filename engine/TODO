@@ -2,7 +2,7 @@
 
 -- additional abstract layer separating implemenation from interface on nodes -> (like on hub)
 -- make working unit tests!
--- modify ColumnStorage in the similar way as IColumn -> ColumnImpl is done and managed from Fatory
+-- modify ColumnNodeStorage in the similar way as IColumn -> ColumnImpl is done and managed from Fatory
 
 
 
