@@ -15,8 +15,7 @@ ADD_SUBDIRECTORY(Networking)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(ColumnNode)
 ADD_SUBDIRECTORY(ColumnEngine)
-ADD_SUBDIRECTORY(Aggregations)
-ADD_SUBDIRECTORY(AggregationsNode)
+ADD_SUBDIRECTORY(ColumnOperationsNode)
 ADD_SUBDIRECTORY(ColumnStorage)
 ADD_SUBDIRECTORY(ParameterController)
 ADD_SUBDIRECTORY(ParameterControllerNode)
@@ -34,14 +33,13 @@ target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
 add_executable(node node.cpp)
-target_link_libraries(node PUBLIC ParameterControllerNode Networking ContainerAggregations )
+target_link_libraries(node PUBLIC ParameterControllerNode Networking ColumnOperationsNode )
 
 # TODO: ditto
 
 INSTALL(TARGETS node RUNTIME DESTINATION bin)
 INSTALL(TARGETS interpreter LIBRARY DESTINATION lib)
-INSTALL(TARGETS ContainerAggregations LIBRARY DESTINATION lib)
-INSTALL(TARGETS ContainerAggregationsDist LIBRARY DESTINATION lib)
+INSTALL(TARGETS ColumnOperationsNode LIBRARY DESTINATION lib)
 INSTALL(TARGETS ParameterController LIBRARY DESTINATION lib)
 INSTALL(TARGETS ParameterControllerNode LIBRARY DESTINATION lib)
 INSTALL(TARGETS Tools LIBRARY DESTINATION lib)
