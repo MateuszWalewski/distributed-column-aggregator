@@ -29,7 +29,6 @@ void LoadDependencies( std::string connectionDetails )
 
     for ( size_t i = 0; i < rpcClientHandlers.size(); i++ )
     {
-        // LOOK OUT! EMPLACE BACK HERE!!
         rpcClientHandlers[i] =
             std::make_shared<rpc::client>( pCInstance.GetNodesIPs()[i], std::stoi( pCInstance.GetNodesPorts()[i] ) );
     }

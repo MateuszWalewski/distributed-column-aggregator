@@ -1,9 +1,10 @@
 #include "ColumnImpl.h"
-#include "Aggregations/SimpleAggsDist.h"
 #include "Loki/Singleton.h"
 #include "Networking/RPCManager.h"
 #include "ParameterController/ParameterControllerHub.h"
 #include "Tools/Utility.h"
+
+#include <numeric>
 
 template class ColumnImpl<double>;
 template class ColumnImpl<float>;

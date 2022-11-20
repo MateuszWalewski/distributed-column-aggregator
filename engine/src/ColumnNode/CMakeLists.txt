@@ -5,4 +5,4 @@ add_library(
     ColumnNode.cpp
     )
 
-
+target_link_libraries(ColumnNode PUBLIC Tools)

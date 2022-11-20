@@ -4,4 +4,4 @@ add_library(
     Factory.h
     Factory.cpp)
 
-target_link_libraries(Factory PUBLIC Loki rpc ColumnEngine Tools)
+target_link_libraries(Factory PUBLIC ColumnEngine)

@@ -5,4 +5,4 @@ add_library(
     ColumnStorage.cpp
     )
 
-
+target_link_libraries(ColumnStorage PUBLIC ColumnNode)

@@ -18,7 +18,7 @@ private:
     ColStorage colStorage;
 
 public:
-    ColumnStorage();
+    ColumnStorage() = default;
     ColStorage GetSuperMap();
 
     template <typename T>

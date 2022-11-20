@@ -6,5 +6,7 @@ add_library(
     ColumnImpl.cpp
     )
 
+target_link_libraries(ColumnEngine PUBLIC Tools)
+
 
 
