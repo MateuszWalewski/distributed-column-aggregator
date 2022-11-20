@@ -1,4 +1,4 @@
-#include "AggregationsNode/SimpleAggs.h"
+#include "ColumnOperationsNode/ColumnOperationsNode.h"
 #include "Loki/Singleton.h"
 #include "Networking/RPCManager.h"
 #include "ParameterControllerNode/ParameterControllerNode.h"
