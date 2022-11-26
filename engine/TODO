@@ -1,6 +1,6 @@
 ----- highet priority --------
 
--- additional abstract layer separating implemenation from interface on nodes -> (like on hub)
+-- ColumnID Manager!!
 -- make working unit tests!
 -- modify ColumnNodeStorage in the similar way as IColumn -> ColumnImpl is done and managed from Fatory
 -- External logger!
