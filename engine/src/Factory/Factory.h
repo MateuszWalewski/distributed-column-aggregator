@@ -1,22 +1,17 @@
-#include "Loki/AbstractFactory.h"
 #include "ColumnEngine/IColumn.h"
+#include <Loki/AbstractFactory.h>
 #include <map>
 
 using namespace Loki;
 
-typedef AbstractFactory
-<
-    LOKI_TYPELIST_1(IColumn)
->
-AbstractColumnFactory;
+typedef AbstractFactory<LOKI_TYPELIST_1( IColumn )> AbstractColumnFactory;
 
-
-class Factory 
+class Factory
 {
 public:
     Factory();
 
-    AbstractColumnFactory* GetWidgetFactory(const std::string& key );
+    AbstractColumnFactory* GetWidgetFactory( const std::string& key );
 
     ~Factory();
 

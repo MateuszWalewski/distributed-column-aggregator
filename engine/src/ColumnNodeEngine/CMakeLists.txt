@@ -1,12 +1,8 @@
-add_library(
-    ColumnNodeEngine
-    STATIC
-    IColumnNode.h
-    ColumnNodeImpl.h
-    ColumnNodeImpl.cpp
-    )
+set(SOURCE_FILES ColumnNodeImpl.cpp)
 
-target_link_libraries(ColumnNodeEngine PUBLIC Tools)
+add_library(ColumnNodeEngine STATIC ${SOURCE_FILES})
 
+target_link_libraries(ColumnNodeEngine PRIVATE Tools)
+target_include_directories(ColumnNodeEngine INTERFACE .)
 
-
+add_subdirectory(test)

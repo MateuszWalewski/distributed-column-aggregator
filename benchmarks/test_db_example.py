@@ -7,7 +7,7 @@ from initDB import IntColumn
 @pytest.fixture(scope="module")
 def start_up():
     a = IntColumn()
-    a.LoadData("/home/guest1/engine/src/data1.csv")
+    a.LoadData("data1.csv")
     yield a
 
 @pytest.fixture(scope="module")

@@ -1,10 +1,9 @@
-cmake_minimum_required(VERSION 3.0.0)
+set(SOURCE_FILES ColumnOperationsNode.cpp)
 
-add_library(
-    ColumnOperationsNode
-    STATIC
-    ColumnOperationsNode.h
-    ColumnOperationsNode.cpp)
+add_library(ColumnOperationsNode STATIC ${SOURCE_FILES})
+
+target_link_libraries(ColumnOperationsNode PRIVATE ColumnNodeStorage)
+target_include_directories(ColumnOperationsNode INTERFACE .)
 
 
-target_link_libraries(ColumnOperationsNode PUBLIC ColumnNodeStorage)
+

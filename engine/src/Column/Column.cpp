@@ -1,7 +1,7 @@
 #include "Column.h"
-#include "Factory/Factory.h"
-#include "Loki/Singleton.h"
 #include "traits.h"
+#include <Factory/Factory.h>
+#include <Loki/Singleton.h>
 
 template class Column<double>;
 template class Column<float>;

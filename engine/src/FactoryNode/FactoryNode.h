@@ -1,5 +1,5 @@
 #include "ColumnNodeEngine/IColumnNode.h"
-#include "Loki/AbstractFactory.h"
+#include <Loki/AbstractFactory.h>
 #include <map>
 
 using namespace Loki;

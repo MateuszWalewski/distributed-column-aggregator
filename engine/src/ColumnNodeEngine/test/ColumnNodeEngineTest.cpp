@@ -1,8 +1,8 @@
-#include "src/ColumnNodeEngine/ColumnNodeImpl.h"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 #include <any>
+#include <ColumnNodeEngine/ColumnNodeImpl.h>
 
-TEST( Test1, Test1 )
+TEST( ColumEngineTests, SumTests )
 {
     ColumnNodeImpl<int> col;
 

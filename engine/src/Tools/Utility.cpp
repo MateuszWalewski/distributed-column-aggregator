@@ -10,10 +10,13 @@ template void LoadCsvToDataColumn<float>( const std::string& dataFilePath, const
 template void LoadCsvToDataColumn<double>( const std::string& dataFilePath, const size_t begin, const size_t end,
                                            std::vector<double>& destination );
 
+const std::string DATA_FILE_PATH =  std::string(DATA_PATH) + "/data/";
+
 DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath, int nOfNodes )
 {
     DataLoadRanges ranges;
-    std::ifstream inFile( dataFilePath );
+
+    std::ifstream inFile( DATA_FILE_PATH + dataFilePath );
 
     int fileSize = std::count( std::istreambuf_iterator<char>( inFile ), std::istreambuf_iterator<char>(), '\n' ) + 1;
 
@@ -40,7 +43,7 @@ void LoadCsvToDataColumn( const std::string& dataFilePath, const size_t begin, c
     T tempValue;
     std::mutex m;
     m.lock();
-    std::ifstream myfile( dataFilePath );
+    std::ifstream myfile( DATA_FILE_PATH + dataFilePath );
 
     std::cout << "begin = " << begin << std::endl;
     std::cout << "end = " << end << std::endl;

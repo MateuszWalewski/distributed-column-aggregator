@@ -1,7 +1,6 @@
-add_library(
-    Factory
-    STATIC
-    Factory.h
-    Factory.cpp)
+set(SOURCE_FILES Factory.cpp)
 
-target_link_libraries(Factory PUBLIC ColumnEngine)
+add_library(Factory STATIC ${SOURCE_FILES})
+
+target_link_libraries(Factory PRIVATE ColumnEngine)
+target_include_directories(Factory INTERFACE .)

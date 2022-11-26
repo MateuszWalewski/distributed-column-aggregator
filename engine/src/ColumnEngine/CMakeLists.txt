@@ -1,12 +1,9 @@
-add_library(
-    ColumnEngine
-    STATIC
-    IColumn.h
-    ColumnImpl.h
-    ColumnImpl.cpp
-    )
+set(SOURCE_FILES ColumnImpl.cpp)
 
-target_link_libraries(ColumnEngine PUBLIC Tools)
+add_library(ColumnEngine STATIC ${SOURCE_FILES})
+
+target_link_libraries(ColumnEngine PRIVATE Tools)
+target_include_directories(ColumnEngine INTERFACE .)
 
 
 

@@ -1,6 +1,6 @@
 #include "FactoryNode.h"
-#include "ColumnNodeEngine/ColumnNodeImpl.h"
 #include "constants.h"
+#include <ColumnNodeEngine/ColumnNodeImpl.h>
 #include <string>
 
 typedef ConcreteFactory<AbstractColumnFactory, OpNewFactoryUnit, LOKI_TYPELIST_1( ColumnNodeImpl<int> )> IntColumnFactory;

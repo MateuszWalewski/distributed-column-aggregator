@@ -7,7 +7,7 @@ from initDB import FloatColumn
 @pytest.fixture(scope="module")
 def start_up():
     a = FloatColumn()
-    a.LoadData("/home/guest1/engine/src/data3.csv")
+    a.LoadData("data3.csv")
     print("we entered start_up")
     yield a
 

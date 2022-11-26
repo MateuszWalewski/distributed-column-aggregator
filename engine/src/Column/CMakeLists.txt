@@ -1,8 +1,5 @@
-add_library(
-    DataColumn
-    STATIC
-    Column.h
-    Column.cpp
-    )
+set(SOURCE_FILES Column.cpp)
 
-target_link_libraries(DataColumn PUBLIC Factory)
+add_library(DataColumn STATIC ${SOURCE_FILES})
+
+target_link_libraries(DataColumn PRIVATE Factory)

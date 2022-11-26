@@ -1,5 +1,5 @@
 #include "ColumnNodeImpl.h"
-#include "Tools/Utility.h"
+#include <Tools/Utility.h>
 #include <numeric>
 
 template class ColumnNodeImpl<double>;

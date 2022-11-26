@@ -1,7 +1,7 @@
 #include "ColumnNode.h"
-#include "FactoryNode/FactoryNode.h"
-#include "Loki/Singleton.h"
 #include "traits.h"
+#include <FactoryNode/FactoryNode.h>
+#include <Loki/Singleton.h>
 
 #include <numeric>
 

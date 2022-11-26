@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(distributedDBPrototype)
+project(distributedDBPrototype LANGUAGES CXX)
 
 if (MSVC)
     add_compile_options(/W4)
@@ -80,8 +80,8 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+enable_testing()
 
 include_directories(".")
 
-ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(tests)
+add_subdirectory(src)

@@ -1,8 +1,8 @@
 #include "ColumnImpl.h"
-#include "Loki/Singleton.h"
-#include "Networking/RPCManager.h"
-#include "ParameterController/ParameterControllerHub.h"
-#include "Tools/Utility.h"
+#include <Loki/Singleton.h>
+#include <Networking/RPCManager.h>
+#include <ParameterController/ParameterControllerHub.h>
+#include <Tools/Utility.h>
 
 #include <numeric>
 

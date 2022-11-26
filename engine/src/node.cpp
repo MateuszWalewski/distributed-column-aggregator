@@ -1,8 +1,8 @@
-#include "ColumnOperationsNode/ColumnOperationsNode.h"
-#include "Loki/Singleton.h"
-#include "Networking/RPCManager.h"
-#include "ParameterControllerNode/ParameterControllerNode.h"
-#include "rpc/server.h"
+#include <ColumnOperationsNode/ColumnOperationsNode.h>
+#include <Loki/Singleton.h>
+#include <Networking/RPCManager.h>
+#include <ParameterControllerNode/ParameterControllerNode.h>
+#include <rpc/server.h>
 
 void LoadDependencies( char* argv[] )
 {

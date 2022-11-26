@@ -1,8 +1,9 @@
 1. Dependencies
 
-- clang++ 10 
 - Loki by Andrei Alexandrescu (https://loki-lib.sourceforge.net/)
 - rpclib (https://github.com/rpclib/rpclib)
+- boost
+- clang++ 10
 
 2. Running the application
 
@@ -26,10 +27,12 @@ Enable view from nodes in the separate windows:
 Run into simple example:
 
 a = DoubleColumn()
-a.LoadData("/home/guest1/engine/src/data3.csv")
+a.LoadData("data3.csv")
 a.Print()
 print(a.Sum())
 a = None
+
+data3.csv resides ./data directory
 
 ------------------------------------------------
 
@@ -74,7 +77,9 @@ is located
 
 5. Running Unit Tests
 
-- docker exec -it hub bash -c "cd engine/build/tests/nodes && ctest"
+- docker exec -it hub bash -c "cd engine/build/ && ctest -V"
+
+or just with script: ./run_ctest.sh
 
 6. Static analysis:
 For ex.
