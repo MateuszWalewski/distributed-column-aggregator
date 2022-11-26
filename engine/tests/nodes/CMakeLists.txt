@@ -1,11 +1,16 @@
-add_executable(test_unit
-    test_setup.cpp
-    test_one.cpp
-    test_two.cpp
+enable_testing()
+
+add_executable(
+   unittests_node
+   unittests_node.cpp
+)
+target_link_libraries(
+   unittests_node
+   GTest::gtest_main
+   ColumnNodeEngine
 )
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+include(GoogleTest)
+gtest_discover_tests(unittests_node)
 
-target_link_libraries(test_unit Boost::unit_test_framework ColumnOperationsNode)
 
-target_compile_definitions(test_unit PUBLIC BOOST_TEST_DYN_LINK)

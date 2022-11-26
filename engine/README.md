@@ -72,8 +72,11 @@ is located
 - run "python -i initDB.py"
 
 
+5. Running Unit Tests
 
-5. Static analysis:
+- docker exec -it hub bash -c "cd engine/build/tests/nodes && ctest"
+
+6. Static analysis:
 For ex.
 - clang-tidy -p ./src/ ./src/ParameterController/ParameterControllerHub.cpp -checks=* -header-filter=.* --
 

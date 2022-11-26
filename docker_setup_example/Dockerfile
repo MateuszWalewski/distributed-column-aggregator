@@ -27,6 +27,8 @@ USER root
 RUN git clone https://github.com/rpclib/rpclib.git
 RUN cd rpclib && mkdir build && cd build && cmake .. -DCMAKE_CXX_FLAGS="-fpic" && make -j2 && make install
 
+# Install project
+
 ADD engine /home/guest1/engine
 ADD benchmarks /home/guest1/benchmarks
 RUN chown -R guest1:guest1 engine

@@ -1,11 +1,13 @@
-add_executable(test_unit_dist
-    test_setup.cpp
-    test_one.cpp
-    test_two.cpp
+enable_testing()
+
+add_executable(
+   unittests
+   unittests.cpp
+)
+target_link_libraries(
+   unittests
+   GTest::gtest_main ColumnEngine Networking ParameterController
 )
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-
-target_link_libraries(test_unit_dist Boost::unit_test_framework ParameterController)
-
-target_compile_definitions(test_unit_dist PUBLIC BOOST_TEST_DYN_LINK)
+include(GoogleTest)
+gtest_discover_tests(unittests)
