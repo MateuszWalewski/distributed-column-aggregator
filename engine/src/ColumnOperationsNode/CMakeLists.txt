@@ -7,4 +7,4 @@ add_library(
     ColumnOperationsNode.cpp)
 
 
-target_link_libraries(ColumnOperationsNode PUBLIC ColumnStorage)
+target_link_libraries(ColumnOperationsNode PUBLIC ColumnNodeStorage)

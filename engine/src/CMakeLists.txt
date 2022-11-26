@@ -12,16 +12,19 @@ set(CMAKE_SHARED_MODULE_PREFIX "")
 include_directories(".")
 
 ADD_SUBDIRECTORY(Networking)
+ADD_SUBDIRECTORY(Factory)
+ADD_SUBDIRECTORY(FactoryNode)
 ADD_SUBDIRECTORY(Column)
 ADD_SUBDIRECTORY(ColumnNode)
 ADD_SUBDIRECTORY(ColumnEngine)
+ADD_SUBDIRECTORY(ColumnNodeEngine)
 ADD_SUBDIRECTORY(ColumnOperationsNode)
-ADD_SUBDIRECTORY(ColumnStorage)
+ADD_SUBDIRECTORY(ColumnNodeStorage)
 ADD_SUBDIRECTORY(ParameterController)
 ADD_SUBDIRECTORY(ParameterControllerNode)
 ADD_SUBDIRECTORY(Tools)
 ADD_SUBDIRECTORY(Loki)
-ADD_SUBDIRECTORY(Factory)
+
 
 # Add a shared module - modules are intended to be imported at runtime.
 # - This is where you add the source files
