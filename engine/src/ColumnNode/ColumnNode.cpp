@@ -1,5 +1,5 @@
 #include "ColumnNode.h"
-#include "traits.h"
+#include "Traits.h"
 #include <FactoryNode/FactoryNode.h>
 #include <Loki/Singleton.h>
 
@@ -15,14 +15,14 @@ ColumnNode<T>::ColumnNode( const std::string& colName ) : name( colName )
     auto& Instance = Loki::SingletonHolder<FactoryNode>::Instance();
     auto gadgetFactory = Instance.GetWidgetFactory( TypeName<T>::name );
     columnNodeEngine = gadgetFactory->template Create<IColumnNode>();
-    std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " created on node" << std::endl;
+    std::cout << name << " created on node" << std::endl;
 }
 
 template <typename T>
 ColumnNode<T>::~ColumnNode()
 {
     delete columnNodeEngine;
-    std::cout << "Column " << name << " of typid: " << std::string( typeid( T ).name() ) << " destructed on node" << std::endl;
+    std::cout << name << " destructed on node" << std::endl;
 }
 
 template <typename T>

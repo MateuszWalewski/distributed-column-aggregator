@@ -11,6 +11,7 @@ public:
     // Add rule of 5 -> Scot Meyers!
     ColumnImpl();
     ~ColumnImpl();
+    ColumnImpl( const ColumnImpl& obj );
     void CreateColumnOnNode() override;
     void DeleteColumnOnNode() override;
     void AddElement( const size_t nodeNumber, const std::any element ) override;
@@ -24,4 +25,8 @@ private:
     T resultValue;
     std::vector<T> result;
     std::string GenerateUniqueColumnId() const;
+    static size_t instanceId;
 };
+
+template <typename T>
+size_t ColumnImpl<T>::instanceId = 0;

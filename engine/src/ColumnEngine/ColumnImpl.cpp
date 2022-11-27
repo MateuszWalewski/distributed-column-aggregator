@@ -1,4 +1,5 @@
 #include "ColumnImpl.h"
+#include "TraitsCol.h"
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterController/ParameterControllerHub.h>
@@ -15,11 +16,19 @@ ColumnImpl<T>::ColumnImpl()
 {
     typeName = std::string( typeid( T ).name() );
     colId = GenerateUniqueColumnId();
+    ++instanceId;
 }
 
 template <typename T>
 ColumnImpl<T>::~ColumnImpl()
 {
+}
+
+template <typename T>
+ColumnImpl<T>::ColumnImpl( const ColumnImpl<T>& obj )
+{
+    if ( this != &obj )
+        ++instanceId;
 }
 
 template <typename T>
@@ -72,6 +81,5 @@ std::any ColumnImpl<T>::Sum()
 template <typename T>
 std::string ColumnImpl<T>::GenerateUniqueColumnId() const
 {
-    // TODO: add proper implementation generating unique ID
-    return "col1";
+    return std::string( TypeNameCol<T>::name ) + std::to_string( instanceId );
 }

@@ -1,5 +1,5 @@
 #include "Column.h"
-#include "traits.h"
+#include "Traits.h"
 #include <Factory/Factory.h>
 #include <Loki/Singleton.h>
 
