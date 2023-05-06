@@ -16,12 +16,14 @@ void LoadDependencies( char* argv[] )
         std::make_shared<rpc::server>( pCInstance.GetNodeIP(), std::stoi( pCInstance.GetNodePort() ) ) );
     auto rpcServer = RPCInstance.GetRPCServer();
 
+    // TODO: kick it off to the separate function
     rpcServer->bind( "CreateColumni", &calcs::CreateColumn<int> );
     rpcServer->bind( "DeleteColumni", &calcs::DeleteColumn<int> );
     rpcServer->bind( "AddElementi", &calcs::AddElement<int> );
     rpcServer->bind( "PrintColumni", &calcs::PrintColumn<int> );
     rpcServer->bind( "LoadCsvDatai", &calcs::LoadCsvData<int> );
     rpcServer->bind( "Sumi", &calcs::Sum<int> );
+    rpcServer->bind( "Counti", &calcs::Count<int> );
 
     rpcServer->bind( "CreateColumnd", &calcs::CreateColumn<double> );
     rpcServer->bind( "DeleteColumnd", &calcs::DeleteColumn<double> );
@@ -29,6 +31,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "PrintColumnd", &calcs::PrintColumn<double> );
     rpcServer->bind( "LoadCsvDatad", &calcs::LoadCsvData<double> );
     rpcServer->bind( "Sumd", &calcs::Sum<double> );
+    rpcServer->bind( "Countd", &calcs::Count<double> );
 
     rpcServer->bind( "CreateColumnf", &calcs::CreateColumn<float> );
     rpcServer->bind( "DeleteColumnf", &calcs::DeleteColumn<float> );
@@ -36,6 +39,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "PrintColumnf", &calcs::PrintColumn<float> );
     rpcServer->bind( "LoadCsvDataf", &calcs::LoadCsvData<float> );
     rpcServer->bind( "Sumf", &calcs::Sum<float> );
+    rpcServer->bind( "Countf", &calcs::Count<float> );
 
     RPCInstance.RunServer();
 }

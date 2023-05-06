@@ -11,6 +11,7 @@ public:
     virtual void AddElement( const size_t nodeNumber, const std::any element ) = 0;
     virtual void LoadDataToNode( const std::string& dataFilePath ) = 0;
     virtual std::any Sum() = 0;
+    virtual int Count() = 0;
 
     virtual ~IColumn(){};
 };

@@ -17,6 +17,7 @@ public:
     void Print();
     void LoadData( const std::string& dataFilePath );
     T Sum();
+    int Count();
 
 private:
     IColumn* columnEngine;

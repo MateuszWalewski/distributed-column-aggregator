@@ -44,6 +44,12 @@ T ColumnNode<T>::Sum()
 }
 
 template <typename T>
+int ColumnNode<T>::Count()
+{
+    return columnNodeEngine->Count();
+}
+
+template <typename T>
 void ColumnNode<T>::AddElement( const T element )
 {
     columnNodeEngine->AddElement( std::make_any<T>( element ) );

@@ -17,6 +17,7 @@ public:
     void AddElement( const T element );
 
     T Sum();
+    int Count();
 
 private:
     IColumnNode* columnNodeEngine;

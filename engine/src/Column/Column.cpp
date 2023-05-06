@@ -47,3 +47,9 @@ T Column<T>::Sum()
 {
     return std::any_cast<T>( columnEngine->Sum() );
 }
+
+template <typename T>
+int Column<T>::Count()
+{
+    return columnEngine->Count();
+}

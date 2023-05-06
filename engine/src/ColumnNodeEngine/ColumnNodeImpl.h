@@ -17,6 +17,7 @@ public:
     void AddElement( const std::any element ) override;
 
     std::any Sum() override;
+    int Count() override;
 
 private:
     std::vector<T> data;

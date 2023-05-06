@@ -1,5 +1,7 @@
 #include "ColumnNodeImpl.h"
 #include <Tools/Utility.h>
+
+#include <algorithm>
 #include <numeric>
 
 template class ColumnNodeImpl<double>;
@@ -22,6 +24,13 @@ template <typename T>
 std::any ColumnNodeImpl<T>::Sum()
 {
     return std::accumulate( data.begin(), data.end(), static_cast<T>( 0 ) );
+}
+
+template <typename T>
+int ColumnNodeImpl<T>::Count()
+{
+    // TODO: add proper filter once null type is introduced
+    return std::count_if( data.begin(), data.end(), []( T& element ) { return true; } );
 }
 
 template <typename T>

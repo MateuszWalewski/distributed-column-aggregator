@@ -79,6 +79,15 @@ std::any ColumnImpl<T>::Sum()
 }
 
 template <typename T>
+int ColumnImpl<T>::Count()
+{
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = RPCInstance.CallRPCMethod<T>( "Count" + typeName, colId );
+    this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
+    return this->resultValue;
+}
+
+template <typename T>
 std::string ColumnImpl<T>::GenerateUniqueColumnId() const
 {
     return std::string( TypeNameCol<T>::name ) + std::to_string( instanceId );

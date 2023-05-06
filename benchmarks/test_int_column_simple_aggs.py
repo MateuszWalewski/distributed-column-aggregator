@@ -21,3 +21,8 @@ def test_sum_bench_1(benchmark, start_up):
     result = benchmark(a.Sum)
     assert result == 40
 
+
+def test_count_bench_1(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Count)
+    assert result == 9

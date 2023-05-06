@@ -24,6 +24,14 @@ template <typename T>
 void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const std::string& id );
 
 template <typename T>
+int Count( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Count();
+}
+
+template <typename T>
 T Sum( const std::string& id )
 {
     auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();

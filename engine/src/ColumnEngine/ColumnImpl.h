@@ -18,6 +18,7 @@ public:
     void PrintColumnOnNode() override;
     void LoadDataToNode( const std::string& dataFilePath ) override;
     std::any Sum() override;
+    int Count() override;
 
 private:
     std::string colId;
