@@ -55,13 +55,19 @@ int Column<T>::Count()
 }
 
 template <typename T>
-T Column<T>::MomentI()
+double Column<T>::MomentI()
 {
-    return std::any_cast<T>( columnEngine->MomentI() );
+    return columnEngine->MomentI();
 }
 
 template <typename T>
-T Column<T>::MomentII()
+double Column<T>::MomentII()
 {
-    return std::any_cast<T>( columnEngine->MomentII() );
+    return columnEngine->MomentII();
+}
+
+template <typename T>
+double Column<T>::Stddev()
+{
+    return columnEngine->Stddev();
 }

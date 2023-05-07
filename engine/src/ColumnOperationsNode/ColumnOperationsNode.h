@@ -40,7 +40,7 @@ T Sum( const std::string& id )
 }
 
 template <typename T>
-T SumX2( const std::string& id )
+double SumX2( const std::string& id )
 {
     auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
     auto& map = cSInstance.GetColumnStorage<T>();

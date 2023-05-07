@@ -44,9 +44,9 @@ T ColumnNode<T>::Sum()
 }
 
 template <typename T>
-T ColumnNode<T>::SumX2()
+double ColumnNode<T>::SumX2()
 {
-    return std::any_cast<T>( columnNodeEngine->SumX2() );
+    return columnNodeEngine->SumX2();
 }
 
 template <typename T>

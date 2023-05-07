@@ -4,6 +4,9 @@
 -- make working unit tests!
 -- modify ColumnNodeStorage in the similar way as IColumn -> ColumnImpl is done and managed from Fatory
 -- External logger!
+-- Numeric Data Type
+-- Null Data Type
+-- helper functions for pytest (epsilon comparisons)
 
 
 

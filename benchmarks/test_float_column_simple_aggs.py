@@ -17,33 +17,31 @@ def tear_down():
 
 
 
-def test_sum_bench_1(benchmark, start_up):
+def test_sum(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
     assert round(result, 5) == 43.39077
 
 
-def test_count_bench_1(benchmark, start_up):
+def test_count(benchmark, start_up):
     a = start_up
     result = benchmark(a.Count)
     assert result == 9
 
 
-def test_momentI_bench_1(benchmark, start_up):
+def test_momentI(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentI)
     assert round(result, 4) == 4.8212
 
 
-def test_momentII_bench_1(benchmark, start_up):
+def test_momentII(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentII)
     assert round(result, 4) == 28.7952
 
 
-
-
-# def test_stddev_bench_1(benchmark, start_up):
-#     a = start_up
-#     result = benchmark(a.Stddev)
-#     assert result == 2.4990429927703106
+def test_stddev(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Stddev)
+    assert round(result, 5) == 2.49904

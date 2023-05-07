@@ -25,3 +25,16 @@ TEST( ColumEngineTests, CountTests )
 
     EXPECT_EQ( std::any_cast<int>( col.Count() ), 5 );
 }
+
+TEST( ColumEngineTests, SumX2Tests )
+{
+    ColumnNodeImpl<int> col;
+
+    col.AddElement( std::make_any<int>( 5553 ) );
+    col.AddElement( std::make_any<int>( 766 ) );
+    col.AddElement( std::make_any<int>( 4876 ) );
+    col.AddElement( std::make_any<int>( 721 ) );
+    col.AddElement( std::make_any<int>( 453 ) );
+
+    EXPECT_DOUBLE_EQ( col.SumX2(), static_cast<double>( 55922991 ) );
+}

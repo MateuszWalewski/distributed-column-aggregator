@@ -18,8 +18,9 @@ public:
     void LoadData( const std::string& dataFilePath );
     T Sum();
     int Count();
-    T MomentI();
-    T MomentII();
+    double MomentI();
+    double MomentII();
+    double Stddev();
 
 private:
     IColumn* columnEngine;

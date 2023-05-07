@@ -5,6 +5,7 @@
 #include <ParameterController/ParameterControllerHub.h>
 #include <Tools/Utility.h>
 
+#include <cmath>
 #include <exception>
 #include <numeric>
 
@@ -75,8 +76,7 @@ std::any ColumnImpl<T>::Sum()
 {
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = RPCInstance.CallRPCMethod<T>( "Sum" + typeName, colId );
-    this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
-    return this->resultValue;
+    return std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
 }
 
 template <typename T>
@@ -84,44 +84,30 @@ int ColumnImpl<T>::Count()
 {
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = RPCInstance.CallRPCMethod<T>( "Count" + typeName, colId );
-    this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
-    return this->resultValue;
+    return std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
 }
 
 template <typename T>
-std::any ColumnImpl<T>::MomentI()
+double ColumnImpl<T>::MomentI()
 {
-    T momentI;
-    try
-    {
-        momentI = std::any_cast<T>( Sum() ) / Count();
-    }
-    catch ( std::exception& e )
-    {
-        momentI = static_cast<T>( 0 );
-    }
-
-    return momentI;
+    return static_cast<double>( std::any_cast<T>( Sum() ) ) / Count();
 }
 
 template <typename T>
-std::any ColumnImpl<T>::MomentII()
+double ColumnImpl<T>::MomentII()
 {
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto results = RPCInstance.CallRPCMethod<T>( "SumX2" + typeName, colId );
-    this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
+    auto results = RPCInstance.CallRPCMethod<double>( "SumX2" + typeName, colId );
+    return static_cast<double>( std::accumulate( results.begin(), results.end(), static_cast<double>( 0 ) ) ) / Count();
+}
 
-    T momentII;
-    try
-    {
-        momentII = this->resultValue / Count();
-    }
-    catch ( std::exception& e )
-    {
-        momentII = static_cast<T>( 0 );
-    }
-
-    return momentII;
+template <typename T>
+double ColumnImpl<T>::Stddev()
+{
+    auto momentI = MomentI();
+    auto momentII = MomentII();
+    auto count = Count();
+    return sqrt( ( momentII - momentI * momentI ) * ( static_cast<double>( count ) / ( count - 1 ) ) );
 }
 
 template <typename T>

@@ -39,14 +39,12 @@ int ColumnNodeImpl<T>::Count()
 }
 
 template <typename T>
-std::any ColumnNodeImpl<T>::SumX2()
+double ColumnNodeImpl<T>::SumX2()
 {
-    int count = Count();
-    // normilized by multiplicity to avoid overflow
-    auto sum2 = std::transform_reduce( data.cbegin(), data.cend(), static_cast<T>( 0 ), std::plus{},
-                                       [&]( auto val ) { return val * val / count; } );
-
-    return sum2 * count;
+    // probably should be normalized to multiplicity to avoid overflow for big numbers
+    return std::transform_reduce( data.cbegin(), data.cend(), static_cast<double>( 0 ), std::plus{},
+                                  [&]( auto val ) { return static_cast<double>( val ) * val / data.size(); } ) *
+           data.size();
 }
 
 template <typename T>

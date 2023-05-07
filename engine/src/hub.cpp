@@ -51,7 +51,8 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Sum", &Column<double>::Sum )
         .def( "Count", &Column<double>::Count )
         .def( "MomentI", &Column<double>::MomentI )
-        .def( "MomentII", &Column<double>::MomentII );
+        .def( "MomentII", &Column<double>::MomentII )
+        .def( "Stddev", &Column<double>::Stddev );
 
     class_<Column<float>>( "FloatColumn" )
         .def( "Print", &Column<float>::Print )
@@ -60,7 +61,8 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Sum", &Column<float>::Sum )
         .def( "Count", &Column<float>::Count )
         .def( "MomentI", &Column<float>::MomentI )
-        .def( "MomentII", &Column<float>::MomentII );
+        .def( "MomentII", &Column<float>::MomentII )
+        .def( "Stddev", &Column<float>::Stddev );
 
     class_<Column<int>>( "IntColumn" )
         .def( "Print", &Column<int>::Print )
@@ -69,5 +71,6 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Sum", &Column<int>::Sum )
         .def( "Count", &Column<int>::Count )
         .def( "MomentI", &Column<int>::MomentI )
-        .def( "MomentII", &Column<int>::MomentII );
+        .def( "MomentII", &Column<int>::MomentII )
+        .def( "Stddev", &Column<int>::Stddev );
 }

@@ -15,7 +15,7 @@ def tear_down():
     a = None
 
 
-def test_sum_bench_1(benchmark, start_up):
+def test_sum(benchmark, start_up):
     a = start_up
     a.AddElement(1, 12.34)
     a.AddElement(1, 5.564)

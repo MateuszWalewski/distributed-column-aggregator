@@ -17,7 +17,7 @@ public:
     void AddElement( const std::any element ) override;
 
     std::any Sum() override;
-    std::any SumX2() override;
+    double SumX2() override;
     int Count() override;
 
 private:

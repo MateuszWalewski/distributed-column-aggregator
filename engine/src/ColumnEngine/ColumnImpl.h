@@ -18,14 +18,14 @@ public:
     void PrintColumnOnNode() override;
     void LoadDataToNode( const std::string& dataFilePath ) override;
     std::any Sum() override;
-    std::any MomentI() override;
-    std::any MomentII() override;
+    double MomentI() override;
+    double MomentII() override;
+    double Stddev() override;
     int Count() override;
 
 private:
     std::string colId;
     std::string typeName;
-    T resultValue;
     std::vector<T> result;
     std::string GenerateUniqueColumnId() const;
     static size_t instanceId;
