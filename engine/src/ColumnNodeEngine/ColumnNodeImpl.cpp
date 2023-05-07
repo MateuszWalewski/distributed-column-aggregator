@@ -29,8 +29,24 @@ std::any ColumnNodeImpl<T>::Sum()
 template <typename T>
 int ColumnNodeImpl<T>::Count()
 {
-    // TODO: add proper filter once null type is introduced
-    return std::count_if( data.begin(), data.end(), []( T& element ) { return true; } );
+    return std::count_if( data.begin(), data.end(), []( T& element ) {
+        // TODO: add proper filter once null type is introduced
+        if ( element )
+        {
+        }
+        return true;
+    } );
+}
+
+template <typename T>
+std::any ColumnNodeImpl<T>::SumX2()
+{
+    int count = Count();
+    // normilized by multiplicity to avoid overflow
+    auto sum2 = std::transform_reduce( data.cbegin(), data.cend(), static_cast<T>( 0 ), std::plus{},
+                                       [&]( auto val ) { return val * val / count; } );
+
+    return sum2 * count;
 }
 
 template <typename T>

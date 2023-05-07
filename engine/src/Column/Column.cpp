@@ -53,3 +53,15 @@ int Column<T>::Count()
 {
     return columnEngine->Count();
 }
+
+template <typename T>
+T Column<T>::MomentI()
+{
+    return std::any_cast<T>( columnEngine->MomentI() );
+}
+
+template <typename T>
+T Column<T>::MomentII()
+{
+    return std::any_cast<T>( columnEngine->MomentII() );
+}

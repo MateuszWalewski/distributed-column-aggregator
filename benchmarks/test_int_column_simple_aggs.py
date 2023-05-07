@@ -26,3 +26,15 @@ def test_count_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Count)
     assert result == 9
+
+
+def test_momentI_bench_1(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.MomentI)
+    assert result == 4
+
+
+# def test_stddev_bench_1(benchmark, start_up):
+#     a = start_up
+#     result = benchmark(a.Stddev)
+#     assert result == 2.6034165586355515

@@ -10,6 +10,7 @@ public:
     virtual void LoadData( const std::string& dataFilePath, const size_t begin, const size_t end ) = 0;
     virtual void AddElement( const std::any element ) = 0;
     virtual std::any Sum() = 0;
+    virtual std::any SumX2() = 0;
     virtual int Count() = 0;
 
     virtual ~IColumnNode(){};

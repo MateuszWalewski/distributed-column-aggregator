@@ -27,3 +27,23 @@ def test_count_bench_1(benchmark, start_up):
     a = start_up
     result = benchmark(a.Count)
     assert result == 9
+
+
+def test_momentI_bench_1(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.MomentI)
+    assert round(result, 4) == 4.8212
+
+
+def test_momentII_bench_1(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.MomentII)
+    assert round(result, 4) == 28.7952
+
+
+
+
+# def test_stddev_bench_1(benchmark, start_up):
+#     a = start_up
+#     result = benchmark(a.Stddev)
+#     assert result == 2.4990429927703106

@@ -5,6 +5,7 @@
 #include <ParameterController/ParameterControllerHub.h>
 #include <Tools/Utility.h>
 
+#include <exception>
 #include <numeric>
 
 template class ColumnImpl<double>;
@@ -85,6 +86,42 @@ int ColumnImpl<T>::Count()
     auto results = RPCInstance.CallRPCMethod<T>( "Count" + typeName, colId );
     this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
     return this->resultValue;
+}
+
+template <typename T>
+std::any ColumnImpl<T>::MomentI()
+{
+    T momentI;
+    try
+    {
+        momentI = std::any_cast<T>( Sum() ) / Count();
+    }
+    catch ( std::exception& e )
+    {
+        momentI = static_cast<T>( 0 );
+    }
+
+    return momentI;
+}
+
+template <typename T>
+std::any ColumnImpl<T>::MomentII()
+{
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = RPCInstance.CallRPCMethod<T>( "SumX2" + typeName, colId );
+    this->resultValue = std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
+
+    T momentII;
+    try
+    {
+        momentII = this->resultValue / Count();
+    }
+    catch ( std::exception& e )
+    {
+        momentII = static_cast<T>( 0 );
+    }
+
+    return momentII;
 }
 
 template <typename T>

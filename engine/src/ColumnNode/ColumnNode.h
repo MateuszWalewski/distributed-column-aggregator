@@ -17,6 +17,7 @@ public:
     void AddElement( const T element );
 
     T Sum();
+    T SumX2();
     int Count();
 
 private:

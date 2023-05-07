@@ -39,4 +39,12 @@ T Sum( const std::string& id )
     return map[id]->Sum();
 }
 
+template <typename T>
+T SumX2( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->SumX2();
+}
+
 } // namespace calcs

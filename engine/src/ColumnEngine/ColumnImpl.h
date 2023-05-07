@@ -18,6 +18,8 @@ public:
     void PrintColumnOnNode() override;
     void LoadDataToNode( const std::string& dataFilePath ) override;
     std::any Sum() override;
+    std::any MomentI() override;
+    std::any MomentII() override;
     int Count() override;
 
 private:

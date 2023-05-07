@@ -23,6 +23,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "PrintColumni", &calcs::PrintColumn<int> );
     rpcServer->bind( "LoadCsvDatai", &calcs::LoadCsvData<int> );
     rpcServer->bind( "Sumi", &calcs::Sum<int> );
+    rpcServer->bind( "SumX2i", &calcs::SumX2<int> );
     rpcServer->bind( "Counti", &calcs::Count<int> );
 
     rpcServer->bind( "CreateColumnd", &calcs::CreateColumn<double> );
@@ -31,6 +32,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "PrintColumnd", &calcs::PrintColumn<double> );
     rpcServer->bind( "LoadCsvDatad", &calcs::LoadCsvData<double> );
     rpcServer->bind( "Sumd", &calcs::Sum<double> );
+    rpcServer->bind( "SumX2d", &calcs::SumX2<double> );
     rpcServer->bind( "Countd", &calcs::Count<double> );
 
     rpcServer->bind( "CreateColumnf", &calcs::CreateColumn<float> );
@@ -39,6 +41,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "PrintColumnf", &calcs::PrintColumn<float> );
     rpcServer->bind( "LoadCsvDataf", &calcs::LoadCsvData<float> );
     rpcServer->bind( "Sumf", &calcs::Sum<float> );
+    rpcServer->bind( "SumX2f", &calcs::SumX2<float> );
     rpcServer->bind( "Countf", &calcs::Count<float> );
 
     RPCInstance.RunServer();
