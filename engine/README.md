@@ -4,6 +4,7 @@
 - rpclib (https://github.com/rpclib/rpclib)
 - boost
 - clang++ 10
+- docker
 
 2. Running the application
 

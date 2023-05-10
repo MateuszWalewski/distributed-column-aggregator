@@ -35,6 +35,7 @@ TEST( ColumEngineTests, SumX2Tests )
     col.AddElement( std::make_any<int>( 4876 ) );
     col.AddElement( std::make_any<int>( 721 ) );
     col.AddElement( std::make_any<int>( 453 ) );
+    col.AddElement( std::make_any<int>( 453324 ) );
 
-    EXPECT_DOUBLE_EQ( col.SumX2(), static_cast<double>( 55922991 ) );
+    EXPECT_DOUBLE_EQ( col.SumX2(), static_cast<double>( 205558571967 ) );
 }

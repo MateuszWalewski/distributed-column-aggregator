@@ -10,6 +10,8 @@ services:
     environment:
         CONN_CONF: "node1 8081 node2 8082 node3 8083 node4 8084 node5 8085 node6 8086 node7 8087 node8 8088"
     command: "tail -f /dev/null"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node1:
     image: minidb_1.0
@@ -19,6 +21,8 @@ services:
     environment:
         NODE1_IP: "8081"
     command: "./setup_scripts/init_node1.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node2:
     image: minidb_1.0
@@ -28,6 +32,8 @@ services:
     environment:
         NODE2_IP: "8082"
     command: "./setup_scripts/init_node2.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node3:
     image: minidb_1.0
@@ -37,6 +43,8 @@ services:
     environment:
         NODE3_IP: "8083"
     command: "./setup_scripts/init_node3.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node4:
     image: minidb_1.0
@@ -46,6 +54,8 @@ services:
     environment:
         NODE4_IP: "8084"
     command: "./setup_scripts/init_node4.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node5:
     image: minidb_1.0
@@ -55,6 +65,8 @@ services:
     environment:
         NODE5_IP: "8085"
     command: "./setup_scripts/init_node5.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node6:
     image: minidb_1.0
@@ -64,6 +76,8 @@ services:
     environment:
         NODE6_IP: "8086"
     command: "./setup_scripts/init_node6.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node7:
     image: minidb_1.0
@@ -73,6 +87,8 @@ services:
     environment:
         NODE7_IP: "8087"
     command: "./setup_scripts/init_node7.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node8:
     image: minidb_1.0
@@ -82,4 +98,6 @@ services:
     environment:
         NODE8_IP: "8088"
     command: "./setup_scripts/init_node8.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 

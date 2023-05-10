@@ -2,6 +2,7 @@
 #include <Tools/Utility.h>
 
 #include <algorithm>
+#include <execution>
 #include <numeric>
 
 template class ColumnNodeImpl<double>;
@@ -42,7 +43,7 @@ template <typename T>
 double ColumnNodeImpl<T>::SumX2()
 {
     // probably should be normalized to multiplicity to avoid overflow for big numbers
-    return std::transform_reduce( data.cbegin(), data.cend(), static_cast<double>( 0 ), std::plus{},
+    return std::transform_reduce( std::execution::par, data.cbegin(), data.cend(), static_cast<double>( 0 ), std::plus{},
                                   [&]( auto val ) { return static_cast<double>( val ) * val / data.size(); } ) *
            data.size();
 }
