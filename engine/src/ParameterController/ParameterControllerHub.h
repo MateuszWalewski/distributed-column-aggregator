@@ -14,9 +14,11 @@ public:
     // check the form of returning value. Is it clean? Maybe method should be const?
     std::vector<std::string> GetNodesIPs();
     std::vector<std::string> GetNodesPorts();
+    std::vector<uint> GetNodesTCPPorts();
     size_t GetNumberOfNodes();
 
 private:
     std::vector<std::string> mNodesIPs;
     std::vector<std::string> mNodesPorts;
+    std::vector<uint> mNodesTCPPorts;
 };

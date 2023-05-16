@@ -2,6 +2,7 @@
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterControllerNode/ParameterControllerNode.h>
+#include <TCPChannel/SessionNode.h>
 #include <rpc/server.h>
 
 void LoadDependencies( char* argv[] )
@@ -11,6 +12,7 @@ void LoadDependencies( char* argv[] )
     pCInstance.LoadNodeConnectionInfo( argv );
     pCInstance.PrintNodeConnectionInfo();
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto& SessionInstance = Loki::SingletonHolder<SessionNode>::Instance();
 
     RPCInstance.SetRPCServerInfo(
         std::make_shared<rpc::server>( pCInstance.GetNodeIP(), std::stoi( pCInstance.GetNodePort() ) ) );
@@ -44,6 +46,7 @@ void LoadDependencies( char* argv[] )
     rpcServer->bind( "SumX2f", &calcs::SumX2<float> );
     rpcServer->bind( "Countf", &calcs::Count<float> );
 
+    SessionInstance.Connect();
     RPCInstance.RunServer();
 }
 

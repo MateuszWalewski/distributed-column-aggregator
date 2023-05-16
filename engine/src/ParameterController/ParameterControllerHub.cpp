@@ -9,6 +9,7 @@ void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> con
         mNodesIPs.push_back( connInfo[2 * i] );
         // add checker/assert
         mNodesPorts.push_back( connInfo[2 * i + 1] );
+        mNodesTCPPorts.push_back( std::stoi( connInfo[2 * i + 1] ) + 100 );
     }
 }
 
@@ -26,6 +27,11 @@ std::vector<std::string> ParameterControllerHub::GetNodesIPs()
 std::vector<std::string> ParameterControllerHub::GetNodesPorts()
 {
     return mNodesPorts;
+}
+
+std::vector<uint> ParameterControllerHub::GetNodesTCPPorts()
+{
+    return mNodesTCPPorts;
 }
 
 size_t ParameterControllerHub::GetNumberOfNodes()

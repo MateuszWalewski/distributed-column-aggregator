@@ -11,10 +11,9 @@ class Session : public std::enable_shared_from_this<Session>
 {
 public:
     Session( tcp::socket socket );
-
-private:
     void Read( std::vector<char>& data );
 
+private:
     tcp::socket socket_;
     int max_len = 19;
     std::vector<char> container1;

@@ -7,7 +7,7 @@ using ip::tcp;
 class SessionNode
 {
 public:
-    SessionNode( boost::asio::io_service io_service );
+    SessionNode();
     void Connect();
     void Send();
 
