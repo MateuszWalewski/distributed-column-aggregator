@@ -15,6 +15,7 @@ public:
     virtual double MomentII() = 0;
     virtual double Stddev() = 0;
     virtual int Count() = 0;
+    virtual int Fetch() = 0;
 
     virtual ~IColumn(){};
 };

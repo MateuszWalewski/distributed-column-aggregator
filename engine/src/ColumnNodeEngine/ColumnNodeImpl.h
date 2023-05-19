@@ -19,6 +19,7 @@ public:
     std::any Sum() override;
     double SumX2() override;
     int Count() override;
+    int SendDataToHub() override;
 
 private:
     std::vector<T> data;

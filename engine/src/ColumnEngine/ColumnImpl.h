@@ -22,11 +22,13 @@ public:
     double MomentII() override;
     double Stddev() override;
     int Count() override;
+    int Fetch() override;
 
 private:
     std::string colId;
     std::string typeName;
     std::vector<T> result;
+    std::vector<T> data;
     std::string GenerateUniqueColumnId() const;
     static size_t instanceId;
 };

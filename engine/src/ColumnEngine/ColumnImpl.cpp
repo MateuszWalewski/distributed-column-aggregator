@@ -3,6 +3,7 @@
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterController/ParameterControllerHub.h>
+#include <TCPChannel/TCPServer.h>
 #include <Tools/Utility.h>
 
 #include <cmath>
@@ -84,6 +85,17 @@ int ColumnImpl<T>::Count()
 {
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = RPCInstance.CallRPCMethod<T>( "Count" + typeName, colId );
+    return std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
+}
+
+template <typename T>
+int ColumnImpl<T>::Fetch()
+{
+    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto& TCPServerInstance = Loki::SingletonHolder<TCPServer>::Instance();
+    auto results = RPCInstance.CallRPCMethodSizes<T>( "Fetch" + typeName, colId );
+    TCPServerInstance.Read( data, results );
+
     return std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
 }
 

@@ -12,6 +12,7 @@ public:
     virtual std::any Sum() = 0;
     virtual double SumX2() = 0;
     virtual int Count() = 0;
+    virtual int SendDataToHub() = 0;
 
     virtual ~IColumnNode(){};
 };

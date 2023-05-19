@@ -8,9 +8,11 @@ class SessionNode
 {
 public:
     SessionNode();
-    void Connect();
-    void Send();
+
+    template <typename T>
+    void Send( std::vector<T>& data );
 
 private:
+    void Connect();
     std::shared_ptr<tcp::socket> socket_;
 };

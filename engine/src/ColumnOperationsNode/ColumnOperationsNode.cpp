@@ -17,6 +17,10 @@ template void AddElement<int>( const std::string& id, const int elem );
 template void AddElement<double>( const std::string& id, const double elem );
 template void AddElement<float>( const std::string& id, const float elem );
 
+template int Fetch<int>( const std::string& id );
+template int Fetch<double>( const std::string& id );
+template int Fetch<float>( const std::string& id );
+
 template void PrintColumn<int>( const std::string& id );
 template void PrintColumn<double>( const std::string& id );
 template void PrintColumn<float>( const std::string& id );
@@ -63,6 +67,14 @@ void LoadCsvData( size_t begin, size_t end, const std::string& dataPath, const s
     auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
     auto& map = cSInstance.GetColumnStorage<T>();
     map[id]->LoadData( dataPath, begin, end );
+}
+
+template <typename T>
+int Fetch( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Fetch();
 }
 
 } // namespace calcs

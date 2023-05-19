@@ -18,6 +18,9 @@ template <typename T>
 void AddElement( const std::string& id, const T elem );
 
 template <typename T>
+int Fetch( const std::string& id );
+
+template <typename T>
 void PrintColumn( const std::string& id );
 
 template <typename T>

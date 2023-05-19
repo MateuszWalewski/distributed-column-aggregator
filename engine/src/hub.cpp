@@ -37,7 +37,7 @@ void LoadDependencies( std::string connectionDetails )
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     RPCInstance.SetRPCClientInfo( rpcClientHandlers );
     auto& TCPServerInstance = Loki::SingletonHolder<TCPServer>::Instance();
-    TCPServerInstance.DoAccept();
+    // TCPServerInstance.DoAccept();
 }
 
 BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDependenciesP, LoadDependencies, 1, 1 )

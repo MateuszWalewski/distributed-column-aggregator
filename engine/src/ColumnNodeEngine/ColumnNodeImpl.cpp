@@ -1,4 +1,6 @@
 #include "ColumnNodeImpl.h"
+#include <Loki/Singleton.h>
+#include <TCPChannel/SessionNode.h>
 #include <Tools/Utility.h>
 
 #include <algorithm>
@@ -54,4 +56,12 @@ void ColumnNodeImpl<T>::AddElement( const std::any element )
     auto elem = std::any_cast<T>( element );
     data.push_back( std::any_cast<T>( elem ) );
     std::cout << "Element: " << std::to_string( elem ) << " added to node." << std::endl;
+}
+
+template <typename T>
+int ColumnNodeImpl<T>::SendDataToHub()
+{
+    auto& pCInstance = Loki::SingletonHolder<SessionNode>::Instance();
+    pCInstance.Send( data );
+    return data.size();
 }

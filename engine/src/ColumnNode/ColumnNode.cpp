@@ -60,3 +60,9 @@ void ColumnNode<T>::AddElement( const T element )
 {
     columnNodeEngine->AddElement( std::make_any<T>( element ) );
 }
+
+template <typename T>
+int ColumnNode<T>::Fetch()
+{
+    return columnNodeEngine->SendDataToHub();
+}

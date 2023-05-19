@@ -27,6 +27,20 @@ public:
         return results;
     }
 
+    template <typename T, typename... Args>
+    std::vector<int> CallRPCMethodSizes( const std::string& methodName, Args... args )
+    {
+        std::vector<int> results;
+        for ( auto& rpcClient : mRPCClientHandlers )
+        {
+            // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
+            // Promoted types should be included
+            results.push_back( rpcClient->call( methodName, args... ).template as<T>() );
+        }
+
+        return results;
+    }
+
     template <typename... Args>
     void CallRPCMethod( const std::string& methodName, Args... args )
     {
