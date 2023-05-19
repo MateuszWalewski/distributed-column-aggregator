@@ -55,6 +55,12 @@ int Column<T>::Count()
 }
 
 template <typename T>
+int Column<T>::Fetch()
+{
+    return columnEngine->Fetch();
+}
+
+template <typename T>
 double Column<T>::MomentI()
 {
     return columnEngine->MomentI();

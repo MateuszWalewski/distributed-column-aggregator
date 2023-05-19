@@ -16,28 +16,31 @@ template void SessionNode::Send<int>( std::vector<int>& data );
 
 SessionNode::SessionNode()
 {
-    boost::asio::io_service io_service;
-    socket_ = std::make_shared<tcp::socket>( io_service );
 }
 
 void SessionNode::Connect()
 {
-    // take port param from paramController
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
-    std::cout << "Connected on port: " << std::to_string( pCInstance.GetNodeTCPPort() ) << std::endl;
-    socket_->connect( tcp::endpoint( boost::asio::ip::address::from_string( "127.0.0.1" ), pCInstance.GetNodeTCPPort() ) );
 }
 
 // make it template according to data type to be send
 template <typename T>
 void SessionNode::Send( std::vector<T>& data )
 {
-    Connect();
+    boost::asio::io_service io_service;
+    tcp::socket socket_( io_service );
+
+    // take port param from paramController
+    auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
+    std::cout << "Trying to connect on port: " << std::to_string( pCInstance.GetNodeTCPPort() ) << std::endl;
+    socket_.connect( tcp::endpoint( boost::asio::ip::address::from_string( "127.0.0.1" ), pCInstance.GetNodeTCPPort() ) );
+    std::cout << "Connected on port: " << std::to_string( pCInstance.GetNodeTCPPort() ) << std::endl;
+
+    // Connect();
     boost::system::error_code error;
     //  change to data from container
-    boost::asio::write( *socket_, boost::asio::buffer( data ), error );
+    boost::asio::write( socket_, boost::asio::buffer( data ), error );
     if ( !error )
     {
-        // cout << "Client sent hello message!" << endl;
+        std::cout << "Client sent sucessfully!" << std::endl;
     }
 }

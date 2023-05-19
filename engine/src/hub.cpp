@@ -37,7 +37,10 @@ void LoadDependencies( std::string connectionDetails )
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     RPCInstance.SetRPCClientInfo( rpcClientHandlers );
     auto& TCPServerInstance = Loki::SingletonHolder<TCPServer>::Instance();
-    // TCPServerInstance.DoAccept();
+
+    std::thread t( &TCPServer::DoAccept, TCPServerInstance );
+    t.detach();
+    // std::thread(&TCPServer::DoAccept);
 }
 
 BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDependenciesP, LoadDependencies, 1, 1 )
@@ -53,6 +56,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "AddElement", &Column<double>::AddElement )
         .def( "Sum", &Column<double>::Sum )
         .def( "Count", &Column<double>::Count )
+        .def( "Fetch", &Column<double>::Fetch )
         .def( "MomentI", &Column<double>::MomentI )
         .def( "MomentII", &Column<double>::MomentII )
         .def( "Stddev", &Column<double>::Stddev );
@@ -63,6 +67,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "AddElement", &Column<float>::AddElement )
         .def( "Sum", &Column<float>::Sum )
         .def( "Count", &Column<float>::Count )
+        .def( "Fetch", &Column<float>::Fetch )
         .def( "MomentI", &Column<float>::MomentI )
         .def( "MomentII", &Column<float>::MomentII )
         .def( "Stddev", &Column<float>::Stddev );
@@ -73,6 +78,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "AddElement", &Column<int>::AddElement )
         .def( "Sum", &Column<int>::Sum )
         .def( "Count", &Column<int>::Count )
+        .def( "Fetch", &Column<int>::Fetch )
         .def( "MomentI", &Column<int>::MomentI )
         .def( "MomentII", &Column<int>::MomentII )
         .def( "Stddev", &Column<int>::Stddev );

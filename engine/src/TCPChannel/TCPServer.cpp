@@ -38,6 +38,7 @@ TCPServer::TCPServer()
         auto port = pCInstance.GetNodesTCPPorts()[i];
         context[i] = std::make_shared<boost::asio::io_context>();
         acceptor_[i] = std::make_shared<tcp::acceptor>( *context[i], tcp::endpoint( tcp::v4(), port ) );
+        std::cout << "Accepting on port:" << port << std::endl;
     }
 }
 

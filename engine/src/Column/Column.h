@@ -18,6 +18,7 @@ public:
     void LoadData( const std::string& dataFilePath );
     T Sum();
     int Count();
+    int Fetch();
     double MomentI();
     double MomentII();
     double Stddev();
