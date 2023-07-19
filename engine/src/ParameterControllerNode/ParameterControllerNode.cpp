@@ -7,7 +7,7 @@ void ParameterControllerNode::LoadNodeConnectionInfo( char* args[] )
 {
     // add checker/assert
     mNodePort = std::string( args[1] );
-    mNodeTCPPort = std::stoi( args[1] ) + 100;
+    mNodeTCPPort = std::stoi( args[1] ) + 27;
 }
 
 void ParameterControllerNode::PrintNodeConnectionInfo()

@@ -9,7 +9,8 @@ void ParameterControllerHub::LoadHubConnectionInfo( std::vector<std::string> con
         mNodesIPs.push_back( connInfo[2 * i] );
         // add checker/assert
         mNodesPorts.push_back( connInfo[2 * i + 1] );
-        mNodesTCPPorts.push_back( std::stoi( connInfo[2 * i + 1] ) + 100 );
+        ///TODO: take TCP port value from ENV param instead of hardcoded one
+        mNodesTCPPorts.push_back( std::stoi( connInfo[2 * i + 1] ) + 27 );
     }
 }
 

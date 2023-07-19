@@ -37,6 +37,12 @@ void Column<T>::AddElement( const size_t nodeNumber, const T element )
 }
 
 template <typename T>
+T Column<T>::GetElement( size_t index )
+{
+    return std::any_cast<T>( columnEngine->GetElement( index ) );
+}
+
+template <typename T>
 void Column<T>::LoadData( const std::string& dataFilePath )
 {
     columnEngine->LoadDataToNode( dataFilePath );

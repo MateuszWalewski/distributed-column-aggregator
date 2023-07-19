@@ -1,6 +1,6 @@
 #include "ColumnNodeImpl.h"
 #include <Loki/Singleton.h>
-#include <TCPChannel/SessionNode.h>
+#include <TCPChannel/TCPClient.h>
 #include <Tools/Utility.h>
 
 #include <algorithm>
@@ -61,7 +61,8 @@ void ColumnNodeImpl<T>::AddElement( const std::any element )
 template <typename T>
 int ColumnNodeImpl<T>::SendDataToHub()
 {
-    auto& pCInstance = Loki::SingletonHolder<SessionNode>::Instance();
-    pCInstance.Send( data );
+    boost::asio::io_context io_context;
+    TCPClient tcpClient( io_context );
+    tcpClient.Send( data );
     return data.size();
 }

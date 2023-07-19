@@ -14,6 +14,7 @@ public:
     void CreateColumnOnNode( const std::string& id );
     void DeleteColumnOnNode();
     void AddElement( const size_t nodeNumber, const T element );
+    T GetElement( size_t index );
     void Print();
     void LoadData( const std::string& dataFilePath );
     T Sum();

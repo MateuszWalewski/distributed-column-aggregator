@@ -1,5 +1,4 @@
 
-#include "Session.h"
 #include <Loki/Singleton.h>
 #include <ParameterController/ParameterControllerHub.h>
 
@@ -15,16 +14,27 @@ using boost::asio::ip::tcp;
 class TCPServer
 {
 public:
-    TCPServer();
+    TCPServer( boost::asio::io_context& io_context );
 
-    void DoAccept();
-    // make this class template and this vector according to data type to be send
+    void Accept();
 
     template <typename T>
+    /// TODO: Change type of dataSize from int to long long when it is appropriate
     void Read( std::vector<T>& data, std::vector<int>& dataSize );
 
+    class Session
+    {
+    public:
+        Session( std::shared_ptr<tcp::socket> socket );
+
+        template <typename T>
+        void FetchDataFromPeer( std::vector<T>& data, int dataSize, int offset );
+
+    private:
+        std::shared_ptr<tcp::socket> socket_;
+    };
+
 private:
-    std::vector<std::shared_ptr<tcp::acceptor>> acceptor_;
+    std::vector<tcp::acceptor> acceptor_;
     std::vector<std::shared_ptr<Session>> session;
-    std::vector<std::shared_ptr<boost::asio::io_context>> context;
 };

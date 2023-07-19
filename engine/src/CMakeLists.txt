@@ -33,7 +33,7 @@ ADD_SUBDIRECTORY(Loki)
 add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ParameterController Networking DataColumn TCPChannel ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) 
+target_link_libraries(interpreter PUBLIC ParameterController Networking DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 

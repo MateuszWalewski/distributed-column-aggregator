@@ -10,7 +10,7 @@
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterController/ParameterControllerHub.h>
-#include <TCPChannel/TCPServer.h>
+//#include <TCPChannel/TCPServer.h>
 #include <Tools/Utility.h>
 
 #include <rpc/client.h>
@@ -36,11 +36,7 @@ void LoadDependencies( std::string connectionDetails )
 
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     RPCInstance.SetRPCClientInfo( rpcClientHandlers );
-    auto& TCPServerInstance = Loki::SingletonHolder<TCPServer>::Instance();
-
-    std::thread t( &TCPServer::DoAccept, TCPServerInstance );
-    t.detach();
-    // std::thread(&TCPServer::DoAccept);
+    // TCPServer tcpServer;
 }
 
 BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDependenciesP, LoadDependencies, 1, 1 )
@@ -54,6 +50,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Print", &Column<double>::Print )
         .def( "LoadData", &Column<double>::LoadData )
         .def( "AddElement", &Column<double>::AddElement )
+        .def( "GetElement", &Column<double>::GetElement )
         .def( "Sum", &Column<double>::Sum )
         .def( "Count", &Column<double>::Count )
         .def( "Fetch", &Column<double>::Fetch )
@@ -65,6 +62,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Print", &Column<float>::Print )
         .def( "LoadData", &Column<float>::LoadData )
         .def( "AddElement", &Column<float>::AddElement )
+        .def( "GetElement", &Column<float>::GetElement )
         .def( "Sum", &Column<float>::Sum )
         .def( "Count", &Column<float>::Count )
         .def( "Fetch", &Column<float>::Fetch )
@@ -76,6 +74,7 @@ BOOST_PYTHON_MODULE( interpreter )
         .def( "Print", &Column<int>::Print )
         .def( "LoadData", &Column<int>::LoadData )
         .def( "AddElement", &Column<int>::AddElement )
+        .def( "GetElement", &Column<int>::GetElement )
         .def( "Sum", &Column<int>::Sum )
         .def( "Count", &Column<int>::Count )
         .def( "Fetch", &Column<int>::Fetch )

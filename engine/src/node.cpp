@@ -2,7 +2,7 @@
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterControllerNode/ParameterControllerNode.h>
-#include <TCPChannel/SessionNode.h>
+#include <TCPChannel/TCPClient.h>
 #include <rpc/server.h>
 
 void LoadDependencies( char* argv[] )

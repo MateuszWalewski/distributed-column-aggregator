@@ -1,4 +1,4 @@
-set(SOURCE_FILES TCPServer.cpp Session.cpp TCPClient.cpp SessionNode.cpp)
+set(SOURCE_FILES TCPServer.cpp TCPClient.cpp TCPClient.cpp)
 add_library(TCPChannel STATIC ${SOURCE_FILES})
 
 

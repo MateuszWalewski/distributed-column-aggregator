@@ -28,7 +28,7 @@ Enable view from nodes in the separate windows:
 Run into simple example:
 
 a = DoubleColumn()
-a.LoadData("data3.csv")
+a.LoadData("data4.csv")
 a.Print()
 print(a.Sum())
 a = None

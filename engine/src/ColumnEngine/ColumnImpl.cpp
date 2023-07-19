@@ -64,6 +64,17 @@ void ColumnImpl<T>::AddElement( const size_t nodeNumber, const std::any element 
 }
 
 template <typename T>
+std::any ColumnImpl<T>::GetElement( size_t index )
+{
+    assert( index >= 0 && index + 1 <= data.size() );
+    if ( data.size() == 0 )
+    {
+        return std::make_any<T>( 0 );
+    }
+    return data[index];
+}
+
+template <typename T>
 void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
@@ -92,11 +103,16 @@ template <typename T>
 int ColumnImpl<T>::Fetch()
 {
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto& TCPServerInstance = Loki::SingletonHolder<TCPServer>::Instance();
+    boost::asio::io_context io_context;
+    TCPServer tcpServer( io_context );
+    auto as = std::async( std::launch::async, &TCPServer::Accept, &tcpServer );
     auto results = RPCInstance.CallRPCMethodSizes<T>( "Fetch" + typeName, colId );
-    TCPServerInstance.Read( data, results );
+    as.get();
+    auto dataSize = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
+    data.resize( dataSize );
+    tcpServer.Read( data, results );
 
-    return std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
+    return dataSize;
 }
 
 template <typename T>
