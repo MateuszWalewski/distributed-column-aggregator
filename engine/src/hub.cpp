@@ -10,7 +10,6 @@
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterController/ParameterControllerHub.h>
-//#include <TCPChannel/TCPServer.h>
 #include <Tools/Utility.h>
 
 #include <rpc/client.h>
@@ -19,32 +18,36 @@
 
 using RPCClientHandlers = std::vector<std::shared_ptr<rpc::client>>;
 
-void LoadDependencies( std::string connectionDetails )
+void InitialiseDB()
 {
+    auto rpcConnectionInfo = util::SplitStringToVector( std::getenv( "RPC_CONNECTIONS" ) );
+    auto tcpConnectionInfo = util::SplitStringToVector( std::getenv( "TCP_CONNECTIONS" ) );
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    pCInstance.LoadHubConnectionInfo( util::SplitStringToVector( connectionDetails ) );
+    pCInstance.LoadHubConnectionInfo( rpcConnectionInfo, tcpConnectionInfo );
     pCInstance.PrintHubConnectionInfo();
 
     RPCClientHandlers rpcClientHandlers;
-    rpcClientHandlers.resize( pCInstance.GetNodesPorts().size() );
+    auto serverInfo = pCInstance.GetServerInfo();
 
-    for ( size_t i = 0; i < rpcClientHandlers.size(); i++ )
+    for ( const auto& info : serverInfo )
     {
-        rpcClientHandlers[i] =
-            std::make_shared<rpc::client>( pCInstance.GetNodesIPs()[i], std::stoi( pCInstance.GetNodesPorts()[i] ) );
+        std::istringstream iss( info );
+        std::string ipAddress, port;
+
+        std::getline( iss, ipAddress, ':' );
+        std::getline( iss, port );
+
+        rpcClientHandlers.push_back( std::make_shared<rpc::client>( ipAddress, std::stoi( port ) ) );
     }
 
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
     RPCInstance.SetRPCClientInfo( rpcClientHandlers );
-    // TCPServer tcpServer;
 }
-
-BOOST_PYTHON_FUNCTION_OVERLOADS( LoadDependenciesP, LoadDependencies, 1, 1 )
 
 BOOST_PYTHON_MODULE( interpreter )
 {
     using namespace boost::python;
-    def( "LoadDependencies", &LoadDependencies, LoadDependenciesP( args( "args" ) ) );
+    def( "InitialiseDB", &InitialiseDB );
 
     class_<Column<double>>( "DoubleColumn" )
         .def( "Print", &Column<double>::Print )

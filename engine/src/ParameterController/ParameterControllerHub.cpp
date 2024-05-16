@@ -1,39 +1,37 @@
 #include "ParameterControllerHub.h"
 #include <Tools/Utility.h>
+#include <sstream>
 
-void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::string>& connectionInfo )
+void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::string>& rpcConnectionInfo,
+                                                    const std::vector<std::string>& tcpConnectionInfo )
 {
-    for ( int i = 0; i < static_cast<int>( connectionInfo.size() ) / 2; i++ )
+    for ( const auto& info : rpcConnectionInfo )
     {
-        mNodesIPs.push_back( connectionInfo[2 * i] );
-        mNodesPorts.push_back( connectionInfo[2 * i + 1] );
-        /// TODO: take TCP port value from ENV param instead of hardcoded one
-        mNodesTCPPorts.push_back( std::stoi( connectionInfo[2 * i + 1] ) + 27 );
+        mServerInfo.push_back( info );
+    }
+
+    for ( const auto& info : tcpConnectionInfo )
+    {
+        mTCPPorts.push_back( std::stoi( info ) );
     }
 }
 
 void ParameterControllerHub::PrintHubConnectionInfo()
 {
-    util::PrintVector( mNodesIPs, "mNodesIPs" );
-    util::PrintVector( mNodesPorts, "mNodesPorts" );
+    util::PrintVector( mServerInfo, "ServerInfo: " );
 }
 
-const std::vector<std::string>& ParameterControllerHub::GetNodesIPs() const
+const std::vector<std::string>& ParameterControllerHub::GetServerInfo() const
 {
-    return mNodesIPs;
-}
-
-const std::vector<std::string>& ParameterControllerHub::GetNodesPorts() const
-{
-    return mNodesPorts;
+    return mServerInfo;
 }
 
 const std::vector<uint>& ParameterControllerHub::GetNodesTCPPorts() const
 {
-    return mNodesTCPPorts;
+    return mTCPPorts;
 }
 
 size_t ParameterControllerHub::GetNumberOfNodes()
 {
-    return mNodesPorts.size();
+    return mServerInfo.size();
 }

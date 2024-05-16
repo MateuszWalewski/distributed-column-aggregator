@@ -5,7 +5,8 @@ services:
     networks: 
       - default
     environment:
-        CONN_CONF: "node1 8081 node2 8082 192.168.1.17 8083 192.168.1.17 8084"
+      RPC_CONNECTIONS: "node1:8081 node2:8082 192.168.1.17:8083 192.168.1.17:8084"
+      TCP_CONNECTIONS: "8108 8109 8110 8111"
     command: "tail -f /dev/null"
 
   node1:
