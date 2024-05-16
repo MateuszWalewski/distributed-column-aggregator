@@ -1,15 +1,14 @@
-version: '3.9'
-
 services:
-
   hub:
     image: minidb_1.0
     container_name: hub
     networks: 
       - default
     environment:
-        CONN_CONF: "node1 8081 node2 8082 192.168.1.33 8083 192.168.1.33 8084"
+        CONN_CONF: "node1 8081 node2 8082"
     command: "tail -f /dev/null"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node1:
     image: minidb_1.0
@@ -19,6 +18,8 @@ services:
     environment:
         NODE1_IP: "8081"
     command: "./setup_scripts/init_node1.sh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node2:
     image: minidb_1.0
@@ -28,6 +29,7 @@ services:
     environment:
         NODE2_IP: "8082"
     command: "./setup_scripts/init_node2.sh"
-
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   
 
