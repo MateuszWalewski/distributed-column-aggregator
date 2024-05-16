@@ -22,8 +22,8 @@ TCPClient::TCPClient( boost::asio::io_context& io_context ) : resolver( io_conte
 void TCPClient::Connect()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
-    /// TODO: take the host name from ENV instead of hardcoded value
-    boost::asio::ip::tcp::resolver::query query( "hub", std::to_string( pCInstance.GetNodeTCPPort() ) );
+    const char* hubAddr = std::getenv( "HUB_ADDRESS" );
+    boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetNodeTCPPort() ) );
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve( query );
 
     socket->connect( iter->endpoint() );

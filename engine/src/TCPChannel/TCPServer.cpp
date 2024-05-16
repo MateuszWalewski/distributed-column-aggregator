@@ -35,7 +35,7 @@ void TCPServer::Accept()
     {
         session.push_back( std::make_shared<Session>( std::make_shared<tcp::socket>( acceptor_[i].accept() ) ) );
         std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
-        std::cout << "Session " << i + 1 << " has been established" << '\n';
+        std::cout << "Session " << i + 1 << " has been established" << std::endl;
     }
 }
 

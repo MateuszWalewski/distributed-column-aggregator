@@ -8,6 +8,7 @@ services:
       - default
     environment:
         NODE3_IP: "8083"
+        HUB_ADDRESS: "192.168.1.40"
     ports:
       - 8083:8083
     command: "./setup_scripts/init_node3.sh"
@@ -19,6 +20,7 @@ services:
       - default
     environment:
         NODE4_IP: "8084"
+        HUB_ADDRESS: "192.168.1.40"
     ports:
       - 8084:8084
     command: "./setup_scripts/init_node4.sh"
