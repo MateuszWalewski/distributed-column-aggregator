@@ -1,20 +1,11 @@
-#include <unistd.h>
-
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <typeinfo>
-#include <unistd.h>
-
 #include <Column/Column.h>
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
 #include <ParameterController/ParameterControllerHub.h>
 #include <Tools/Utility.h>
-
-#include <rpc/client.h>
-
 #include <boost/python.hpp>
+#include <rpc/client.h>
+#include <string>
 
 using RPCClientHandlers = std::vector<std::shared_ptr<rpc::client>>;
 

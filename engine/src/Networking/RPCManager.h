@@ -8,20 +8,24 @@
 
 using RPCClientHandlers = std::vector<std::shared_ptr<rpc::client>>;
 using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
+using RPCHandle = std::future<clmdep_msgpack::v1::object_handle>;
 class RPCManager
 {
 public:
     RPCManager() = default;
-
     template <typename T, typename... Args>
     std::vector<T> CallRPCMethod( const std::string& methodName, Args... args )
     {
+        std::vector<RPCHandle> handles;
         std::vector<T> results;
         for ( auto& rpcClient : mRPCClientHandlers )
         {
-            // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
-            // Promoted types should be included
-            results.push_back( rpcClient->call( methodName, args... ).template as<T>() );
+            handles.push_back( rpcClient->async_call( methodName, args... ) );
+        }
+
+        for ( auto& handle : handles )
+        {
+            results.push_back( handle.get().template as<T>() );
         }
 
         return results;
@@ -30,12 +34,16 @@ public:
     template <typename T, typename... Args>
     std::vector<int> CallRPCMethodSizes( const std::string& methodName, Args... args )
     {
+        std::vector<RPCHandle> handles;
         std::vector<int> results;
         for ( auto& rpcClient : mRPCClientHandlers )
         {
-            // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
-            // Promoted types should be included
-            results.push_back( rpcClient->call( methodName, args... ).template as<T>() );
+            handles.push_back( rpcClient->async_call( methodName, args... ) );
+        }
+
+        for ( auto& handle : handles )
+        {
+            results.push_back( handle.get().template as<T>() );
         }
 
         return results;
@@ -44,17 +52,22 @@ public:
     template <typename... Args>
     void CallRPCMethod( const std::string& methodName, Args... args )
     {
+        std::vector<RPCHandle> handles;
         for ( auto& rpcClient : mRPCClientHandlers )
         {
-            // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
-            // Promoted types should be included
-            rpcClient->call( methodName, args... );
+            handles.push_back( rpcClient->async_call( methodName, args... ) );
+        }
+
+        for ( auto& handle : handles )
+        {
+            handle.get();
         }
     }
 
     template <typename... Args>
     void CallRPCMethod( const std::string& methodName, DataLoadRanges ranges, Args... args )
     {
+        std::vector<RPCHandle> handles;
         for ( size_t i = 0; i < mRPCClientHandlers.size(); i++ )
         {
             if ( i >= ranges.size() )
@@ -63,9 +76,12 @@ public:
             size_t begin = ranges[i].first;
             size_t end = ranges[i].second;
 
-            // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
-            // Promoted types should be included
-            mRPCClientHandlers[i]->call( methodName, begin, end, args... );
+            handles.push_back( mRPCClientHandlers[i]->async_call( methodName, begin, end, args... ) );
+        }
+
+        for ( auto& handle : handles )
+        {
+            handle.get();
         }
     }
 
@@ -85,8 +101,6 @@ public:
             return;
         }
         size_t nodeIdx = nodeNumber - 1;
-        // Type promotion is not included here. May cause conversion problems while aggregatting floatig points
-        // Promoted types should be included
         mRPCClientHandlers[nodeIdx]->call( methodName, args... );
     }
 
