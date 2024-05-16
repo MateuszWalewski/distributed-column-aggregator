@@ -32,13 +32,15 @@ std::any ColumnNodeImpl<T>::Sum()
 template <typename T>
 int ColumnNodeImpl<T>::Count()
 {
-    return std::count_if( data.begin(), data.end(), []( T& element ) {
-        // TODO: add proper filter once null type is introduced
-        if ( element )
-        {
-        }
-        return true;
-    } );
+    return std::count_if( data.begin(), data.end(),
+                          []( T& element )
+                          {
+                              // TODO: add proper filter once null type is introduced
+                              if ( element )
+                              {
+                              }
+                              return true;
+                          } );
 }
 
 template <typename T>
@@ -55,7 +57,7 @@ void ColumnNodeImpl<T>::AddElement( const std::any element )
 {
     auto elem = std::any_cast<T>( element );
     data.push_back( std::any_cast<T>( elem ) );
-    std::cout << "Element: " << std::to_string( elem ) << " added to node." << std::endl;
+    std::cout << "Element: " << std::to_string( elem ) << " added to node." << '\n';
 }
 
 template <typename T>

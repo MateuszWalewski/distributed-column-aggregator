@@ -15,14 +15,14 @@ ColumnNode<T>::ColumnNode( const std::string& colName ) : name( colName )
     auto& Instance = Loki::SingletonHolder<FactoryNode>::Instance();
     auto gadgetFactory = Instance.GetWidgetFactory( TypeName<T>::name );
     columnNodeEngine = gadgetFactory->template Create<IColumnNode>();
-    std::cout << name << " created on node" << std::endl;
+    std::cout << name << " created on node" << '\n';
 }
 
 template <typename T>
 ColumnNode<T>::~ColumnNode()
 {
     delete columnNodeEngine;
-    std::cout << name << " destructed on node" << std::endl;
+    std::cout << name << " destructed on node" << '\n';
 }
 
 template <typename T>

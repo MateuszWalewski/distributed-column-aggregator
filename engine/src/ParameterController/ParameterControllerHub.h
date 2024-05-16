@@ -7,14 +7,13 @@ class ParameterControllerHub
 public:
     ParameterControllerHub() = default;
 
-    void LoadHubConnectionInfo( std::vector<std::string> connInfo );
+    void LoadHubConnectionInfo( const std::vector<std::string>& connInfo );
 
     void PrintHubConnectionInfo();
 
-    // check the form of returning value. Is it clean? Maybe method should be const?
-    std::vector<std::string> GetNodesIPs();
-    std::vector<std::string> GetNodesPorts();
-    std::vector<uint> GetNodesTCPPorts();
+    const std::vector<std::string>& GetNodesIPs() const;
+    const std::vector<std::string>& GetNodesPorts() const;
+    const std::vector<uint>& GetNodesTCPPorts() const;
     size_t GetNumberOfNodes();
 
 private:
