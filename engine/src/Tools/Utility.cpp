@@ -10,7 +10,7 @@ template void LoadCsvToDataColumn<float>( const std::string& dataFilePath, const
 template void LoadCsvToDataColumn<double>( const std::string& dataFilePath, const size_t begin, const size_t end,
                                            std::vector<double>& destination );
 
-const std::string DATA_FILE_PATH =  std::string(DATA_PATH) + "/data/";
+const std::string DATA_FILE_PATH = std::string( DATA_PATH ) + "/data/";
 
 DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath, int nOfNodes )
 {
@@ -45,8 +45,8 @@ void LoadCsvToDataColumn( const std::string& dataFilePath, const size_t begin, c
     m.lock();
     std::ifstream myfile( DATA_FILE_PATH + dataFilePath );
 
-    std::cout << "begin = " << begin << std::endl;
-    std::cout << "end = " << end << std::endl;
+    std::cout << "begin = " << begin << '\n';
+    std::cout << "end = " << end << '\n';
 
     try
     {
@@ -56,12 +56,12 @@ void LoadCsvToDataColumn( const std::string& dataFilePath, const size_t begin, c
         }
         else
         {
-            std::cout << "File opened!!" << std::endl;
+            std::cout << "File opened!!" << '\n';
         }
     }
     catch ( ... )
     {
-        std::cout << "PRoblem with file" << std::endl;
+        std::cout << "PRoblem with file" << '\n';
     }
 
     size_t count = 0;

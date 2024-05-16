@@ -14,12 +14,14 @@ using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
 namespace util
 {
 template <typename T>
-void PrintVector( std::vector<T> container, const std::string& label )
+void PrintVector( const std::vector<T>& container, const std::string& label )
 {
     for ( auto& x : container )
     {
-        std::cout << label << ": " << x << std::endl;
+        std::cout << label << ": " << x << '\n';
     }
+
+    std::cout << std::endl;
 }
 DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath, int nOfNodes );
 

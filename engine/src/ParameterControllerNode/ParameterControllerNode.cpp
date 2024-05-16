@@ -12,7 +12,7 @@ void ParameterControllerNode::LoadNodeConnectionInfo( char* args[] )
 
 void ParameterControllerNode::PrintNodeConnectionInfo()
 {
-    std::cout << "mNodePort: " << mNodePort << std::endl;
+    std::cout << "mNodePort: " << mNodePort << '\n';
 }
 
 // make it constexpr or sth?

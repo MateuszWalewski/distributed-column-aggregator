@@ -17,6 +17,7 @@ services:
       - default
     environment:
         NODE1_IP: "8081"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node1.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -28,6 +29,7 @@ services:
       - default
     environment:
         NODE2_IP: "8082"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node2.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -39,6 +41,7 @@ services:
       - default
     environment:
         NODE3_IP: "8083"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node3.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -50,6 +53,7 @@ services:
       - default
     environment:
         NODE4_IP: "8084"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node4.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -61,6 +65,7 @@ services:
       - default
     environment:
         NODE5_IP: "8085"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node5.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -72,6 +77,7 @@ services:
       - default
     environment:
         NODE6_IP: "8086"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node6.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -83,6 +89,7 @@ services:
       - default
     environment:
         NODE7_IP: "8087"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node7.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -94,6 +101,7 @@ services:
       - default
     environment:
         NODE8_IP: "8088"
+        HUB_ADDRESS: "hub"
     command: "./setup_scripts/init_node8.sh"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

@@ -79,7 +79,8 @@ void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, (int) pCInstance.GetNumberOfNodes() );
+    int nOfNodes = pCInstance.GetNumberOfNodes();
+    auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, nOfNodes );
     RPCInstance.CallRPCMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
 }
 
