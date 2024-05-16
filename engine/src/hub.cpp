@@ -7,8 +7,6 @@
 #include <rpc/client.h>
 #include <string>
 
-using RPCClientHandlers = std::vector<std::shared_ptr<rpc::client>>;
-
 void InitialiseDB()
 {
     auto rpcConnectionInfo = util::SplitStringToVector( std::getenv( "RPC_CONNECTIONS" ) );
@@ -27,12 +25,11 @@ void InitialiseDB()
 
         std::getline( iss, ipAddress, ':' );
         std::getline( iss, port );
-
-        rpcClientHandlers.push_back( std::make_shared<rpc::client>( ipAddress, std::stoi( port ) ) );
+        rpcClientHandlers.push_back( std::make_unique<rpc::client>( ipAddress, std::stoi( port ) ) );
     }
 
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RPCInstance.SetRPCClientInfo( rpcClientHandlers );
+    RPCInstance.SetRPCClientInfo( move( rpcClientHandlers ) );
 }
 
 BOOST_PYTHON_MODULE( interpreter )

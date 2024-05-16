@@ -6,7 +6,7 @@
 #include "rpc/client.h"
 #include "rpc/server.h"
 
-using RPCClientHandlers = std::vector<std::shared_ptr<rpc::client>>;
+using RPCClientHandlers = std::vector<std::unique_ptr<rpc::client>>;
 using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
 using RPCHandle = std::future<clmdep_msgpack::v1::object_handle>;
 class RPCManager
@@ -107,7 +107,7 @@ public:
     void RunServer();
 
     std::shared_ptr<rpc::server> GetRPCServer();
-    void SetRPCClientInfo( RPCClientHandlers rpcClientHandlers );
+    void SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers );
     void SetRPCServerInfo( std::shared_ptr<rpc::server> rpcServerHandler );
 
 private:

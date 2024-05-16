@@ -18,7 +18,7 @@ void RPCManager::SetRPCServerInfo( std::shared_ptr<rpc::server> rpcServerHandler
     mRPCServerHandler = move( rpcServerHandler );
 }
 
-void RPCManager::SetRPCClientInfo( RPCClientHandlers rpcClientHandlers )
+void RPCManager::SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers )
 {
     mRPCClientHandlers = move( rpcClientHandlers );
 }
