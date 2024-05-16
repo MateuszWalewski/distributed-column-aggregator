@@ -5,7 +5,8 @@ services:
     networks: 
       - default
     environment:
-        CONN_CONF: "node1 8081 node2 8082 node3 8083 node4 8084 node5 8085 node6 8086 node7 8087 node8 8088"
+      RPC_CONNECTIONS: "node1:8081 node2:8082 node3:8083 node4:8084 node5:8085 node6:8086 node7:8087 node8:8088"
+      TCP_CONNECTIONS: "8108 8109 8110 8111 8112 8113 8114 8115"
     command: "tail -f /dev/null"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
