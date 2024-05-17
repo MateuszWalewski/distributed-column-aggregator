@@ -13,7 +13,6 @@ template void TCPServer::Read<double>( std::vector<double>& data, std::vector<in
 template void TCPServer::Read<float>( std::vector<float>& data, std::vector<int>& dataSize );
 template void TCPServer::Read<int>( std::vector<int>& data, std::vector<int>& dataSize );
 
-// TODO: Add unit tests and pytests!!!!!!!!!!!
 TCPServer::TCPServer( boost::asio::io_context& io_context )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
@@ -23,7 +22,8 @@ TCPServer::TCPServer( boost::asio::io_context& io_context )
         acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
     }
 
-    std::cout << "Server info has been intialized" << '\n';
+    std::cout << "Server info has been intialized" << std::endl;
+    ;
 }
 
 void TCPServer::Accept()
@@ -77,6 +77,6 @@ void TCPServer::Session::FetchDataFromPeer( std::vector<T>& data, int dataSize, 
     }
     catch ( std::exception& e )
     {
-        std::cerr << "Exception in thread: " << e.what() << "\n";
+        std::cerr << "Exception in thread: " << e.what() << std::endl;
     }
 }

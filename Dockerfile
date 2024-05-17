@@ -34,7 +34,6 @@ ADD engine /home/guest1/engine
 ADD benchmarks /home/guest1/benchmarks
 RUN chown -R guest1:guest1 engine
 RUN cd engine && mkdir build && cd build && cmake .. && make -j2 && make install
-ADD docker_setup/setup_scripts /home/guest1/setup_scripts
 
 
 

@@ -2,31 +2,23 @@
 
 #include <iostream>
 
-// maybe could be done better than passing raw char*[] ?
-void ParameterControllerNode::LoadNodeConnectionInfo( char* args[] )
+void ParameterControllerNode::LoadNodeConnectionInfo( const char* rpcPort, const char* tcpPort )
 {
-    // add checker/assert
-    mNodePort = std::string( args[1] );
-    mNodeTCPPort = std::stoi( args[1] ) + 27;
+    mRPCPort = std::stoi( rpcPort );
+    mTCPPort = std::stoi( tcpPort );
 }
 
 void ParameterControllerNode::PrintNodeConnectionInfo()
 {
-    std::cout << "mNodePort: " << mNodePort << '\n';
+    std::cout << "mNodePort: " << mRPCPort << std::endl;
 }
 
-// make it constexpr or sth?
-std::string ParameterControllerNode::GetNodeIP()
+uint ParameterControllerNode::GetRPCPort()
 {
-    return "0.0.0.0";
+    return mRPCPort;
 }
 
-std::string ParameterControllerNode::GetNodePort()
+uint ParameterControllerNode::GetTCPPort()
 {
-    return mNodePort;
-}
-
-uint ParameterControllerNode::GetNodeTCPPort()
-{
-    return mNodeTCPPort;
+    return mTCPPort;
 }

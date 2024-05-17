@@ -8,17 +8,17 @@ void RPCManager::RunServer()
     mRPCServerHandler->run();
 }
 
-std::shared_ptr<rpc::server> RPCManager::GetRPCServer()
+rpc::server* RPCManager::GetRPCServer() const
 {
-    return mRPCServerHandler;
+    return mRPCServerHandler.get();
 }
 
-void RPCManager::SetRPCServerInfo( std::shared_ptr<rpc::server> rpcServerHandler )
+void RPCManager::SetRPCServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler )
 {
     mRPCServerHandler = move( rpcServerHandler );
 }
 
-void RPCManager::SetRPCClientInfo( RPCClientHandlers rpcClientHandlers )
+void RPCManager::SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers )
 {
     mRPCClientHandlers = move( rpcClientHandlers );
 }

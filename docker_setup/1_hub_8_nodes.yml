@@ -17,9 +17,10 @@ services:
     networks: 
       - default
     environment:
-        NODE1_IP: "8081"
+        RPC_PORT: "8081"
+        TCP_PORT: "8108"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node1.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -29,9 +30,10 @@ services:
     networks: 
       - default
     environment:
-        NODE2_IP: "8082"
+        RPC_PORT: "8082"
+        TCP_PORT: "8109"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node2.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -41,9 +43,10 @@ services:
     networks: 
       - default
     environment:
-        NODE3_IP: "8083"
+        RPC_PORT: "8083"
+        TCP_PORT: "8110"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node3.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -53,9 +56,10 @@ services:
     networks: 
       - default
     environment:
-        NODE4_IP: "8084"
+        RPC_PORT: "8084"
+        TCP_PORT: "8111"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node4.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -65,9 +69,10 @@ services:
     networks: 
       - default
     environment:
-        NODE5_IP: "8085"
+        RPC_PORT: "8085"
+        TCP_PORT: "8112"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node5.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -77,9 +82,10 @@ services:
     networks: 
       - default
     environment:
-        NODE6_IP: "8086"
+        RPC_PORT: "8086"
+        TCP_PORT: "8113"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node6.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -89,9 +95,10 @@ services:
     networks: 
       - default
     environment:
-        NODE7_IP: "8087"
+        RPC_PORT: "8087"
+        TCP_PORT: "8114"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node7.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -101,9 +108,10 @@ services:
     networks: 
       - default
     environment:
-        NODE8_IP: "8088"
+        RPC_PORT: "8088"
+        TCP_PORT: "8115"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node8.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

@@ -23,11 +23,11 @@ void TCPClient::Connect()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
     const char* hubAddr = std::getenv( "HUB_ADDRESS" );
-    boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetNodeTCPPort() ) );
+    boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetTCPPort() ) );
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve( query );
 
     socket->connect( iter->endpoint() );
-    std::cout << "Connected on port: " << std::to_string( pCInstance.GetNodeTCPPort() ) << '\n';
+    std::cout << "Connected on port: " << std::to_string( pCInstance.GetTCPPort() ) << std::endl;
 }
 
 template <typename T>
@@ -38,6 +38,6 @@ void TCPClient::Send( std::vector<T>& data )
     boost::asio::write( *socket, boost::asio::buffer( data ), error );
     if ( !error )
     {
-        std::cout << "Client sent sucessfully!" << '\n';
+        std::cout << "Client sent sucessfully!" << std::endl;
     }
 }
