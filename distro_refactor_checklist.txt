@@ -1,28 +1,28 @@
 Column:
 -------
-Column.cpp
-Column.h
+Column.cpp              (+)
+Column.h                (+)
 
 ColumnEngine:
 -----------
 ColumnImpl.cpp
 ColumnImpl.h
-IColumn.h
+IColumn.h               (+)
 
 ColumnNode:
 ----------
-ColumnNode.cpp
-ColumnNode.h
+ColumnNode.cpp			(+)
+ColumnNode.h            (+)
 
 ColumnNodeEngine:
 -----------------
-IColumnNode.h
-ColumnNodeImpl.h
+IColumnNode.h           (+)
+ColumnNodeImpl.h        (+)
 ColumnNodeImpl.cpp
 
 ColumnNodeStorage
 ---------------
-ColumnNodeStorage.h
+ColumnNodeStorage.h     (+)
 
 ColumnOperationsNode:
 -------------------
@@ -46,13 +46,13 @@ RPCManager.h
 
 ParameterController:
 --------------------
-ParameterControllerHub.cpp
-ParameterControllerHub.h
+ParameterControllerHub.cpp      (+)
+ParameterControllerHub.h        (+)
 
 ParameterControllerNode:
 -----------------------
-ParameterControllerNode.cpp
-ParameterControllerNode.h
+ParameterControllerNode.cpp     (+)
+ParameterControllerNode.h       (+)
 
 TCPChannel:
 -----------
@@ -69,8 +69,8 @@ Utility.h
 - Traits.h
 - TraitsCol.h
 - constants.h
-- hub.cpp
-- node.cpp
+- hub.cpp       (+)
+- node.cpp      (+)
 
 
 

@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <typeinfo>
 #include <vector>
 
 #include "IColumnNode.h"
@@ -9,7 +7,6 @@ template <typename T>
 class ColumnNodeImpl : public IColumnNode
 {
 public:
-    // Add rule of 5 -> Scott Meyers!
     ColumnNodeImpl() = default;
     ~ColumnNodeImpl() = default;
     void Print() override;

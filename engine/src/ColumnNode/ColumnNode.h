@@ -1,14 +1,10 @@
 #pragma once
 #include "ColumnNodeEngine/IColumnNode.h"
-#include <iostream>
-#include <typeinfo>
-#include <vector>
 
 template <typename T>
 class ColumnNode
 {
 public:
-    // Add rule of 5 -> Scott Meyers!
     ColumnNode() = default;
     ColumnNode( const std::string& colName );
     ~ColumnNode();
@@ -16,7 +12,6 @@ public:
     void LoadData( const std::string& dataFilePath, const size_t begin, const size_t end );
     void AddElement( const T element );
     int Fetch();
-
     T Sum();
     double SumX2();
     int Count();

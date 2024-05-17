@@ -5,7 +5,6 @@
 class IColumnNode
 {
 public:
-    // Add rule of 5 -> Scott Meyers!
     virtual void Print() = 0;
     virtual void LoadData( const std::string& dataFilePath, const size_t begin, const size_t end ) = 0;
     virtual void AddElement( const std::any element ) = 0;
