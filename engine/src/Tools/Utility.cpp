@@ -45,23 +45,17 @@ void LoadCsvToDataColumn( const std::string& dataFilePath, const size_t begin, c
     m.lock();
     std::ifstream myfile( DATA_FILE_PATH + dataFilePath );
 
-    std::cout << "begin = " << begin << '\n';
-    std::cout << "end = " << end << '\n';
-
     try
     {
         if ( !myfile.is_open() )
         {
             throw std::exception(); // Throw an exception when a problem arise
         }
-        else
-        {
-            std::cout << "File opened!!" << '\n';
-        }
     }
     catch ( ... )
     {
-        std::cout << "PRoblem with file" << '\n';
+        std::cout << "Problem with file" << std::endl;
+        ;
     }
 
     size_t count = 0;

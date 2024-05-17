@@ -7,11 +7,12 @@ services:
     networks: 
       - default
     environment:
-        NODE3_IP: "8083"
+        RPC_PORT: "8083"
+        TCP_PORT: "8110"
         HUB_ADDRESS: "192.168.1.40"
     ports:
       - 8083:8083
-    command: "./setup_scripts/init_node3.sh"
+    command: "node"
 
   node4:
     image: minidb_1.0
@@ -19,11 +20,12 @@ services:
     networks: 
       - default
     environment:
-        NODE4_IP: "8084"
+        RPC_PORT: "8084"
+        TCP_PORT: "8111"
         HUB_ADDRESS: "192.168.1.40"
     ports:
       - 8084:8084
-    command: "./setup_scripts/init_node4.sh"
+    command: "node"
 
   
 

@@ -17,9 +17,10 @@ services:
     networks: 
       - default
     environment:
-        NODE1_IP: "8081"
+        RPC_PORT: "8081"
+        TCP_PORT: "8108"
         HUB_ADDRESS: "hub"
-    command: "./setup_scripts/init_node1.sh"
+    command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

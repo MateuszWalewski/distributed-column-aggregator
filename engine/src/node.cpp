@@ -5,16 +5,16 @@
 #include <TCPChannel/TCPClient.h>
 #include <rpc/server.h>
 
-void LoadDependencies( char* argv[] )
+void InitialiseNode()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
-
-    pCInstance.LoadNodeConnectionInfo( argv );
+    const char* rpcPort = std::getenv( "RPC_PORT" );
+    const char* tcpPort = std::getenv( "TCP_PORT" );
+    pCInstance.LoadNodeConnectionInfo( rpcPort, tcpPort );
     pCInstance.PrintNodeConnectionInfo();
     auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
 
-    RPCInstance.SetRPCServerInfo(
-        std::make_shared<rpc::server>( pCInstance.GetNodeIP(), std::stoi( pCInstance.GetNodePort() ) ) );
+    RPCInstance.SetRPCServerInfo( std::make_shared<rpc::server>( pCInstance.GetRPCPort() ) );
     auto rpcServer = RPCInstance.GetRPCServer();
 
     // TODO: kick it off to the separate function
@@ -51,11 +51,8 @@ void LoadDependencies( char* argv[] )
     RPCInstance.RunServer();
 }
 
-int main( int argc, char* argv[] )
+int main()
 {
-    // TODO: input sanity check!!!
-    (void) argc; // to silent warning
-    LoadDependencies( argv );
-
+    InitialiseNode();
     return 0;
 }

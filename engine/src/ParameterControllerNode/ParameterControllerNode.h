@@ -6,20 +6,13 @@ class ParameterControllerNode
 {
 public:
     ParameterControllerNode() = default;
-
-    void LoadHubConnectionInfo( char* args[], int argc );
-
-    void LoadNodeConnectionInfo( char* args[] );
-
-    void PrintHubConnectionInfo();
-
+    void LoadNodeConnectionInfo( const char* rpcPort, const char* tcpPort );
     void PrintNodeConnectionInfo();
 
-    std::string GetNodeIP();
-    std::string GetNodePort();
-    uint GetNodeTCPPort();
+    uint GetRPCPort();
+    uint GetTCPPort();
 
 private:
-    uint mNodeTCPPort;
-    std::string mNodePort;
+    uint mTCPPort;
+    uint mRPCPort;
 };
