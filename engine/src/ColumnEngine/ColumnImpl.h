@@ -1,14 +1,11 @@
 #pragma once
-#include <iostream>
-#include <vector>
-
 #include "IColumn.h"
+#include <vector>
 
 template <typename T>
 class ColumnImpl : public IColumn
 {
 public:
-    // Add rule of 5 -> Scot Meyers!
     ColumnImpl();
     ~ColumnImpl();
     ColumnImpl( const ColumnImpl& obj );

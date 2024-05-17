@@ -66,7 +66,7 @@ void ColumnImpl<T>::AddElement( const size_t nodeNumber, const std::any element 
 template <typename T>
 std::any ColumnImpl<T>::GetElement( size_t index )
 {
-    assert( index >= 0 && index + 1 <= data.size() );
+    assert( index + 1 <= data.size() );
     if ( data.size() == 0 )
     {
         return std::make_any<T>( 0 );

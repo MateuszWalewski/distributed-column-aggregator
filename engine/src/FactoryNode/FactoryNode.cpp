@@ -4,9 +4,7 @@
 #include <string>
 
 typedef ConcreteFactory<AbstractColumnFactory, OpNewFactoryUnit, LOKI_TYPELIST_1( ColumnNodeImpl<int> )> IntColumnFactory;
-
 typedef ConcreteFactory<AbstractColumnFactory, OpNewFactoryUnit, LOKI_TYPELIST_1( ColumnNodeImpl<double> )> DoubleColumnFactory;
-
 typedef ConcreteFactory<AbstractColumnFactory, OpNewFactoryUnit, LOKI_TYPELIST_1( ColumnNodeImpl<float> )> FloatColumnFactory;
 
 FactoryNode::FactoryNode()

@@ -2,7 +2,7 @@
 #include "Traits.h"
 #include <FactoryNode/FactoryNode.h>
 #include <Loki/Singleton.h>
-
+#include <iostream>
 #include <numeric>
 
 template class ColumnNode<double>;

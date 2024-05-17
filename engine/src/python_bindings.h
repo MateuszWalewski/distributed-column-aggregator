@@ -1,3 +1,4 @@
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include "hub.h"
 #include <Column/Column.h>
 #include <boost/python.hpp>

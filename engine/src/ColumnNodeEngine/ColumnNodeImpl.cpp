@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <execution>
+#include <iostream>
 #include <numeric>
 
 template class ColumnNodeImpl<double>;
