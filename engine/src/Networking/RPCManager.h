@@ -106,11 +106,11 @@ public:
 
     void RunServer();
 
-    std::shared_ptr<rpc::server> GetRPCServer();
+    rpc::server* GetRPCServer() const;
     void SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers );
-    void SetRPCServerInfo( std::shared_ptr<rpc::server> rpcServerHandler );
+    void SetRPCServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler );
 
 private:
     RPCClientHandlers mRPCClientHandlers;
-    std::shared_ptr<rpc::server> mRPCServerHandler;
+    std::unique_ptr<rpc::server> mRPCServerHandler;
 };
