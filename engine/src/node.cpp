@@ -10,10 +10,10 @@ void InitialiseNode()
     const char* tcpPort = std::getenv( "TCP_PORT" );
     pCInstance.LoadNodeConnectionInfo( rpcPort, tcpPort );
     pCInstance.PrintNodeConnectionInfo();
-    auto& RpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RpcInstance.SetRpcServerInfo( std::make_unique<rpc::server>( pCInstance.GetRpcPort() ) );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    rpcInstance.SetRpcServerInfo( std::make_unique<rpc::server>( pCInstance.GetRpcPort() ) );
     performBindings();
-    RpcInstance.RunServer();
+    rpcInstance.RunServer();
 }
 
 int main()

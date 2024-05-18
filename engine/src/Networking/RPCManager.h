@@ -14,7 +14,7 @@ class RPCManager
 public:
     RPCManager() = default;
     template <typename T, typename... Args>
-    std::vector<T> CallRPCMethod( const std::string& methodName, Args... args )
+    std::vector<T> CallRpcMethod( const std::string& methodName, Args... args )
     {
         std::vector<RpcHandle> handles;
         std::vector<T> results;
@@ -32,7 +32,7 @@ public:
     }
 
     template <typename T, typename... Args>
-    std::vector<int> CallRPCMethodSizes( const std::string& methodName, Args... args )
+    std::vector<int> CallRpcMethodSizes( const std::string& methodName, Args... args )
     {
         std::vector<RpcHandle> handles;
         std::vector<int> results;
@@ -50,7 +50,7 @@ public:
     }
 
     template <typename... Args>
-    void CallRPCMethod( const std::string& methodName, Args... args )
+    void CallRpcMethod( const std::string& methodName, Args... args )
     {
         std::vector<RpcHandle> handles;
         for ( auto& rpcClient : mRpcClientHandlers )
@@ -65,7 +65,7 @@ public:
     }
 
     template <typename... Args>
-    void CallRPCMethod( const std::string& methodName, DataLoadRanges ranges, Args... args )
+    void CallRpcMethod( const std::string& methodName, DataLoadRanges ranges, Args... args )
     {
         std::vector<RpcHandle> handles;
         for ( size_t i = 0; i < mRpcClientHandlers.size(); i++ )
@@ -86,7 +86,7 @@ public:
     }
 
     template <typename... Args>
-    void CallRPCMethodOnTheGivenNode( const std::string& methodName, const size_t nodeNumber, Args... args )
+    void CallRpcMethodOnTheGivenNode( const std::string& methodName, const size_t nodeNumber, Args... args )
     {
         if ( nodeNumber <= 0 )
         {

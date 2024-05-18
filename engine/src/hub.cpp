@@ -26,6 +26,6 @@ void InitialiseHub()
         rpcClientHandlers.push_back( std::make_unique<rpc::client>( ipAddress, std::stoi( port ) ) );
     }
 
-    auto& RpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RpcInstance.SetRpcClientInfo( move( rpcClientHandlers ) );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    rpcInstance.SetRpcClientInfo( move( rpcClientHandlers ) );
 }

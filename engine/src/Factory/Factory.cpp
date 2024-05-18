@@ -9,20 +9,12 @@ typedef ConcreteFactory<AbstractColumnFactory, OpNewFactoryUnit, LOKI_TYPELIST_1
 
 Factory::Factory()
 {
-    factory[INT_TYPE_GADGET] = new IntColumnFactory();
-    factory[DOUBLE_TYPE_GADGET] = new DoubleColumnFactory();
-    factory[FLOAT_TYPE_GADGET] = new FloatColumnFactory();
+    factory[INT_TYPE_GADGET] = std::make_unique<IntColumnFactory>();
+    factory[DOUBLE_TYPE_GADGET] = std::make_unique<DoubleColumnFactory>();
+    factory[FLOAT_TYPE_GADGET] = std::make_unique<FloatColumnFactory>();
 }
 
 AbstractColumnFactory* Factory::GetWidgetFactory( const std::string& key )
 {
-    return factory[key];
-}
-
-Factory::~Factory()
-{
-    for ( auto& x : factory )
-    {
-        delete x.second;
-    }
+    return factory[key].get();
 }
