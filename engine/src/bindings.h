@@ -4,8 +4,8 @@
 
 void performBindings()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto rpcServer = RPCInstance.GetRPCServer();
+    auto& RpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto rpcServer = RpcInstance.GetRpcServer();
 
     rpcServer->bind( "CreateColumni", &calcs::CreateColumn<int> );
     rpcServer->bind( "DeleteColumni", &calcs::DeleteColumn<int> );

@@ -5,20 +5,20 @@
 
 void RPCManager::RunServer()
 {
-    mRPCServerHandler->run();
+    mRpcServerHandler->run();
 }
 
-rpc::server* RPCManager::GetRPCServer() const
+rpc::server* RPCManager::GetRpcServer() const
 {
-    return mRPCServerHandler.get();
+    return mRpcServerHandler.get();
 }
 
-void RPCManager::SetRPCServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler )
+void RPCManager::SetRpcServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler )
 {
-    mRPCServerHandler = move( rpcServerHandler );
+    mRpcServerHandler = move( rpcServerHandler );
 }
 
-void RPCManager::SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers )
+void RPCManager::SetRpcClientInfo( RpcClientHandlers&& rpcClientHandlers )
 {
-    mRPCClientHandlers = move( rpcClientHandlers );
+    mRpcClientHandlers = move( rpcClientHandlers );
 }

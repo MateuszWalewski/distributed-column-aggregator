@@ -13,7 +13,7 @@ void InitialiseHub()
     pCInstance.LoadHubConnectionInfo( rpcConnectionInfo, tcpConnectionInfo );
     pCInstance.PrintHubConnectionInfo();
 
-    RPCClientHandlers rpcClientHandlers;
+    RpcClientHandlers rpcClientHandlers;
     auto serverInfo = pCInstance.GetServerInfo();
 
     for ( const auto& info : serverInfo )
@@ -26,6 +26,6 @@ void InitialiseHub()
         rpcClientHandlers.push_back( std::make_unique<rpc::client>( ipAddress, std::stoi( port ) ) );
     }
 
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RPCInstance.SetRPCClientInfo( move( rpcClientHandlers ) );
+    auto& RpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    RpcInstance.SetRpcClientInfo( move( rpcClientHandlers ) );
 }

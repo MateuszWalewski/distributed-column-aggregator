@@ -6,9 +6,9 @@
 #include "rpc/client.h"
 #include "rpc/server.h"
 
-using RPCClientHandlers = std::vector<std::unique_ptr<rpc::client>>;
+using RpcClientHandlers = std::vector<std::unique_ptr<rpc::client>>;
 using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
-using RPCHandle = std::future<clmdep_msgpack::v1::object_handle>;
+using RpcHandle = std::future<clmdep_msgpack::v1::object_handle>;
 class RPCManager
 {
 public:
@@ -16,9 +16,9 @@ public:
     template <typename T, typename... Args>
     std::vector<T> CallRPCMethod( const std::string& methodName, Args... args )
     {
-        std::vector<RPCHandle> handles;
+        std::vector<RpcHandle> handles;
         std::vector<T> results;
-        for ( auto& rpcClient : mRPCClientHandlers )
+        for ( auto& rpcClient : mRpcClientHandlers )
         {
             handles.push_back( rpcClient->async_call( methodName, args... ) );
         }
@@ -34,9 +34,9 @@ public:
     template <typename T, typename... Args>
     std::vector<int> CallRPCMethodSizes( const std::string& methodName, Args... args )
     {
-        std::vector<RPCHandle> handles;
+        std::vector<RpcHandle> handles;
         std::vector<int> results;
-        for ( auto& rpcClient : mRPCClientHandlers )
+        for ( auto& rpcClient : mRpcClientHandlers )
         {
             handles.push_back( rpcClient->async_call( methodName, args... ) );
         }
@@ -52,8 +52,8 @@ public:
     template <typename... Args>
     void CallRPCMethod( const std::string& methodName, Args... args )
     {
-        std::vector<RPCHandle> handles;
-        for ( auto& rpcClient : mRPCClientHandlers )
+        std::vector<RpcHandle> handles;
+        for ( auto& rpcClient : mRpcClientHandlers )
         {
             handles.push_back( rpcClient->async_call( methodName, args... ) );
         }
@@ -67,8 +67,8 @@ public:
     template <typename... Args>
     void CallRPCMethod( const std::string& methodName, DataLoadRanges ranges, Args... args )
     {
-        std::vector<RPCHandle> handles;
-        for ( size_t i = 0; i < mRPCClientHandlers.size(); i++ )
+        std::vector<RpcHandle> handles;
+        for ( size_t i = 0; i < mRpcClientHandlers.size(); i++ )
         {
             if ( i >= ranges.size() )
                 break;
@@ -76,7 +76,7 @@ public:
             size_t begin = ranges[i].first;
             size_t end = ranges[i].second;
 
-            handles.push_back( mRPCClientHandlers[i]->async_call( methodName, begin, end, args... ) );
+            handles.push_back( mRpcClientHandlers[i]->async_call( methodName, begin, end, args... ) );
         }
 
         for ( auto& handle : handles )
@@ -94,23 +94,23 @@ public:
             return;
         }
 
-        if ( nodeNumber > mRPCClientHandlers.size() )
+        if ( nodeNumber > mRpcClientHandlers.size() )
         {
             std::cout << "Error: there is no " + std::to_string( nodeNumber ) + " nodes configured." << std::endl;
-            std::cout << "The number of available nodes is " + std::to_string( mRPCClientHandlers.size() ) << std::endl;
+            std::cout << "The number of available nodes is " + std::to_string( mRpcClientHandlers.size() ) << std::endl;
             return;
         }
         size_t nodeIdx = nodeNumber - 1;
-        mRPCClientHandlers[nodeIdx]->call( methodName, args... );
+        mRpcClientHandlers[nodeIdx]->call( methodName, args... );
     }
 
     void RunServer();
 
-    rpc::server* GetRPCServer() const;
-    void SetRPCClientInfo( RPCClientHandlers&& rpcClientHandlers );
-    void SetRPCServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler );
+    rpc::server* GetRpcServer() const;
+    void SetRpcClientInfo( RpcClientHandlers&& rpcClientHandlers );
+    void SetRpcServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler );
 
 private:
-    RPCClientHandlers mRPCClientHandlers;
-    std::unique_ptr<rpc::server> mRPCServerHandler;
+    RpcClientHandlers mRpcClientHandlers;
+    std::unique_ptr<rpc::server> mRpcServerHandler;
 };
