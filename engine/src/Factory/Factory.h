@@ -1,6 +1,7 @@
 #include "ColumnEngine/IColumn.h"
 #include <Loki/AbstractFactory.h>
 #include <map>
+#include <memory>
 
 using namespace Loki;
 
@@ -10,11 +11,8 @@ class Factory
 {
 public:
     Factory();
-
     AbstractColumnFactory* GetWidgetFactory( const std::string& key );
 
-    ~Factory();
-
 private:
-    std::map<std::string, AbstractColumnFactory*> factory;
+    std::map<std::string, std::unique_ptr<AbstractColumnFactory>> factory;
 };

@@ -21,7 +21,7 @@ void PrintVector( const std::vector<T>& container, const std::string& label )
         std::cout << label << ": " << x << '\n';
     }
 
-    std::cout << std::endl;
+    std::cout << std::flush;
 }
 DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath, int nOfNodes );
 

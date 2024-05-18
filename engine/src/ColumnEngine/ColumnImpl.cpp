@@ -37,30 +37,30 @@ ColumnImpl<T>::ColumnImpl( const ColumnImpl<T>& obj )
 template <typename T>
 void ColumnImpl<T>::CreateColumnOnNode()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RPCInstance.CallRPCMethod( "CreateColumn" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    rpcInstance.CallRpcMethod( "CreateColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::DeleteColumnOnNode()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RPCInstance.CallRPCMethod( "DeleteColumn" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    rpcInstance.CallRpcMethod( "DeleteColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::PrintColumnOnNode()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    RPCInstance.CallRPCMethod( "PrintColumn" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    rpcInstance.CallRpcMethod( "PrintColumn" + typeName, colId );
 }
 
 template <typename T>
 void ColumnImpl<T>::AddElement( const size_t nodeNumber, const std::any element )
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto elem = std::any_cast<T>( element );
-    RPCInstance.CallRPCMethodOnTheGivenNode( "AddElement" + typeName, nodeNumber, colId, elem );
+    rpcInstance.CallRpcMethodOnTheGivenNode( "AddElement" + typeName, nodeNumber, colId, elem );
 }
 
 template <typename T>
@@ -78,36 +78,36 @@ template <typename T>
 void ColumnImpl<T>::LoadDataToNode( const std::string& dataFilePath )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     int nOfNodes = pCInstance.GetNumberOfNodes();
     auto ranges = util::CalculateRangesToLoadDataOnNodes( dataFilePath, nOfNodes );
-    RPCInstance.CallRPCMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
+    rpcInstance.CallRpcMethod( "LoadCsvData" + typeName, ranges, dataFilePath, colId );
 }
 
 template <typename T>
 std::any ColumnImpl<T>::Sum()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto results = RPCInstance.CallRPCMethod<T>( "Sum" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<T>( "Sum" + typeName, colId );
     return std::accumulate( results.begin(), results.end(), static_cast<T>( 0 ) );
 }
 
 template <typename T>
 int ColumnImpl<T>::Count()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto results = RPCInstance.CallRPCMethod<T>( "Count" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<T>( "Count" + typeName, colId );
     return std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
 }
 
 template <typename T>
 int ColumnImpl<T>::Fetch()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     boost::asio::io_context io_context;
     TCPServer tcpServer( io_context );
     auto as = std::async( std::launch::async, &TCPServer::Accept, &tcpServer );
-    auto results = RPCInstance.CallRPCMethodSizes<T>( "Fetch" + typeName, colId );
+    auto results = rpcInstance.CallRpcMethodSizes<T>( "Fetch" + typeName, colId );
     as.get();
     auto dataSize = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
     data.resize( dataSize );
@@ -125,8 +125,8 @@ double ColumnImpl<T>::MomentI()
 template <typename T>
 double ColumnImpl<T>::MomentII()
 {
-    auto& RPCInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto results = RPCInstance.CallRPCMethod<double>( "SumX2" + typeName, colId );
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<double>( "SumX2" + typeName, colId );
     return static_cast<double>( std::accumulate( results.begin(), results.end(), static_cast<double>( 0 ) ) ) / Count();
 }
 

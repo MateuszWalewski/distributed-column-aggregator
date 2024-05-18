@@ -12,7 +12,7 @@ void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::strin
 
     for ( const auto& info : tcpConnectionInfo )
     {
-        mTCPPorts.push_back( std::stoi( info ) );
+        mTcpPorts.push_back( std::stoi( info ) );
     }
 }
 
@@ -26,9 +26,9 @@ const std::vector<std::string>& ParameterControllerHub::GetServerInfo() const
     return mServerInfo;
 }
 
-const std::vector<uint>& ParameterControllerHub::GetNodesTCPPorts() const
+const std::vector<uint>& ParameterControllerHub::GetNodesTcpPorts() const
 {
-    return mTCPPorts;
+    return mTcpPorts;
 }
 
 size_t ParameterControllerHub::GetNumberOfNodes()

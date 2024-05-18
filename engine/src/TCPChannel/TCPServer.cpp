@@ -16,7 +16,7 @@ template void TCPServer::Read<int>( std::vector<int>& data, std::vector<int>& da
 TCPServer::TCPServer( boost::asio::io_context& io_context )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    auto port = pCInstance.GetNodesTCPPorts();
+    auto port = pCInstance.GetNodesTcpPorts();
     for ( auto& p : port )
     {
         acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
@@ -30,7 +30,7 @@ void TCPServer::Accept()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
     int nOfNodes = pCInstance.GetNumberOfNodes();
-    auto port = pCInstance.GetNodesTCPPorts();
+    auto port = pCInstance.GetNodesTcpPorts();
     for ( int i = 0; i < nOfNodes; i++ )
     {
         session.push_back( std::make_shared<Session>( std::make_shared<tcp::socket>( acceptor_[i].accept() ) ) );

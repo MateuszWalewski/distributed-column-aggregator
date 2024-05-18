@@ -23,11 +23,11 @@ void TCPClient::Connect()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
     const char* hubAddr = std::getenv( "HUB_ADDRESS" );
-    boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetTCPPort() ) );
+    boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetTcpPort() ) );
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve( query );
 
     socket->connect( iter->endpoint() );
-    std::cout << "Connected on port: " << std::to_string( pCInstance.GetTCPPort() ) << std::endl;
+    std::cout << "Connected on port: " << std::to_string( pCInstance.GetTcpPort() ) << std::endl;
 }
 
 template <typename T>

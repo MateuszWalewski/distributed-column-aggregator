@@ -1,12 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(distributedDBPrototype LANGUAGES CXX)
 
-# -----------------------------------------------------------------------------
-# enable once the system image in Dockerfile is updated to the latest version ! 
-#if(POLICY CMP0135)
-#cmake_policy(SET CMP0135 NEW)
-#endif()
-# -----------------------------------------------------------------------------
+if(POLICY CMP0135)
+	cmake_policy(SET CMP0135 NEW)
+endif()
 
 if (MSVC)
     add_compile_options(/W4)
@@ -82,7 +79,7 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-  # DOWNLOAD_EXTRACT_TIMESTAMP TRUE - enable once the system image in Dockerfile is updated to the latest version ! 
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
