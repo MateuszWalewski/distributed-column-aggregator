@@ -19,7 +19,7 @@ public:
     void Accept();
 
     template <typename T>
-    void Read( std::vector<T>& data, std::vector<int>& dataSize );
+    void Read( std::vector<T>& data, const std::vector<int>& dataSize );
 
     class Session
     {

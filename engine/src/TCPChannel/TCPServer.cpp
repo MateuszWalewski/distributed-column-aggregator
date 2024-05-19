@@ -9,21 +9,27 @@
 
 using boost::asio::ip::tcp;
 
-template void TCPServer::Read<double>( std::vector<double>& data, std::vector<int>& dataSize );
-template void TCPServer::Read<float>( std::vector<float>& data, std::vector<int>& dataSize );
-template void TCPServer::Read<int>( std::vector<int>& data, std::vector<int>& dataSize );
+template void TCPServer::Read<double>( std::vector<double>& data, const std::vector<int>& dataSize );
+template void TCPServer::Read<float>( std::vector<float>& data, const std::vector<int>& dataSize );
+template void TCPServer::Read<int>( std::vector<int>& data, const std::vector<int>& dataSize );
 
 TCPServer::TCPServer( boost::asio::io_context& io_context )
 {
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    auto port = pCInstance.GetTcpPorts();
-    for ( auto& p : port )
+    try
     {
-        acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
+        auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+        auto port = pCInstance.GetTcpPorts();
+        for ( auto& p : port )
+        {
+            acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
+        }
+    }
+    catch ( std::exception& e )
+    {
+        std::cerr << "Exception in TCPServer::TCPServer: " << e.what() << std::endl;
     }
 
     std::cout << "Server info has been intialized" << std::endl;
-    ;
 }
 
 void TCPServer::Accept()
@@ -31,24 +37,38 @@ void TCPServer::Accept()
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
     int nOfNodes = pCInstance.GetNumberOfNodes();
     auto port = pCInstance.GetTcpPorts();
-    for ( int i = 0; i < nOfNodes; i++ )
+    try
     {
-        session.emplace_back( std::make_unique<tcp::socket>( acceptor_[i].accept() ) );
-        std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
-        std::cout << "Session " << i + 1 << " has been established" << std::endl;
+        for ( int i = 0; i < nOfNodes; i++ )
+        {
+            session.emplace_back( std::make_unique<tcp::socket>( acceptor_[i].accept() ) );
+            std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
+            std::cout << "Session " << i + 1 << " has been established" << std::endl;
+        }
+    }
+    catch ( std::exception& e )
+    {
+        std::cerr << "Exception in TCPServer::Accept(): " << e.what() << std::endl;
     }
 }
 
 template <typename T>
-void TCPServer::Read( std::vector<T>& data, std::vector<int>& dataSize )
+void TCPServer::Read( std::vector<T>& data, const std::vector<int>& dataSize )
 {
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    int nOfNodes = pCInstance.GetNumberOfNodes();
-    int offset = 0;
-    for ( int i = 0; i < nOfNodes; i++ )
+    try
     {
-        session[i].FetchDataFromPeer( data, dataSize[i], offset );
-        offset += dataSize[i];
+        auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+        int nOfNodes = pCInstance.GetNumberOfNodes();
+        int offset = 0;
+        for ( int i = 0; i < nOfNodes; i++ )
+        {
+            session[i].FetchDataFromPeer( data, dataSize[i], offset );
+            offset += dataSize[i];
+        }
+    }
+    catch ( std::exception& e )
+    {
+        std::cerr << "Exception in TCPServer::Read(): " << e.what() << std::endl;
     }
 }
 
@@ -67,16 +87,15 @@ void TCPServer::Session::FetchDataFromPeer( std::vector<T>& data, int dataSize, 
         temp.resize( dataSize );
 
         boost::asio::read( *socket_, boost::asio::buffer( temp ), error );
-
         if ( error == boost::asio::error::eof )
-            return; // Connection closed cleanly by peer.
+            return;
         else if ( error )
-            throw boost::system::system_error( error ); // Some other error.
+            throw boost::system::system_error( error );
 
         std::copy( temp.begin(), temp.end(), data.begin() + offset );
     }
     catch ( std::exception& e )
     {
-        std::cerr << "Exception in thread: " << e.what() << std::endl;
+        std::cerr << "Exception in TCPServer::Session::FetchDataFromPeer(): " << e.what() << std::endl;
     }
 }

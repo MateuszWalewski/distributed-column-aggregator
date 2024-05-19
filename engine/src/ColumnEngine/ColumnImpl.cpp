@@ -15,7 +15,7 @@ template class ColumnImpl<float>;
 template class ColumnImpl<int>;
 
 template <typename T>
-ColumnImpl<T>::ColumnImpl()
+ColumnImpl<T>::ColumnImpl() : isDataFetchedFromNodes( false )
 {
     typeName = std::string( typeid( T ).name() );
     colId = GenerateUniqueColumnId();
@@ -38,21 +38,24 @@ template <typename T>
 void ColumnImpl<T>::CreateColumnOnNode()
 {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    rpcInstance.CallRpcMethod( "CreateColumn" + typeName, colId );
+    auto rpcHandlers = rpcInstance.CallRpcMethodVoid( "CreateColumn" + typeName, colId );
+    rpcInstance.CompleteRpcTasks( rpcHandlers );
 }
 
 template <typename T>
 void ColumnImpl<T>::DeleteColumnOnNode()
 {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    rpcInstance.CallRpcMethod( "DeleteColumn" + typeName, colId );
+    auto rpcHandlers = rpcInstance.CallRpcMethodVoid( "DeleteColumn" + typeName, colId );
+    rpcInstance.CompleteRpcTasks( rpcHandlers );
 }
 
 template <typename T>
 void ColumnImpl<T>::PrintColumnOnNode()
 {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    rpcInstance.CallRpcMethod( "PrintColumn" + typeName, colId );
+    auto rpcHandlers = rpcInstance.CallRpcMethodVoid( "PrintColumn" + typeName, colId );
+    rpcInstance.CompleteRpcTasks( rpcHandlers );
 }
 
 template <typename T>
@@ -103,16 +106,24 @@ int ColumnImpl<T>::Count()
 template <typename T>
 int ColumnImpl<T>::Fetch()
 {
+    if ( isDataFetchedFromNodes )
+    {
+        std::cout << "Data already fetched from nodes." << std::endl;
+        return data.size();
+    }
+
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<int>( "Count" + typeName, colId );
     boost::asio::io_context io_context;
     TCPServer tcpServer( io_context );
     auto as = std::async( std::launch::async, &TCPServer::Accept, &tcpServer );
-    auto results = rpcInstance.CallRpcMethodSizes<T>( "Fetch" + typeName, colId );
-    as.get();
+    auto handles = rpcInstance.CallRpcMethodVoid( "Fetch" + typeName, colId );
     auto dataSize = std::accumulate( results.begin(), results.end(), static_cast<int>( 0 ) );
     data.resize( dataSize );
     tcpServer.Read( data, results );
-
+    rpcInstance.CompleteRpcTasks( handles );
+    as.get();
+    isDataFetchedFromNodes = true;
     return dataSize;
 }
 

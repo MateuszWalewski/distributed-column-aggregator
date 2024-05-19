@@ -16,7 +16,7 @@ template void TCPClient::Send<int>( std::vector<int>& data );
 
 TCPClient::TCPClient( boost::asio::io_context& io_context ) : resolver( io_context )
 {
-    socket = std::make_shared<tcp::socket>( io_context );
+    socket = std::make_unique<tcp::socket>( io_context );
 }
 
 void TCPClient::Connect()
@@ -33,11 +33,22 @@ void TCPClient::Connect()
 template <typename T>
 void TCPClient::Send( std::vector<T>& data )
 {
-    Connect();
-    boost::system::error_code error;
-    boost::asio::write( *socket, boost::asio::buffer( data ), error );
-    if ( !error )
+    try
     {
-        std::cout << "Client sent sucessfully!" << std::endl;
+        Connect();
+        boost::system::error_code error;
+        boost::asio::write( *socket, boost::asio::buffer( data ), error );
+        if ( !error )
+        {
+            std::cout << "Client sent sucessfully!" << std::endl;
+        }
+        else
+        {
+            throw boost::system::system_error( error );
+        }
+    }
+    catch ( std::exception& e )
+    {
+        std::cerr << "Exception in TCPClient::Send: " << e.what() << std::endl;
     }
 }

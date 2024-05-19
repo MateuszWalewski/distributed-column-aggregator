@@ -14,6 +14,6 @@ public:
 
 private:
     void Connect();
-    std::shared_ptr<tcp::socket> socket;
+    std::unique_ptr<tcp::socket> socket;
     boost::asio::ip::tcp::resolver resolver;
 };

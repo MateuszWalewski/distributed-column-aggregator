@@ -12,17 +12,16 @@ using RpcHandle = std::future<clmdep_msgpack::v1::object_handle>;
 class RPCManager
 {
 public:
-    RPCManager() = default;
-    template <typename T, typename... Args>
-    std::vector<T> CallRpcMethod( const std::string& methodName, Args... args )
+    template <typename T>
+    std::vector<T> CallRpcMethod( const std::string& methodName, const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
+        for ( auto& rpcClient : mRpcClientHandlers )
+        {
+            handles.push_back( rpcClient->async_call( methodName, columnId ) );
+        }
+
         std::vector<T> results;
-        for ( auto& rpcClient : mRpcClientHandlers )
-        {
-            handles.push_back( rpcClient->async_call( methodName, args... ) );
-        }
-
         for ( auto& handle : handles )
         {
             results.push_back( handle.get().template as<T>() );
@@ -31,41 +30,27 @@ public:
         return results;
     }
 
-    template <typename T, typename... Args>
-    std::vector<int> CallRpcMethodSizes( const std::string& methodName, Args... args )
+    auto CallRpcMethodVoid( const std::string& methodName, const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
-        std::vector<int> results;
         for ( auto& rpcClient : mRpcClientHandlers )
         {
-            handles.push_back( rpcClient->async_call( methodName, args... ) );
+            handles.push_back( rpcClient->async_call( methodName, columnId ) );
         }
 
-        for ( auto& handle : handles )
-        {
-            results.push_back( handle.get().template as<T>() );
-        }
-
-        return results;
+        return handles;
     }
 
-    template <typename... Args>
-    void CallRpcMethod( const std::string& methodName, Args... args )
+    void CompleteRpcTasks( std::vector<RpcHandle>& handles )
     {
-        std::vector<RpcHandle> handles;
-        for ( auto& rpcClient : mRpcClientHandlers )
-        {
-            handles.push_back( rpcClient->async_call( methodName, args... ) );
-        }
-
         for ( auto& handle : handles )
         {
             handle.get();
         }
     }
 
-    template <typename... Args>
-    void CallRpcMethod( const std::string& methodName, DataLoadRanges ranges, Args... args )
+    void CallRpcMethod( const std::string& methodName, const DataLoadRanges& ranges, const std::string& dataFilePath,
+                        const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
         for ( size_t i = 0; i < mRpcClientHandlers.size(); i++ )
@@ -76,7 +61,7 @@ public:
             size_t begin = ranges[i].first;
             size_t end = ranges[i].second;
 
-            handles.push_back( mRpcClientHandlers[i]->async_call( methodName, begin, end, args... ) );
+            handles.push_back( mRpcClientHandlers[i]->async_call( methodName, begin, end, dataFilePath, columnId ) );
         }
 
         for ( auto& handle : handles )
@@ -84,9 +69,9 @@ public:
             handle.get();
         }
     }
-
-    template <typename... Args>
-    void CallRpcMethodOnTheGivenNode( const std::string& methodName, const size_t nodeNumber, Args... args )
+    template <typename T>
+    void CallRpcMethodOnTheGivenNode( const std::string& methodName, const size_t nodeNumber, const std::string& columnId,
+                                      const T element )
     {
         if ( nodeNumber <= 0 )
         {
@@ -100,8 +85,9 @@ public:
             std::cout << "The number of available nodes is " + std::to_string( mRpcClientHandlers.size() ) << std::endl;
             return;
         }
+
         size_t nodeIdx = nodeNumber - 1;
-        mRpcClientHandlers[nodeIdx]->call( methodName, args... );
+        mRpcClientHandlers[nodeIdx]->call( methodName, columnId, element );
     }
 
     void RunServer();
