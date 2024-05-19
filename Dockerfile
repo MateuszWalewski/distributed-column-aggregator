@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get install -y build-essential libreadline-dev zlib1g-dev flex bison \ 
 wget curl git dnsutils vim sudo libssl-dev cmake software-properties-common  \
-libboost-all-dev python3 python3-dev python3-pip python3-pytest python3-pytest-benchmark libtbb-dev lsof iputils-ping \
+libboost-all-dev python3 python3-dev python3-pip python3-pytest python3-pytest-benchmark python3-pandas libtbb-dev lsof iputils-ping \
 clang-tidy
 
 # Setting the user

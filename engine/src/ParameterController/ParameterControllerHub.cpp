@@ -26,7 +26,7 @@ const std::vector<std::string>& ParameterControllerHub::GetServerInfo() const
     return mServerInfo;
 }
 
-const std::vector<uint>& ParameterControllerHub::GetNodesTcpPorts() const
+const std::vector<uint>& ParameterControllerHub::GetTcpPorts() const
 {
     return mTcpPorts;
 }

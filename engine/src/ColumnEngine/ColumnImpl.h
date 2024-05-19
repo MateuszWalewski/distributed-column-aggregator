@@ -28,6 +28,7 @@ private:
     std::vector<T> result;
     std::vector<T> data;
     std::string GenerateUniqueColumnId() const;
+    bool isDataFetchedFromNodes;
     static size_t instanceId;
 };
 
