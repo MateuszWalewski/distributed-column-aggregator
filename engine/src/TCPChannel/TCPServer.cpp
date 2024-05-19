@@ -16,7 +16,7 @@ template void TCPServer::Read<int>( std::vector<int>& data, std::vector<int>& da
 TCPServer::TCPServer( boost::asio::io_context& io_context )
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    auto port = pCInstance.GetNodesTcpPorts();
+    auto port = pCInstance.GetTcpPorts();
     for ( auto& p : port )
     {
         acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
@@ -30,10 +30,10 @@ void TCPServer::Accept()
 {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
     int nOfNodes = pCInstance.GetNumberOfNodes();
-    auto port = pCInstance.GetNodesTcpPorts();
+    auto port = pCInstance.GetTcpPorts();
     for ( int i = 0; i < nOfNodes; i++ )
     {
-        session.push_back( std::make_shared<Session>( std::make_shared<tcp::socket>( acceptor_[i].accept() ) ) );
+        session.emplace_back( std::make_unique<tcp::socket>( acceptor_[i].accept() ) );
         std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
         std::cout << "Session " << i + 1 << " has been established" << std::endl;
     }
@@ -47,12 +47,12 @@ void TCPServer::Read( std::vector<T>& data, std::vector<int>& dataSize )
     int offset = 0;
     for ( int i = 0; i < nOfNodes; i++ )
     {
-        session[i]->FetchDataFromPeer( data, dataSize[i], offset );
+        session[i].FetchDataFromPeer( data, dataSize[i], offset );
         offset += dataSize[i];
     }
 }
 
-TCPServer::Session::Session( std::shared_ptr<tcp::socket> socket )
+TCPServer::Session::Session( std::unique_ptr<tcp::socket>&& socket )
 {
     socket_ = std::move( socket );
 }

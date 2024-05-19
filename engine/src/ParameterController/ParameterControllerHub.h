@@ -12,7 +12,7 @@ public:
     void PrintHubConnectionInfo();
 
     const std::vector<std::string>& GetServerInfo() const;
-    const std::vector<uint>& GetNodesTcpPorts() const;
+    const std::vector<uint>& GetTcpPorts() const;
     size_t GetNumberOfNodes();
 
 private:
