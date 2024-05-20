@@ -21,7 +21,7 @@ jobs:
       run: docker-compose -f ./docker_setup/1_hub_2_nodes.yml up -d
 
     - name: Run pytest
-      run: docker exec -it hub bash -c "pytest"
+      run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers
       if: always()
@@ -31,7 +31,7 @@ jobs:
       run: docker-compose -f ./docker_setup/1_hub_4_nodes.yml up -d
 
     - name: Run pytest
-      run: docker exec -it hub bash -c "pytest"
+      run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers
       if: always()
@@ -41,7 +41,7 @@ jobs:
       run: docker-compose -f ./docker_setup/1_hub_8_nodes.yml up -d
 
     - name: Run pytest
-      run: docker exec -it hub bash -c "pytest"
+      run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers
       if: always()
