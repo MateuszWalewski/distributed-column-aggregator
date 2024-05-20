@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . -t minidb_1.0
 
     - name: Start 1 hub 2 nodes configuration.
       run: docker-compose -f ./docker_setup/1_hub_2_nodes.yml up -d
