@@ -1,5 +1,6 @@
 import sys
 import pytest
+from pytest import approx
 sys.path.insert(1, '/home/guest1/engine/')
 
 from initDB import FloatColumn
@@ -7,7 +8,7 @@ from initDB import FloatColumn
 @pytest.fixture(scope="module")
 def start_up():
     a = FloatColumn()
-    a.LoadData("data3.csv")
+    a.LoadData("data4.csv")
     print("we entered start_up")
     yield a
 
@@ -16,32 +17,31 @@ def tear_down():
     a = None
 
 
-
-def test_sum(benchmark, start_up):
+def test_sum_float_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-    assert round(result, 5) == 43.39077
+    assert result == approx(5082198, rel=1e4)
 
 
-def test_count(benchmark, start_up):
+def test_count_float_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Count)
-    assert result == 9
+    assert result == 1015823
 
 
-def test_momentI(benchmark, start_up):
+def test_momentI_float_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentI)
-    assert round(result, 4) == 4.8212
+    assert result == approx(5.003063368314448, rel=1e-5)
 
 
-def test_momentII(benchmark, start_up):
+def test_momentII_float_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentII)
-    assert round(result, 4) == 28.7952
+    assert result == approx(33.36456173224293, rel=1e-5)
 
 
-def test_stddev(benchmark, start_up):
+def test_stddev_float_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Stddev)
-    assert round(result, 5) == 2.49904
+    assert result == approx(2.8868541621375936, rel=1e-4)

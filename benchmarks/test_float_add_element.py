@@ -14,14 +14,12 @@ def start_up():
 def tear_down():
     a = None
 
-
-def test_sum(benchmark, start_up):
+def test_add_element_to_float_column(start_up):
     a = start_up
     a.AddElement(1, 12.34)
-    a.AddElement(2, 5.564)
-    a.AddElement(2, 8.1)
-
-    result = benchmark(a.Sum)
+    a.AddElement(1, 5.564)
+    a.AddElement(1, 8.1)
+    result = a.Sum()
     assert round(result, 5) == 26.004
 
 

@@ -14,14 +14,13 @@ def start_up():
 def tear_down():
     a = None
 
-
-def test_sum(benchmark, start_up):
+def test_add_element_to_int_column(start_up):
     a = start_up
     a.AddElement(1, 12)
-    a.AddElement(2, 5)
+    a.AddElement(1, 5)
     a.AddElement(1, 8)
 
-    result = benchmark(a.Sum)
+    result = a.Sum()
     assert result == 25
 
 
