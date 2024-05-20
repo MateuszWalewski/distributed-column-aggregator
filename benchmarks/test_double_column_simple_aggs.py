@@ -1,5 +1,6 @@
 import sys
 import pytest
+from pytest import approx
 sys.path.insert(1, '/home/guest1/engine/')
 
 from initDB import DoubleColumn
@@ -16,32 +17,32 @@ def tear_down():
     a = None
 
 
-def test_sum(benchmark, start_up):
+def test_sum_double_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-    assert round(result,2) == 5082226.84
+    assert result == approx(5082226.839999964, rel=1e-11)
 
 
-def test_count(benchmark, start_up):
+def test_count_double_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Count)
     assert result == 1015823
 
 
-def test_momentI(benchmark, start_up):
+def test_momentI_double_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentI)
-    assert round(result, 11) == 5.00306336832
+    assert result == approx(5.003063368322995, rel=1e-11)
 
 
-def test_momentII(benchmark, start_up):
+def test_momentII_double_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentII)
-    assert round(result, 10) == 33.3645618221
+    assert result == approx(33.364561822090515, rel=1e-11)
 
 
-def test_stddev(benchmark, start_up):
+def test_stddev_double_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Stddev)
-    assert round(result, 5) == 2.88685
+    assert result == approx(2.88685416305477, rel=1e-11)
 

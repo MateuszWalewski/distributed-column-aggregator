@@ -17,10 +17,30 @@ jobs:
     - name: Build the Docker image
       run: docker build . -t minidb_1.0
 
+    - name: Start 1 hub.
+      run: docker-compose -f ./docker_setup/1_hub.yml up -d
+
+    - name: Run CTest
+      run:  docker exec hub bash -c "cd engine/build/ && ctest -V"
+
+    - name: Shut down Docker containers
+      if: always()
+      run: docker-compose -f ./docker_setup/1_hub.yml down
+
+    - name: Start 1 hub 1 node configuration.
+      run: docker-compose -f ./docker_setup/1_hub_1_node.yml up -d
+
+    - name: Run pytest-benchmark
+      run: docker exec hub bash -c "pytest"
+
+    - name: Shut down Docker containers
+      if: always()
+      run: docker-compose -f ./docker_setup/1_hub_1_node.yml down
+
     - name: Start 1 hub 2 nodes configuration.
       run: docker-compose -f ./docker_setup/1_hub_2_nodes.yml up -d
 
-    - name: Run pytest
+    - name: Run pytest-benchmark
       run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers
@@ -30,7 +50,7 @@ jobs:
     - name: Start 1 hub 4 nodes configuration.
       run: docker-compose -f ./docker_setup/1_hub_4_nodes.yml up -d
 
-    - name: Run pytest
+    - name: Run pytest-benchmark
       run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers
@@ -40,7 +60,7 @@ jobs:
     - name: Start 1 hub 8 nodes configuration.
       run: docker-compose -f ./docker_setup/1_hub_8_nodes.yml up -d
 
-    - name: Run pytest
+    - name: Run pytest-benchmark
       run: docker exec hub bash -c "pytest"
 
     - name: Shut down Docker containers

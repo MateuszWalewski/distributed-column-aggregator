@@ -15,6 +15,6 @@ def tear_down():
     a = None
 
 
-def testSum(start_up):
+def test_db(start_up):
     a = start_up
-    assert a.Sum() == 40
+    assert a.Sum() == 5082342
