@@ -23,7 +23,17 @@ void InitialiseHub()
 
         std::getline( iss, ipAddress, ':' );
         std::getline( iss, port );
-        rpcClientHandlers.push_back( std::make_unique<rpc::client>( ipAddress, std::stoi( port ) ) );
+
+        uint portNumber;
+        try
+        {
+            portNumber = boost::lexical_cast<uint>( port );
+        }
+        catch ( const boost::bad_lexical_cast& e )
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+        rpcClientHandlers.push_back( std::make_unique<rpc::client>( ipAddress, portNumber ) );
     }
 
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
