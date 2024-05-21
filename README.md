@@ -1,3 +1,6 @@
+## Distributed Column Aggregator
+A template for a distributed, horizontally scalable column aggregation system, enabling basic statistical operations on user-defined and C++ built-in numeric types. It leverages Docker to set up a multi-machine calculation cluster using a "client-server" architecture, with one central unit ("hub") and multiple calculation nodes operating in parallel through asynchronous RPC technology. The user interface logic is exported to Python to facilitate a convenient workflow within the interpreter, as well as to enable simple platform integration testing and benchmarking using the pytest library.
+
 ### Dependencies
 
 - Loki by Andrei Alexandrescu: https://loki-lib.sourceforge.net/
@@ -66,3 +69,9 @@ Just run:
 
 To edit configuration:
 ```vim .clang-format```
+
+### Future Work
+This section outlines potential features and ideas that could be added to enhance the project in the future:
+- **GPU Processing**: Extend the system to leverage GPU processing for higher parallelization and significant performance improvement.
+- **Numeric Data Types**: Expand support for a wider range of numeric data types, including arbitrary precision types for full compliance with modern DBMS systems.
+- **Mathematical Operations and Operators**: Implement operators and mathematical operations on columns the enhance data analysis capabilities.
