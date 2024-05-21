@@ -7,8 +7,6 @@ class ColumnImpl : public IColumn
 {
 public:
     ColumnImpl();
-    ~ColumnImpl();
-    ColumnImpl( const ColumnImpl& obj );
     void CreateColumnOnNode() override;
     void DeleteColumnOnNode() override;
     void AddElement( const size_t nodeNumber, const std::any element ) override;
@@ -23,14 +21,14 @@ public:
     int Fetch() override;
 
 private:
-    std::string colId;
-    std::string typeName;
-    std::vector<T> result;
-    std::vector<T> data;
+    std::string _colId;
+    std::string _typeName;
+    std::vector<T> _data;
+    bool _isDataFetchedFromNodes;
+    static size_t _instanceId;
+
     std::string GenerateUniqueColumnId() const;
-    bool isDataFetchedFromNodes;
-    static size_t instanceId;
 };
 
 template <typename T>
-size_t ColumnImpl<T>::instanceId = 0;
+size_t ColumnImpl<T>::_instanceId = 0;

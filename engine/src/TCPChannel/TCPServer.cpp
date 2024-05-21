@@ -1,10 +1,7 @@
 #include "TCPServer.h"
-
 #include <boost/asio.hpp>
-#include <cstdlib>
 #include <iostream>
 #include <memory>
-#include <utility>
 #include <vector>
 
 using boost::asio::ip::tcp;
@@ -21,10 +18,10 @@ TCPServer::TCPServer( boost::asio::io_context& io_context )
         auto port = pCInstance.GetTcpPorts();
         for ( auto& p : port )
         {
-            acceptor_.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
+            _acceptor.emplace_back( io_context, tcp::endpoint( tcp::v4(), p ) );
         }
     }
-    catch ( std::exception& e )
+    catch ( const std::exception& e )
     {
         std::cerr << "Exception in TCPServer::TCPServer: " << e.what() << std::endl;
     }
@@ -41,12 +38,12 @@ void TCPServer::Accept()
     {
         for ( int i = 0; i < nOfNodes; i++ )
         {
-            session.emplace_back( std::make_unique<tcp::socket>( acceptor_[i].accept() ) );
+            _session.emplace_back( std::make_unique<tcp::socket>( _acceptor[i].accept() ) );
             std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
             std::cout << "Session " << i + 1 << " has been established" << std::endl;
         }
     }
-    catch ( std::exception& e )
+    catch ( const std::exception& e )
     {
         std::cerr << "Exception in TCPServer::Accept(): " << e.what() << std::endl;
     }
@@ -62,11 +59,11 @@ void TCPServer::Read( std::vector<T>& data, const std::vector<int>& dataSize )
         int offset = 0;
         for ( int i = 0; i < nOfNodes; i++ )
         {
-            session[i].FetchDataFromPeer( data, dataSize[i], offset );
+            _session[i].FetchDataFromPeer( data, dataSize[i], offset );
             offset += dataSize[i];
         }
     }
-    catch ( std::exception& e )
+    catch ( const std::exception& e )
     {
         std::cerr << "Exception in TCPServer::Read(): " << e.what() << std::endl;
     }
@@ -74,7 +71,7 @@ void TCPServer::Read( std::vector<T>& data, const std::vector<int>& dataSize )
 
 TCPServer::Session::Session( std::unique_ptr<tcp::socket>&& socket )
 {
-    socket_ = std::move( socket );
+    _socket = std::move( socket );
 }
 
 template <typename T>
@@ -86,7 +83,7 @@ void TCPServer::Session::FetchDataFromPeer( std::vector<T>& data, int dataSize, 
         std::vector<T> temp;
         temp.resize( dataSize );
 
-        boost::asio::read( *socket_, boost::asio::buffer( temp ), error );
+        boost::asio::read( *_socket, boost::asio::buffer( temp ), error );
         if ( error == boost::asio::error::eof )
             return;
         else if ( error )
@@ -94,7 +91,7 @@ void TCPServer::Session::FetchDataFromPeer( std::vector<T>& data, int dataSize, 
 
         std::copy( temp.begin(), temp.end(), data.begin() + offset );
     }
-    catch ( std::exception& e )
+    catch ( const std::exception& e )
     {
         std::cerr << "Exception in TCPServer::Session::FetchDataFromPeer(): " << e.what() << std::endl;
     }

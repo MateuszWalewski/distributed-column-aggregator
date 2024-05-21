@@ -15,7 +15,7 @@ using TypedStorage = std::unordered_map<std::string, std::shared_ptr<ColumnNode<
 class ColumnNodeStorage
 {
 private:
-    ColStorage colStorage;
+    ColStorage _colStorage;
 
 public:
     ColumnNodeStorage() = default;
@@ -24,6 +24,6 @@ public:
     template <typename T>
     inline TypedStorage<T>& GetColumnStorage()
     {
-        return std::get<TypedStorage<T>>( colStorage );
+        return std::get<TypedStorage<T>>( _colStorage );
     }
 };

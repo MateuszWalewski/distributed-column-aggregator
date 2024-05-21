@@ -3,11 +3,7 @@
 #include <ParameterController/ParameterControllerHub.h>
 
 #include <boost/asio.hpp>
-#include <cstdlib>
-#include <iostream>
 #include <memory>
-#include <utility>
-#include <vector>
 
 using boost::asio::ip::tcp;
 
@@ -30,10 +26,10 @@ public:
         void FetchDataFromPeer( std::vector<T>& data, int dataSize, int offset );
 
     private:
-        std::unique_ptr<tcp::socket> socket_;
+        std::unique_ptr<tcp::socket> _socket;
     };
 
 private:
-    std::vector<tcp::acceptor> acceptor_;
-    std::vector<Session> session;
+    std::vector<tcp::acceptor> _acceptor;
+    std::vector<Session> _session;
 };

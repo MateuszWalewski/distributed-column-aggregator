@@ -1,5 +1,3 @@
-## JUST A PROOF OF CONCEPT. NEEDS TO BE REFACTORIZED ##
-
 ### Dependencies
 
 - Loki by Andrei Alexandrescu: https://loki-lib.sourceforge.net/

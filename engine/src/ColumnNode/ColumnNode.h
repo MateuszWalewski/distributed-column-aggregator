@@ -17,6 +17,6 @@ public:
     int Count();
 
 private:
-    IColumnNode* columnNodeEngine;
-    std::string name;
+    IColumnNode* _columnNodeEngine;
+    std::string _name;
 };

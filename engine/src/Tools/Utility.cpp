@@ -1,8 +1,16 @@
 #include "Utility.h"
+#include "constants.h"
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <iterator>
+#include <mutex>
+#include <sstream>
 
 namespace util
 {
+
+const std::string DATA_FILE_PATH = std::string( DATA_PATH ) + "/data/";
 template void LoadCsvToDataColumn<int>( const std::string& dataFilePath, const size_t begin, const size_t end,
                                         std::vector<int>& destination );
 template void LoadCsvToDataColumn<float>( const std::string& dataFilePath, const size_t begin, const size_t end,
@@ -10,23 +18,48 @@ template void LoadCsvToDataColumn<float>( const std::string& dataFilePath, const
 template void LoadCsvToDataColumn<double>( const std::string& dataFilePath, const size_t begin, const size_t end,
                                            std::vector<double>& destination );
 
-const std::string DATA_FILE_PATH = std::string( DATA_PATH ) + "/data/";
+template void PrintVector<int>( const std::vector<int>& container, const std::string& label );
+template void PrintVector<float>( const std::vector<float>& container, const std::string& label );
+template void PrintVector<double>( const std::vector<double>& container, const std::string& label );
+template void PrintVector<std::string>( const std::vector<std::string>& container, const std::string& label );
 
-DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath, int nOfNodes )
+std::vector<std::string> SplitStringToVector( const std::string& stringToSplit )
+{
+    std::stringstream ss( stringToSplit );
+    std::istream_iterator<std::string> begin( ss );
+    std::istream_iterator<std::string> end;
+    std::vector<std::string> vstrings( begin, end );
+    return vstrings;
+}
+
+int CalculateNumberOfLinesInFile( const std::string& filePath )
+{
+    std::ifstream inFile( DATA_FILE_PATH + filePath );
+    try
+    {
+        if ( !inFile.is_open() )
+        {
+            throw std::runtime_error( "Failed to open file: " + filePath );
+        }
+    }
+    catch ( const std::exception& e )
+    {
+        std::cerr << "Problem with file:" << e.what() << std::endl;
+    }
+    return std::count( std::istreambuf_iterator<char>( inFile ), std::istreambuf_iterator<char>(), '\n' ) + 1;
+}
+
+DataLoadRanges CalculateRangesToLoadDataOnNodes( int numberOfValues, int nOfNodes )
 {
     DataLoadRanges ranges;
 
-    std::ifstream inFile( DATA_FILE_PATH + dataFilePath );
-
-    int fileSize = std::count( std::istreambuf_iterator<char>( inFile ), std::istreambuf_iterator<char>(), '\n' ) + 1;
-
-    size_t length = fileSize / nOfNodes;
-    size_t remain = fileSize % nOfNodes;
+    size_t length = numberOfValues / nOfNodes;
+    size_t remain = numberOfValues % nOfNodes;
 
     size_t begin = 0;
     size_t end = 0;
 
-    for ( int i = 0; i < std::min( nOfNodes, fileSize ); ++i )
+    for ( int i = 0; i < std::min( nOfNodes, numberOfValues ); ++i )
     {
         end += ( remain > 0 ) ? ( length + !!( remain-- ) ) : length;
 
@@ -38,24 +71,34 @@ DataLoadRanges CalculateRangesToLoadDataOnNodes( const std::string& dataFilePath
 }
 
 template <typename T>
-void LoadCsvToDataColumn( const std::string& dataFilePath, const size_t begin, const size_t end, std::vector<T>& destination )
+void PrintVector( const std::vector<T>& container, const std::string& label )
+{
+    for ( auto& x : container )
+    {
+        std::cout << label << ": " << x << '\n';
+    }
+
+    std::cout << std::flush;
+}
+
+template <typename T>
+void LoadCsvToDataColumn( const std::string& fileName, const size_t begin, const size_t end, std::vector<T>& destination )
 {
     T tempValue;
     std::mutex m;
     m.lock();
-    std::ifstream myfile( DATA_FILE_PATH + dataFilePath );
+    std::ifstream myfile( DATA_FILE_PATH + fileName );
 
     try
     {
         if ( !myfile.is_open() )
         {
-            throw std::exception(); // Throw an exception when a problem arise
+            throw std::runtime_error( "Failed to open file: " + fileName );
         }
     }
-    catch ( ... )
+    catch ( const std::exception& e )
     {
-        std::cout << "Problem with file" << std::endl;
-        ;
+        std::cerr << "Problem with file:" << e.what() << std::endl;
     }
 
     size_t count = 0;

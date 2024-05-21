@@ -13,6 +13,6 @@ public:
     uint GetTcpPort();
 
 private:
-    uint mTcpPort;
-    uint mRpcPort;
+    uint _tcpPort;
+    uint _rpcPort;
 };

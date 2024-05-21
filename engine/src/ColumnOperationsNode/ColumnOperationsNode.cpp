@@ -1,6 +1,6 @@
 #include "ColumnOperationsNode.h"
 
-#include <iostream>
+#include <Loki/Singleton.h>
 #include <vector>
 
 namespace calcs
@@ -16,6 +16,18 @@ template void DeleteColumn<float>( const std::string& id );
 template void AddElement<int>( const std::string& id, const int elem );
 template void AddElement<double>( const std::string& id, const double elem );
 template void AddElement<float>( const std::string& id, const float elem );
+
+template int Sum<int>( const std::string& id );
+template double Sum<double>( const std::string& id );
+template float Sum<float>( const std::string& id );
+
+template double SumX2<int>( const std::string& id );
+template double SumX2<double>( const std::string& id );
+template double SumX2<float>( const std::string& id );
+
+template int Count<int>( const std::string& id );
+template int Count<double>( const std::string& id );
+template int Count<float>( const std::string& id );
 
 template int Fetch<int>( const std::string& id );
 template int Fetch<double>( const std::string& id );
@@ -51,6 +63,30 @@ void AddElement( const std::string& id, const T elem )
     auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
     auto& map = cSInstance.GetColumnStorage<T>();
     map[id]->AddElement( elem );
+}
+
+template <typename T>
+T Sum( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Sum();
+}
+
+template <typename T>
+double SumX2( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->SumX2();
+}
+
+template <typename T>
+int Count( const std::string& id )
+{
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Count();
 }
 
 template <typename T>

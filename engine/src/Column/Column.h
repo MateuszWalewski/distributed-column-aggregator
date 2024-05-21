@@ -19,5 +19,5 @@ public:
     double Stddev();
 
 private:
-    IColumn* columnEngine;
+    IColumn* _columnEngine;
 };
