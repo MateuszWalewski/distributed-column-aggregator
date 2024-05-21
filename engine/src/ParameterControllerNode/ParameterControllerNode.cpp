@@ -1,11 +1,19 @@
 #include "ParameterControllerNode.h"
+#include <boost/lexical_cast.hpp>
 
 #include <iostream>
 
 void ParameterControllerNode::LoadNodeConnectionInfo( const char* rpcPort, const char* tcpPort )
 {
-    _rpcPort = std::stoi( rpcPort );
-    _tcpPort = std::stoi( tcpPort );
+    try
+    {
+        _rpcPort = boost::lexical_cast<uint>( rpcPort );
+        _tcpPort = boost::lexical_cast<uint>( tcpPort );
+    }
+    catch ( const boost::bad_lexical_cast& e )
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 }
 
 void ParameterControllerNode::PrintNodeConnectionInfo()

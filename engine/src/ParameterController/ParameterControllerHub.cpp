@@ -1,6 +1,7 @@
 #include "ParameterControllerHub.h"
 #include <Tools/Utility.h>
-#include <sstream>
+#include <boost/lexical_cast.hpp>
+#include <iostream>
 
 void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::string>& rpcConnectionInfo,
                                                     const std::vector<std::string>& tcpConnectionInfo )
@@ -12,7 +13,16 @@ void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::strin
 
     for ( const auto& info : tcpConnectionInfo )
     {
-        _tcpPorts.push_back( std::stoi( info ) );
+        uint tcpPortNumber;
+        try
+        {
+            tcpPortNumber = boost::lexical_cast<uint>( info );
+        }
+        catch ( const boost::bad_lexical_cast& e )
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+        _tcpPorts.push_back( tcpPortNumber );
     }
 }
 
