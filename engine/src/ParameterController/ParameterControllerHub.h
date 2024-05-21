@@ -16,6 +16,6 @@ public:
     size_t GetNumberOfNodes();
 
 private:
-    std::vector<std::string> mServerInfo;
-    std::vector<uint> mTcpPorts;
+    std::vector<std::string> _serverInfo;
+    std::vector<uint> _tcpPorts;
 };

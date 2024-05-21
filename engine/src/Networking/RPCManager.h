@@ -9,6 +9,7 @@
 using RpcClientHandlers = std::vector<std::unique_ptr<rpc::client>>;
 using DataLoadRanges = std::vector<std::pair<size_t, size_t>>;
 using RpcHandle = std::future<clmdep_msgpack::v1::object_handle>;
+
 class RPCManager
 {
 public:
@@ -16,7 +17,7 @@ public:
     std::vector<T> CallRpcMethod( const std::string& methodName, const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
-        for ( auto& rpcClient : mRpcClientHandlers )
+        for ( auto& rpcClient : _rpcClientHandlers )
         {
             handles.push_back( rpcClient->async_call( methodName, columnId ) );
         }
@@ -33,7 +34,7 @@ public:
     auto CallRpcMethodVoid( const std::string& methodName, const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
-        for ( auto& rpcClient : mRpcClientHandlers )
+        for ( auto& rpcClient : _rpcClientHandlers )
         {
             handles.push_back( rpcClient->async_call( methodName, columnId ) );
         }
@@ -53,7 +54,7 @@ public:
                         const std::string& columnId )
     {
         std::vector<RpcHandle> handles;
-        for ( size_t i = 0; i < mRpcClientHandlers.size(); i++ )
+        for ( size_t i = 0; i < _rpcClientHandlers.size(); i++ )
         {
             if ( i >= ranges.size() )
                 break;
@@ -61,7 +62,7 @@ public:
             size_t begin = ranges[i].first;
             size_t end = ranges[i].second;
 
-            handles.push_back( mRpcClientHandlers[i]->async_call( methodName, begin, end, dataFilePath, columnId ) );
+            handles.push_back( _rpcClientHandlers[i]->async_call( methodName, begin, end, dataFilePath, columnId ) );
         }
 
         for ( auto& handle : handles )
@@ -79,15 +80,15 @@ public:
             return;
         }
 
-        if ( nodeNumber > mRpcClientHandlers.size() )
+        if ( nodeNumber > _rpcClientHandlers.size() )
         {
             std::cout << "Error: there is no " + std::to_string( nodeNumber ) + " nodes configured." << std::endl;
-            std::cout << "The number of available nodes is " + std::to_string( mRpcClientHandlers.size() ) << std::endl;
+            std::cout << "The number of available nodes is " + std::to_string( _rpcClientHandlers.size() ) << std::endl;
             return;
         }
 
         size_t nodeIdx = nodeNumber - 1;
-        mRpcClientHandlers[nodeIdx]->call( methodName, columnId, element );
+        _rpcClientHandlers[nodeIdx]->call( methodName, columnId, element );
     }
 
     void RunServer();
@@ -97,6 +98,6 @@ public:
     void SetRpcServerInfo( std::unique_ptr<rpc::server>&& rpcServerHandler );
 
 private:
-    RpcClientHandlers mRpcClientHandlers;
-    std::unique_ptr<rpc::server> mRpcServerHandler;
+    RpcClientHandlers _rpcClientHandlers;
+    std::unique_ptr<rpc::server> _rpcServerHandler;
 };

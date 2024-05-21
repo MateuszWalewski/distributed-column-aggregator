@@ -14,9 +14,9 @@ template void TCPClient::Send<double>( std::vector<double>& data );
 template void TCPClient::Send<float>( std::vector<float>& data );
 template void TCPClient::Send<int>( std::vector<int>& data );
 
-TCPClient::TCPClient( boost::asio::io_context& io_context ) : resolver( io_context )
+TCPClient::TCPClient( boost::asio::io_context& io_context ) : _resolver( io_context )
 {
-    socket = std::make_unique<tcp::socket>( io_context );
+    _socket = std::make_unique<tcp::socket>( io_context );
 }
 
 void TCPClient::Connect()
@@ -24,9 +24,9 @@ void TCPClient::Connect()
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerNode>::Instance();
     const char* hubAddr = std::getenv( "HUB_ADDRESS" );
     boost::asio::ip::tcp::resolver::query query( hubAddr, std::to_string( pCInstance.GetTcpPort() ) );
-    boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve( query );
+    boost::asio::ip::tcp::resolver::iterator iter = _resolver.resolve( query );
 
-    socket->connect( iter->endpoint() );
+    _socket->connect( iter->endpoint() );
     std::cout << "Connected on port: " << std::to_string( pCInstance.GetTcpPort() ) << std::endl;
 }
 
@@ -37,7 +37,7 @@ void TCPClient::Send( std::vector<T>& data )
     {
         Connect();
         boost::system::error_code error;
-        boost::asio::write( *socket, boost::asio::buffer( data ), error );
+        boost::asio::write( *_socket, boost::asio::buffer( data ), error );
         if ( !error )
         {
             std::cout << "Client sent sucessfully!" << std::endl;
@@ -47,7 +47,7 @@ void TCPClient::Send( std::vector<T>& data )
             throw boost::system::system_error( error );
         }
     }
-    catch ( std::exception& e )
+    catch ( const std::exception& e )
     {
         std::cerr << "Exception in TCPClient::Send: " << e.what() << std::endl;
     }

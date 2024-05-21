@@ -7,31 +7,31 @@ void ParameterControllerHub::LoadHubConnectionInfo( const std::vector<std::strin
 {
     for ( const auto& info : rpcConnectionInfo )
     {
-        mServerInfo.push_back( info );
+        _serverInfo.push_back( info );
     }
 
     for ( const auto& info : tcpConnectionInfo )
     {
-        mTcpPorts.push_back( std::stoi( info ) );
+        _tcpPorts.push_back( std::stoi( info ) );
     }
 }
 
 void ParameterControllerHub::PrintHubConnectionInfo()
 {
-    util::PrintVector( mServerInfo, "ServerInfo: " );
+    util::PrintVector( _serverInfo, "ServerInfo: " );
 }
 
 const std::vector<std::string>& ParameterControllerHub::GetServerInfo() const
 {
-    return mServerInfo;
+    return _serverInfo;
 }
 
 const std::vector<uint>& ParameterControllerHub::GetTcpPorts() const
 {
-    return mTcpPorts;
+    return _tcpPorts;
 }
 
 size_t ParameterControllerHub::GetNumberOfNodes()
 {
-    return mServerInfo.size();
+    return _serverInfo.size();
 }

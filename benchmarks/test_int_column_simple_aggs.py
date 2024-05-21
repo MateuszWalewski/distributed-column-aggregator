@@ -20,27 +20,27 @@ def tear_down():
 def test_sum_int_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Sum)
-    assert result == 5082342
+    assert result == 5082342 # vs. postgres
 
 
-def test_count_int_column(benchmark, start_up):
+def test_count_int_column(start_up):
     a = start_up
-    result = benchmark(a.Count)
+    result = a.Count() # O(1) complexity
     assert result == 1015823
 
 
 def test_momentI_int_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentI)
-    assert result == approx(5.0031767345295391, rel=1e-11)
+    assert result == approx(5.0031767345295391, rel=1e-11) # vs. postgres
 
 def test_momentII_int_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentII)
-    assert result== approx(35.0343967403770145, rel=1e-11)
+    assert result== approx(35.0343967403770145, rel=1e-11) # vs. postgres
 
 
 def test_stddev_int_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.Stddev)
-    assert result == approx(3.1626933380051605, rel=1e-11)
+    assert result == approx(3.1626933380051605, rel=1e-11) # vs. postgres

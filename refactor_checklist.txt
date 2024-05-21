@@ -5,8 +5,8 @@ Column.h                (+)
 
 ColumnEngine:
 -----------
-ColumnImpl.cpp
-ColumnImpl.h
+ColumnImpl.cpp			(+)
+ColumnImpl.h			(+)
 IColumn.h               (+)
 
 ColumnNode:
@@ -18,7 +18,7 @@ ColumnNodeEngine:
 -----------------
 IColumnNode.h           (+)
 ColumnNodeImpl.h        (+)
-ColumnNodeImpl.cpp
+ColumnNodeImpl.cpp		(+)
 
 ColumnNodeStorage
 ---------------
@@ -26,23 +26,23 @@ ColumnNodeStorage.h     (+)
 
 ColumnOperationsNode:
 -------------------
-ColumnOperationsNode.cpp
-ColumnOperationsNode.h
+ColumnOperationsNode.cpp (+)
+ColumnOperationsNode.h   (+)
 
 Factory:
 ---------
-Factory.cpp
-Factory.h
+Factory.cpp				 (+)
+Factory.h				 (+)
 
 FactoryNode:
 -------------
-FactoryNode.cpp
-FactoryNode.h
+FactoryNode.cpp          (+)
+FactoryNode.h			 (+)
 
 Networking:
 -----------
-RPCManager.cpp
-RPCManager.h
+RPCManager.cpp			 (+)
+RPCManager.h			 (+)
 
 ParameterController:
 --------------------
@@ -56,19 +56,19 @@ ParameterControllerNode.h       (+)
 
 TCPChannel:
 -----------
-TCPClient.cpp
-TCPClient.h
-TCPServer.cpp
-TCPServer.h
+TCPClient.cpp                   (+)
+TCPClient.h					    (+)
+TCPServer.cpp					(+)
+TCPServer.h						(+)
 
 Tools:
 -----
-Utility.cpp
-Utility.h
+Utility.cpp						(+)
+Utility.h						(+)
 
-- Traits.h
-- TraitsCol.h
-- constants.h
+- Traits.h                      (+)
+- TraitsCol.h					(+)
+- constants.h					(+)
 - hub.cpp       (+)
 - node.cpp      (+)
 

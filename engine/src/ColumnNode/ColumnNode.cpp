@@ -10,59 +10,59 @@ template class ColumnNode<float>;
 template class ColumnNode<int>;
 
 template <typename T>
-ColumnNode<T>::ColumnNode( const std::string& colName ) : name( colName )
+ColumnNode<T>::ColumnNode( const std::string& colName ) : _name( colName )
 {
     auto& Instance = Loki::SingletonHolder<FactoryNode>::Instance();
     auto gadgetFactory = Instance.GetWidgetFactory( TypeName<T>::name );
-    columnNodeEngine = gadgetFactory->template Create<IColumnNode>();
-    std::cout << name << " created on node" << std::endl;
+    _columnNodeEngine = gadgetFactory->template Create<IColumnNode>();
+    std::cout << _name << " created on node" << std::endl;
 }
 
 template <typename T>
 ColumnNode<T>::~ColumnNode()
 {
-    delete columnNodeEngine;
-    std::cout << name << " destructed on node" << std::endl;
+    delete _columnNodeEngine;
+    std::cout << _name << " destructed on node" << std::endl;
 }
 
 template <typename T>
 void ColumnNode<T>::Print()
 {
-    columnNodeEngine->Print();
+    _columnNodeEngine->Print();
 }
 
 template <typename T>
 void ColumnNode<T>::LoadData( const std::string& dataFilePath, const size_t begin, const size_t end )
 {
-    columnNodeEngine->LoadData( dataFilePath, begin, end );
+    _columnNodeEngine->LoadData( dataFilePath, begin, end );
 }
 
 template <typename T>
 T ColumnNode<T>::Sum()
 {
-    return std::any_cast<T>( columnNodeEngine->Sum() );
+    return std::any_cast<T>( _columnNodeEngine->Sum() );
 }
 
 template <typename T>
 double ColumnNode<T>::SumX2()
 {
-    return columnNodeEngine->SumX2();
+    return _columnNodeEngine->SumX2();
 }
 
 template <typename T>
 int ColumnNode<T>::Count()
 {
-    return columnNodeEngine->Count();
+    return _columnNodeEngine->Count();
 }
 
 template <typename T>
 void ColumnNode<T>::AddElement( const T element )
 {
-    columnNodeEngine->AddElement( std::make_any<T>( element ) );
+    _columnNodeEngine->AddElement( std::make_any<T>( element ) );
 }
 
 template <typename T>
 int ColumnNode<T>::Fetch()
 {
-    return columnNodeEngine->SendDataToHub();
+    return _columnNodeEngine->SendDataToHub();
 }

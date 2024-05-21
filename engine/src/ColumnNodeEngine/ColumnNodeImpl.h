@@ -19,6 +19,5 @@ public:
     int SendDataToHub() override;
 
 private:
-    std::vector<T> data;
-    std::string name;
+    std::vector<T> _data;
 };
