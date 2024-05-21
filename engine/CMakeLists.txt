@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(distributedDBPrototype LANGUAGES CXX)
+project(distributed-column-aggregator  LANGUAGES CXX)
 
 if(POLICY CMP0135)
 	cmake_policy(SET CMP0135 NEW)
