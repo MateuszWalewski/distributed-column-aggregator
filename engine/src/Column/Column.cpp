@@ -12,15 +12,16 @@ Column<T>::Column() {
     auto& Instance = Loki::SingletonHolder<Factory>::Instance();
     auto gadgetFactory = Instance.GetWidgetFactory(TypeName<T>::name);
 
-    _columnEngine = gadgetFactory->template Create<IColumn>();
+    _columnEngine.reset(gadgetFactory->template Create<IColumn>());
     _columnEngine->CreateColumnOnNode();
 }
 
 template <typename T>
 Column<T>::~Column() {
     _columnEngine->DeleteColumnOnNode();
-    delete _columnEngine;
 }
+template<typename T>
+Column<T>::Column(const Column&) {} // Needed by the pyboost
 
 template <typename T>
 void Column<T>::Print() {
