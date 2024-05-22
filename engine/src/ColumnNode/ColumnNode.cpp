@@ -34,8 +34,8 @@ void ColumnNode<T>::LoadData(const std::string& dataFilePath, const size_t begin
 }
 
 template <typename T>
-T ColumnNode<T>::Sum() {
-    return std::any_cast<T>(_columnNodeEngine->Sum());
+double ColumnNode<T>::Sum() {
+    return _columnNodeEngine->Sum();
 }
 
 template <typename T>
@@ -44,7 +44,7 @@ double ColumnNode<T>::SumX2() {
 }
 
 template <typename T>
-int ColumnNode<T>::Count() {
+size_t ColumnNode<T>::Count() {
     return _columnNodeEngine->Count();
 }
 
@@ -54,6 +54,6 @@ void ColumnNode<T>::AddElement(const T element) {
 }
 
 template <typename T>
-int ColumnNode<T>::Fetch() {
-    return _columnNodeEngine->SendDataToHub();
+size_t ColumnNode<T>::Fetch() {
+    return _columnNodeEngine->Fetch();
 }

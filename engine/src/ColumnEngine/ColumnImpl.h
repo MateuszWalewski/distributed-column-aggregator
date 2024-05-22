@@ -12,12 +12,12 @@ public:
     std::any GetElement(size_t index);
     void PrintColumnOnNode() override;
     void LoadDataToNode(const std::string& dataFilePath) override;
-    std::any Sum() override;
+    double Sum() override;
     double MomentI() override;
     double MomentII() override;
     double Stddev() override;
-    int Count() override;
-    int Fetch() override;
+    size_t Count() override;
+    size_t Fetch() override;
 
 private:
     std::string _colId;

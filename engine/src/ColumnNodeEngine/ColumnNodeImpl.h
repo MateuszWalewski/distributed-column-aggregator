@@ -12,10 +12,10 @@ public:
     void LoadData(const std::string& dataFilePath, const size_t begin, const size_t end) override;
     void AddElement(const std::any element) override;
 
-    std::any Sum() override;
+    double Sum() override;
     double SumX2() override;
-    int Count() override;
-    int SendDataToHub() override;
+    size_t Count() override;
+    size_t Fetch() override;
 
 private:
     std::vector<T> _data;

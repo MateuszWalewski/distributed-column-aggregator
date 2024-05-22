@@ -43,17 +43,17 @@ void Column<T>::LoadData(const std::string& dataFilePath) {
 }
 
 template <typename T>
-T Column<T>::Sum() {
-    return std::any_cast<T>(_columnEngine->Sum());
+double Column<T>::Sum() {
+    return _columnEngine->Sum();
 }
 
 template <typename T>
-int Column<T>::Count() {
+size_t Column<T>::Count() {
     return _columnEngine->Count();
 }
 
 template <typename T>
-int Column<T>::Fetch() {
+size_t Column<T>::Fetch() {
     return _columnEngine->Fetch();
 }
 

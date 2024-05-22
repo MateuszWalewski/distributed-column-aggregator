@@ -9,7 +9,7 @@ TEST(ColumEngineTests, SumTests) {
     col.AddElement(std::make_any<int>(7));
     col.AddElement(std::make_any<int>(4));
 
-    EXPECT_EQ(std::any_cast<int>(col.Sum()), 16);
+    EXPECT_EQ(col.Sum(), 16.0);
 }
 
 TEST(ColumEngineTests, CountTests) {
@@ -21,7 +21,7 @@ TEST(ColumEngineTests, CountTests) {
     col.AddElement(std::make_any<int>(7));
     col.AddElement(std::make_any<int>(4));
 
-    EXPECT_EQ(std::any_cast<int>(col.Count()), 5);
+    EXPECT_EQ(col.Count(), 5);
 }
 
 TEST(ColumEngineTests, SumX2Tests) {

@@ -69,21 +69,21 @@ void ColumnImpl<T>::LoadDataToNode(const std::string& dataFilePath) {
 }
 
 template <typename T>
-std::any ColumnImpl<T>::Sum() {
+double ColumnImpl<T>::Sum() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Sum", _colId);
-    return std::accumulate(results.begin(), results.end(), static_cast<T>(0));
+    auto results = rpcInstance.CallRpcMethod<double>(_typeName + "Sum", _colId);
+    return std::accumulate(results.begin(), results.end(), 0.0);
 }
 
 template <typename T>
-int ColumnImpl<T>::Count() {
+size_t ColumnImpl<T>::Count() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Count", _colId);
-    return std::accumulate(results.begin(), results.end(), static_cast<int>(0));
+    return std::accumulate(results.begin(), results.end(), size_t{0});
 }
 
 template <typename T>
-int ColumnImpl<T>::Fetch() {
+size_t ColumnImpl<T>::Fetch() {
     if (_isDataFetchedFromNodes) {
         std::cout << "Data already fetched from nodes." << std::endl;
         return _data.size();
@@ -95,7 +95,7 @@ int ColumnImpl<T>::Fetch() {
     TCPServer tcpServer(io_context);
     auto tcpAsync = std::async(std::launch::async, &TCPServer::Accept, &tcpServer);
     auto handles = rpcInstance.CallRpcMethodVoid(_typeName + "Fetch", _colId);
-    auto dataSize = std::accumulate(results.begin(), results.end(), static_cast<int>(0));
+    auto dataSize = std::accumulate(results.begin(), results.end(), size_t{0});
     _data.resize(dataSize);
     tcpServer.Read(_data, results);
     rpcInstance.CompleteRpcTasks(handles);
@@ -106,22 +106,22 @@ int ColumnImpl<T>::Fetch() {
 
 template <typename T>
 double ColumnImpl<T>::MomentI() {
-    return static_cast<double>(std::any_cast<T>(Sum())) / Count();
+    return Sum() / Count();
 }
 
 template <typename T>
 double ColumnImpl<T>::MomentII() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<double>(_typeName + "SumX2", _colId);
-    return static_cast<double>(std::accumulate(results.begin(), results.end(), static_cast<double>(0))) / Count();
+    return std::accumulate(results.begin(), results.end(), 0.0) / Count();
 }
 
 template <typename T>
 double ColumnImpl<T>::Stddev() {
     auto momentI = MomentI();
     auto momentII = MomentII();
-    auto count = Count();
-    return sqrt((momentII - momentI * momentI) * (static_cast<double>(count) / (count - 1)));
+    auto count = static_cast<double>(Count());
+    return sqrt((momentII - momentI * momentI) * (count / (count - 1)));
 }
 
 template <typename T>

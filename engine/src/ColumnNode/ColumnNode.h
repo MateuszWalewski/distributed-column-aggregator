@@ -10,10 +10,10 @@ public:
     void Print();
     void LoadData(const std::string& dataFilePath, const size_t begin, const size_t end);
     void AddElement(const T element);
-    int Fetch();
-    T Sum();
+    size_t Fetch();
+    double Sum();
     double SumX2();
-    int Count();
+    size_t Count();
 
 private:
     IColumnNode* _columnNodeEngine;

@@ -10,9 +10,10 @@ public:
     T GetElement(size_t index);
     void Print();
     void LoadData(const std::string& dataFilePath);
-    T Sum();
-    int Count();
-    int Fetch();
+
+    size_t Count();
+    size_t Fetch();
+    double Sum();
     double MomentI();
     double MomentII();
     double Stddev();
