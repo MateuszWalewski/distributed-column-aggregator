@@ -5,13 +5,12 @@
 
 using namespace Loki;
 
-typedef AbstractFactory<LOKI_TYPELIST_1( IColumnNode )> AbstractColumnFactory;
+typedef AbstractFactory<LOKI_TYPELIST_1(IColumnNode)> AbstractColumnFactory;
 
-class FactoryNode
-{
+class FactoryNode {
 public:
     FactoryNode();
-    AbstractColumnFactory* GetWidgetFactory( const std::string& key );
+    AbstractColumnFactory* GetWidgetFactory(const std::string& key);
 
 private:
     std::map<std::string, std::unique_ptr<AbstractColumnFactory>> factory;

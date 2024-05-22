@@ -2,11 +2,10 @@
 #include <string>
 #include <vector>
 
-class ParameterControllerNode
-{
+class ParameterControllerNode {
 public:
     ParameterControllerNode() = default;
-    void LoadNodeConnectionInfo( const char* rpcPort, const char* tcpPort );
+    void LoadNodeConnectionInfo(const char* rpcPort, const char* tcpPort);
     void PrintNodeConnectionInfo();
 
     uint GetRpcPort();

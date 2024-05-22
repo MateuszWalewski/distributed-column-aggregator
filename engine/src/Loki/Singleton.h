@@ -47,12 +47,10 @@
 ///  \code Loki::LongevityLifetime::DieAsSmallObjectChild \endcode
 ///  Be aware of this when you use Loki::Factory, Loki::Functor, or Loki::Function.
 
-namespace Loki
-{
-typedef void( LOKI_C_CALLING_CONVENTION_QUALIFIER* atexit_pfn_t )();
+namespace Loki {
+typedef void(LOKI_C_CALLING_CONVENTION_QUALIFIER* atexit_pfn_t)();
 
-namespace Private
-{
+namespace Private {
 #ifndef LOKI_MAKE_DLL
 void LOKI_C_CALLING_CONVENTION_QUALIFIER AtExitFn(); // declaration needed below
 #else
@@ -80,17 +78,14 @@ extern unsigned int elements;
 // Helper class for SetLongevity
 ////////////////////////////////////////////////////////////////////////////////
 
-class LifetimeTracker
-{
+class LifetimeTracker {
 public:
-    LifetimeTracker( unsigned int x ) : longevity_( x )
-    {
+    LifetimeTracker(unsigned int x) : longevity_(x) {
     }
 
     virtual ~LifetimeTracker() = 0;
 
-    static bool Compare( const LifetimeTracker* lhs, const LifetimeTracker* rhs )
-    {
+    static bool Compare(const LifetimeTracker* lhs, const LifetimeTracker* rhs) {
         return lhs->longevity_ > rhs->longevity_;
     }
 
@@ -99,34 +94,27 @@ private:
 };
 
 // Definition required
-inline LifetimeTracker::~LifetimeTracker()
-{
+inline LifetimeTracker::~LifetimeTracker() {
 }
 
 // Helper destroyer function
 template <typename T>
-struct Deleter
-{
-    typedef void ( *Type )( T* );
-    static void Delete( T* pObj )
-    {
+struct Deleter {
+    typedef void (*Type)(T*);
+    static void Delete(T* pObj) {
         delete pObj;
     }
 };
 
 // Concrete lifetime tracker for objects of type T
 template <typename T, typename Destroyer>
-class ConcreteLifetimeTracker : public LifetimeTracker
-{
+class ConcreteLifetimeTracker : public LifetimeTracker {
 public:
-    ConcreteLifetimeTracker( T* p, unsigned int longevity, Destroyer d )
-        : LifetimeTracker( longevity ), pTracked_( p ), destroyer_( d )
-    {
+    ConcreteLifetimeTracker(T* p, unsigned int longevity, Destroyer d) : LifetimeTracker(longevity), pTracked_(p), destroyer_(d) {
     }
 
-    ~ConcreteLifetimeTracker()
-    {
-        destroyer_( pTracked_ );
+    ~ConcreteLifetimeTracker() {
+        destroyer_(pTracked_);
     }
 
 private:
@@ -146,64 +134,60 @@ private:
 #ifdef LOKI_ENABLE_NEW_SETLONGLIVITY_HELPER_DATA_IMPL
 
 template <typename T, typename Destroyer>
-void SetLongevity( T* pDynObject, unsigned int longevity, Destroyer d )
-{
+void SetLongevity(T* pDynObject, unsigned int longevity, Destroyer d) {
     using namespace Private;
 
     // manage lifetime of stack manually
-    if ( pTrackerArray == 0 )
+    if (pTrackerArray == 0)
         pTrackerArray = new TrackerArray;
 
     // automatically delete the ConcreteLifetimeTracker object when a exception is thrown
-    std::unique_ptr<LifetimeTracker> p( new ConcreteLifetimeTracker<T, Destroyer>( pDynObject, longevity, d ) );
+    std::unique_ptr<LifetimeTracker> p(new ConcreteLifetimeTracker<T, Destroyer>(pDynObject, longevity, d));
 
     // Find correct position
     TrackerArray::iterator pos =
-        std::upper_bound( pTrackerArray->begin(), pTrackerArray->end(), p.get(), LifetimeTracker::Compare );
+        std::upper_bound(pTrackerArray->begin(), pTrackerArray->end(), p.get(), LifetimeTracker::Compare);
 
     // Insert the pointer to the ConcreteLifetimeTracker object into the queue
-    pTrackerArray->insert( pos, p.get() );
+    pTrackerArray->insert(pos, p.get());
 
     // nothing has thrown: don't delete the ConcreteLifetimeTracker object
     p.release();
 
     // Register a call to AtExitFn
-    std::atexit( Private::AtExitFn );
+    std::atexit(Private::AtExitFn);
 }
 
 #else
 
 template <typename T, typename Destroyer>
-void SetLongevity( T* pDynObject, unsigned int longevity, Destroyer d )
-{
+void SetLongevity(T* pDynObject, unsigned int longevity, Destroyer d) {
     using namespace Private;
 
-    TrackerArray pNewArray =
-        static_cast<TrackerArray>( std::realloc( pTrackerArray, sizeof( *pTrackerArray ) * ( elements + 1 ) ) );
-    if ( !pNewArray )
+    TrackerArray pNewArray = static_cast<TrackerArray>(std::realloc(pTrackerArray, sizeof(*pTrackerArray) * (elements + 1)));
+    if (!pNewArray)
         throw std::bad_alloc();
 
     // Delayed assignment for exception safety
     pTrackerArray = pNewArray;
 
-    LifetimeTracker* p = new ConcreteLifetimeTracker<T, Destroyer>( pDynObject, longevity, d );
+    LifetimeTracker* p = new ConcreteLifetimeTracker<T, Destroyer>(pDynObject, longevity, d);
 
     // Insert a pointer to the object into the queue
-    TrackerArray pos = std::upper_bound( pTrackerArray, pTrackerArray + elements, p, LifetimeTracker::Compare );
-    std::copy_backward( pos, pTrackerArray + elements, pTrackerArray + elements + 1 );
+    TrackerArray pos = std::upper_bound(pTrackerArray, pTrackerArray + elements, p, LifetimeTracker::Compare);
+    std::copy_backward(pos, pTrackerArray + elements, pTrackerArray + elements + 1);
     *pos = p;
     ++elements;
 
     // Register a call to AtExitFn
-    std::atexit( Private::AtExitFn );
+    std::atexit(Private::AtExitFn);
 }
 
 #endif
 
 template <typename T>
-void SetLongevity( T* pDynObject, unsigned int longevity, typename Private::Deleter<T>::Type d = Private::Deleter<T>::Delete )
-{
-    SetLongevity<T, typename Private::Deleter<T>::Type>( pDynObject, longevity, d );
+void SetLongevity(T* pDynObject, unsigned int longevity, typename Private::Deleter<T>::Type d = Private::Deleter<T>::Delete) {
+    SetLongevity<T, typename Private::Deleter<T>::Type>(pDynObject, longevity, d);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -214,15 +198,12 @@ void SetLongevity( T* pDynObject, unsigned int longevity, typename Private::Dele
 ///  Creates objects using a straight call to the new operator
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-struct CreateUsingNew
-{
-    static T* Create()
-    {
+struct CreateUsingNew {
+    static T* Create() {
         return new T;
     }
 
-    static void Destroy( T* p )
-    {
+    static void Destroy(T* p) {
         delete p;
     }
 };
@@ -236,23 +217,19 @@ struct CreateUsingNew
 ///  Usage: e.g. CreateUsing<std::allocator>::Allocator
 ////////////////////////////////////////////////////////////////////////////////
 template <template <class> class Alloc>
-struct CreateUsing
-{
+struct CreateUsing {
     template <class T>
-    struct Allocator
-    {
+    struct Allocator {
         static Alloc<T> allocator;
 
-        static T* Create()
-        {
-            return new ( allocator.allocate( 1 ) ) T;
+        static T* Create() {
+            return new (allocator.allocate(1)) T;
         }
 
-        static void Destroy( T* p )
-        {
+        static void Destroy(T* p) {
             // allocator.destroy(p);
             p->~T();
-            allocator.deallocate( p, 1 );
+            allocator.deallocate(p, 1);
         }
     };
 };
@@ -266,20 +243,17 @@ struct CreateUsing
 ///  placement new operator
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-struct CreateUsingMalloc
-{
-    static T* Create()
-    {
-        void* p = std::malloc( sizeof( T ) );
-        if ( !p )
+struct CreateUsingMalloc {
+    static T* Create() {
+        void* p = std::malloc(sizeof(T));
+        if (!p)
             return 0;
-        return new ( p ) T;
+        return new (p) T;
     }
 
-    static void Destroy( T* p )
-    {
+    static void Destroy(T* p) {
         p->~T();
-        std::free( p );
+        std::free(p);
     }
 };
 
@@ -294,17 +268,15 @@ struct CreateUsingMalloc
 ///  nonportable in theory but highly portable in practice.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-struct CreateStatic
-{
+struct CreateStatic {
 #ifdef _MSC_VER
-#pragma warning( push )
-#pragma warning( disable : 4121 )
+#pragma warning(push)
+#pragma warning(disable : 4121)
 // alignment of a member was sensitive to packing
 #endif // _MSC_VER
 
-    union MaxAlign
-    {
-        char t_[sizeof( T )];
+    union MaxAlign {
+        char t_[sizeof(T)];
         short int shortInt_;
         int int_;
         long int longInt_;
@@ -313,21 +285,19 @@ struct CreateStatic
         long double longDouble_;
         struct Test;
         int Test::*pMember_;
-        int ( Test::*pMemberFn_ )( int );
+        int (Test::*pMemberFn_)(int);
     };
 
 #ifdef _MSC_VER
-#pragma warning( pop )
+#pragma warning(pop)
 #endif // _MSC_VER
 
-    static T* Create()
-    {
+    static T* Create() {
         static MaxAlign staticMemory_;
-        return new ( &staticMemory_ ) T;
+        return new (&staticMemory_) T;
     }
 
-    static void Destroy( T* p )
-    {
+    static void Destroy(T* p) {
         p->~T();
     }
 };
@@ -341,16 +311,13 @@ struct CreateStatic
 ///  Forwards to std::atexit
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-struct DefaultLifetime
-{
-    static void ScheduleDestruction( T*, atexit_pfn_t pFun )
-    {
-        std::atexit( pFun );
+struct DefaultLifetime {
+    static void ScheduleDestruction(T*, atexit_pfn_t pFun) {
+        std::atexit(pFun);
     }
 
-    static void OnDeadReference()
-    {
-        throw std::logic_error( "Dead Reference Detected" );
+    static void OnDeadReference() {
+        throw std::logic_error("Dead Reference Detected");
     }
 };
 
@@ -363,19 +330,16 @@ struct DefaultLifetime
 ///  recreation by not throwing an exception from OnDeadReference
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-class PhoenixSingleton
-{
+class PhoenixSingleton {
 public:
-    static void ScheduleDestruction( T*, atexit_pfn_t pFun )
-    {
+    static void ScheduleDestruction(T*, atexit_pfn_t pFun) {
 #ifndef ATEXIT_FIXED
-        if ( !destroyedOnce_ )
+        if (!destroyedOnce_)
 #endif
-            std::atexit( pFun );
+            std::atexit(pFun);
     }
 
-    static void OnDeadReference()
-    {
+    static void OnDeadReference() {
 #ifndef ATEXIT_FIXED
         destroyedOnce_ = true;
 #endif
@@ -411,29 +375,24 @@ bool PhoenixSingleton<T>::destroyedOnce_ = false;
 ///  DeletableSingleton<MyClass>::GracefulDelete();
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-class DeletableSingleton
-{
+class DeletableSingleton {
 public:
-    static void ScheduleDestruction( T*, atexit_pfn_t pFun )
-    {
+    static void ScheduleDestruction(T*, atexit_pfn_t pFun) {
         static bool firstPass = true;
         isDead = false;
         deleter = pFun;
-        if ( firstPass || needCallback )
-        {
-            std::atexit( atexitCallback );
+        if (firstPass || needCallback) {
+            std::atexit(atexitCallback);
             firstPass = false;
             needCallback = false;
         }
     }
 
-    static void OnDeadReference()
-    {
+    static void OnDeadReference() {
     }
     ///  delete singleton object manually
-    static void GracefulDelete()
-    {
-        if ( isDead )
+    static void GracefulDelete() {
+        if (isDead)
             return;
         isDead = true;
         deleter();
@@ -444,8 +403,7 @@ protected:
     static bool isDead;
     static bool needCallback;
 
-    static void atexitCallback()
-    {
+    static void atexitCallback() {
 #ifdef ATEXIT_FIXED
         needCallback = true;
 #else
@@ -469,13 +427,10 @@ bool DeletableSingleton<T>::needCallback = true;
 // Helper for SingletonWithLongevity below
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Private
-{
+namespace Private {
 template <class T>
-struct Adapter
-{
-    void operator()( T* )
-    {
+struct Adapter {
+    void operator()(T*) {
         return pFun_();
     }
     atexit_pfn_t pFun_;
@@ -492,18 +447,15 @@ struct Adapter
 ///  object.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-class SingletonWithLongevity
-{
+class SingletonWithLongevity {
 public:
-    static void ScheduleDestruction( T* pObj, atexit_pfn_t pFun )
-    {
-        Private::Adapter<T> adapter = { pFun };
-        SetLongevity( pObj, GetLongevity( pObj ), adapter );
+    static void ScheduleDestruction(T* pObj, atexit_pfn_t pFun) {
+        Private::Adapter<T> adapter = {pFun};
+        SetLongevity(pObj, GetLongevity(pObj), adapter);
     }
 
-    static void OnDeadReference()
-    {
-        throw std::logic_error( "Dead Reference Detected" );
+    static void OnDeadReference() {
+        throw std::logic_error("Dead Reference Detected");
     }
 };
 
@@ -515,14 +467,11 @@ public:
 ///  Never destroys the object
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-struct NoDestroy
-{
-    static void ScheduleDestruction( T*, atexit_pfn_t )
-    {
+struct NoDestroy {
+    static void ScheduleDestruction(T*, atexit_pfn_t) {
     }
 
-    static void OnDeadReference()
-    {
+    static void OnDeadReference() {
     }
 };
 
@@ -536,8 +485,7 @@ struct NoDestroy
 ///  \brief  In this namespace are special lifetime policies to manage lifetime
 ///  dependencies.
 ////////////////////////////////////////////////////////////////////////////////
-namespace LongevityLifetime
-{
+namespace LongevityLifetime {
 ////////////////////////////////////////////////////////////////////////////////
 ///  \struct  SingletonFixedLongevity
 ///
@@ -549,22 +497,18 @@ namespace LongevityLifetime
 ///  struct MyLifetime  : SingletonFixedLongevity< MyLifetimeNumber ,T> {}
 ////////////////////////////////////////////////////////////////////////////////
 template <unsigned int Longevity, class T>
-class SingletonFixedLongevity
-{
+class SingletonFixedLongevity {
 public:
-    virtual ~SingletonFixedLongevity()
-    {
+    virtual ~SingletonFixedLongevity() {
     }
 
-    static void ScheduleDestruction( T* pObj, atexit_pfn_t pFun )
-    {
-        Private::Adapter<T> adapter = { pFun };
-        SetLongevity( pObj, Longevity, adapter );
+    static void ScheduleDestruction(T* pObj, atexit_pfn_t pFun) {
+        Private::Adapter<T> adapter = {pFun};
+        SetLongevity(pObj, Longevity, adapter);
     }
 
-    static void OnDeadReference()
-    {
-        throw std::logic_error( "Dead Reference Detected" );
+    static void OnDeadReference() {
+        throw std::logic_error("Dead Reference Detected");
     }
 };
 
@@ -572,25 +516,19 @@ public:
 ///  \ingroup LongevityLifetimeGroup
 ///  \brief  Longest possible SingletonWithLongevity lifetime: 0xFFFFFFFF
 template <class T>
-struct DieLast : SingletonFixedLongevity<0xFFFFFFFF, T>
-{
-};
+struct DieLast : SingletonFixedLongevity<0xFFFFFFFF, T> {};
 
 ///  \struct DieDirectlyBeforeLast
 ///  \ingroup LongevityLifetimeGroup
 ///  \brief  Lifetime is a one less than DieLast: 0xFFFFFFFF-1
 template <class T>
-struct DieDirectlyBeforeLast : SingletonFixedLongevity<0xFFFFFFFF - 1, T>
-{
-};
+struct DieDirectlyBeforeLast : SingletonFixedLongevity<0xFFFFFFFF - 1, T> {};
 
 ///  \struct DieFirst
 ///  \ingroup LongevityLifetimeGroup
 ///  \brief  Shortest possible SingletonWithLongevity lifetime: 0
 template <class T>
-struct DieFirst : SingletonFixedLongevity<0, T>
-{
-};
+struct DieFirst : SingletonFixedLongevity<0, T> {};
 
 } // namespace LongevityLifetime
 
@@ -613,37 +551,31 @@ struct DieFirst : SingletonFixedLongevity<0, T>
 ///   \code SingletonHolder< F , CreateUsingNew, FollowIntoDeath::AfterMaster< MasterSingleton >::IsDestroyed > FollowerSingleton
 ///   \endcode
 ////////////////////////////////////////////////////////////////////////////////
-class FollowIntoDeath
-{
+class FollowIntoDeath {
     template <class T>
-    class Followers
-    {
+    class Followers {
         typedef std::vector<atexit_pfn_t> Container;
         typedef typename Container::iterator iterator;
         static Container* followers_;
 
     public:
-        static void Init()
-        {
+        static void Init() {
             static bool done = false;
-            if ( !done )
-            {
+            if (!done) {
                 followers_ = new Container;
                 done = true;
             }
         }
 
-        static void AddFollower( atexit_pfn_t ae )
-        {
+        static void AddFollower(atexit_pfn_t ae) {
             Init();
-            followers_->push_back( ae );
+            followers_->push_back(ae);
         }
 
-        static void DestroyFollowers()
-        {
+        static void DestroyFollowers() {
             Init();
-            for ( iterator it = followers_->begin(); it != followers_->end(); ++it )
-                ( *it )();
+            for (iterator it = followers_->begin(); it != followers_->end(); ++it)
+                (*it)();
             delete followers_;
         }
     };
@@ -653,28 +585,24 @@ public:
     ///  Template for the master
     ///  \param Lifetime Lifetime policy for the master
     template <template <class> class Lifetime>
-    struct With
-    {
+    struct With {
         ///  \struct AsMasterLifetime
         ///  Policy for master
         template <class Master>
-        struct AsMasterLifetime
-        {
-            static void ScheduleDestruction( Master* pObj, atexit_pfn_t pFun )
-            {
+        struct AsMasterLifetime {
+            static void ScheduleDestruction(Master* pObj, atexit_pfn_t pFun) {
                 Followers<Master>::Init();
-                Lifetime<Master>::ScheduleDestruction( pObj, pFun );
+                Lifetime<Master>::ScheduleDestruction(pObj, pFun);
 
                 // use same policy for the followers and force a new
                 // template instantiation,  this adds a additional atexit entry
                 // does not work with SetLonlevity, but there you can control
                 // the lifetime with the GetLongevity function.
-                Lifetime<Followers<Master>>::ScheduleDestruction( 0, Followers<Master>::DestroyFollowers );
+                Lifetime<Followers<Master>>::ScheduleDestruction(0, Followers<Master>::DestroyFollowers);
             }
 
-            static void OnDeadReference()
-            {
-                throw std::logic_error( "Dead Reference Detected" );
+            static void OnDeadReference() {
+                throw std::logic_error("Dead Reference Detected");
             }
         };
     };
@@ -683,21 +611,17 @@ public:
     ///  Template for the follower
     ///  \param Master Master to follow into death
     template <class Master>
-    struct AfterMaster
-    {
+    struct AfterMaster {
         ///  \struct IsDestroyed
         ///  Policy for followers
         template <class F>
-        struct IsDestroyed
-        {
-            static void ScheduleDestruction( F*, atexit_pfn_t pFun )
-            {
-                Followers<Master>::AddFollower( pFun );
+        struct IsDestroyed {
+            static void ScheduleDestruction(F*, atexit_pfn_t pFun) {
+                Followers<Master>::AddFollower(pFun);
             }
 
-            static void OnDeadReference()
-            {
-                throw std::logic_error( "Dead Reference Detected" );
+            static void OnDeadReference() {
+                throw std::logic_error("Dead Reference Detected");
             }
         };
     };
@@ -723,8 +647,7 @@ typename FollowIntoDeath::Followers<T>::Container* FollowIntoDeath::Followers<T>
 template <
     typename T, template <class> class CreationPolicy = CreateUsingNew, template <class> class LifetimePolicy = DefaultLifetime,
     template <class, class> class ThreadingModel = LOKI_DEFAULT_THREADING_NO_OBJ_LEVEL, class MutexPolicy = LOKI_DEFAULT_MUTEX>
-class SingletonHolder
-{
+class SingletonHolder {
 public:
     ///  Type of the singleton object
     typedef T ObjectType;
@@ -762,10 +685,8 @@ bool SingletonHolder<T, C, L, M, X>::destroyed_ = false;
 
 template <class T, template <class> class CreationPolicy, template <class> class LifetimePolicy,
           template <class, class> class ThreadingModel, class MutexPolicy>
-inline T& SingletonHolder<T, CreationPolicy, LifetimePolicy, ThreadingModel, MutexPolicy>::Instance()
-{
-    if ( !pInstance_ )
-    {
+inline T& SingletonHolder<T, CreationPolicy, LifetimePolicy, ThreadingModel, MutexPolicy>::Instance() {
+    if (!pInstance_) {
         MakeInstance();
     }
     return *pInstance_;
@@ -777,28 +698,24 @@ inline T& SingletonHolder<T, CreationPolicy, LifetimePolicy, ThreadingModel, Mut
 
 template <class T, template <class> class CreationPolicy, template <class> class LifetimePolicy,
           template <class, class> class ThreadingModel, class MutexPolicy>
-void SingletonHolder<T, CreationPolicy, LifetimePolicy, ThreadingModel, MutexPolicy>::MakeInstance()
-{
+void SingletonHolder<T, CreationPolicy, LifetimePolicy, ThreadingModel, MutexPolicy>::MakeInstance() {
     typename ThreadingModel<SingletonHolder, MutexPolicy>::Lock guard;
     (void) guard;
 
-    if ( !pInstance_ )
-    {
-        if ( destroyed_ )
-        {
+    if (!pInstance_) {
+        if (destroyed_) {
             destroyed_ = false;
             LifetimePolicy<T>::OnDeadReference();
         }
         pInstance_ = CreationPolicy<T>::Create();
-        LifetimePolicy<T>::ScheduleDestruction( pInstance_, &DestroySingleton );
+        LifetimePolicy<T>::ScheduleDestruction(pInstance_, &DestroySingleton);
     }
 }
 
 template <class T, template <class> class CreationPolicy, template <class> class L, template <class, class> class M, class X>
-void LOKI_C_CALLING_CONVENTION_QUALIFIER SingletonHolder<T, CreationPolicy, L, M, X>::DestroySingleton()
-{
-    assert( !destroyed_ );
-    CreationPolicy<T>::Destroy( pInstance_ );
+void LOKI_C_CALLING_CONVENTION_QUALIFIER SingletonHolder<T, CreationPolicy, L, M, X>::DestroySingleton() {
+    assert(!destroyed_);
+    CreationPolicy<T>::Destroy(pInstance_);
     pInstance_ = 0;
     destroyed_ = true;
 }
@@ -822,8 +739,7 @@ void LOKI_C_CALLING_CONVENTION_QUALIFIER SingletonHolder<T, CreationPolicy, L, M
 #endif
 
 template <class T>
-class LOKI_SINGLETON_EXPORT Singleton
-{
+class LOKI_SINGLETON_EXPORT Singleton {
 public:
     static T& Instance();
 };
@@ -834,12 +750,10 @@ public:
 /// Convenience macro for the definition of the static Instance member function
 /// Put this macro called with a SingletonHolder typedef into your cpp file.
 
-#define LOKI_SINGLETON_INSTANCE_DEFINITION( SHOLDER )                                                                            \
-    namespace Loki                                                                                                               \
-    {                                                                                                                            \
+#define LOKI_SINGLETON_INSTANCE_DEFINITION(SHOLDER)                                                                              \
+    namespace Loki {                                                                                                             \
     template <>                                                                                                                  \
-    SHOLDER::ObjectType& Singleton<SHOLDER::ObjectType>::Instance()                                                              \
-    {                                                                                                                            \
+    SHOLDER::ObjectType& Singleton<SHOLDER::ObjectType>::Instance() {                                                            \
         return SHOLDER::Instance();                                                                                              \
     }                                                                                                                            \
     }

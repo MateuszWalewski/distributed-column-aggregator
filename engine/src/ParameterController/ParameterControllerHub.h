@@ -2,13 +2,12 @@
 #include <string>
 #include <vector>
 
-class ParameterControllerHub
-{
+class ParameterControllerHub {
 public:
     ParameterControllerHub() = default;
 
-    void LoadHubConnectionInfo( const std::vector<std::string>& rpcConnectionInfo,
-                                const std::vector<std::string>& tcpConnectionInfo );
+    void LoadHubConnectionInfo(const std::vector<std::string>& rpcConnectionInfo,
+                               const std::vector<std::string>& tcpConnectionInfo);
     void PrintHubConnectionInfo();
 
     const std::vector<std::string>& GetServerInfo() const;

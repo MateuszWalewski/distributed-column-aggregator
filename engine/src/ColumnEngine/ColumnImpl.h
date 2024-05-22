@@ -3,22 +3,21 @@
 #include <vector>
 
 template <typename T>
-class ColumnImpl : public IColumn
-{
+class ColumnImpl : public IColumn {
 public:
     ColumnImpl();
     void CreateColumnOnNode() override;
     void DeleteColumnOnNode() override;
-    void AddElement( const size_t nodeNumber, const std::any element ) override;
-    std::any GetElement( size_t index );
+    void AddElement(const size_t nodeNumber, const std::any element) override;
+    std::any GetElement(size_t index);
     void PrintColumnOnNode() override;
-    void LoadDataToNode( const std::string& dataFilePath ) override;
-    std::any Sum() override;
+    void LoadDataToNode(const std::string& dataFilePath) override;
+    double Sum() override;
     double MomentI() override;
     double MomentII() override;
     double Stddev() override;
-    int Count() override;
-    int Fetch() override;
+    size_t Count() override;
+    size_t Fetch() override;
 
 private:
     std::string _colId;

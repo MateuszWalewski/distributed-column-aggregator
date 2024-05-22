@@ -17,4 +17,4 @@ def tear_down():
 
 def test_db(start_up):
     a = start_up
-    assert a.Sum() == 5082342
+    assert a.Sum() == 5082342.0

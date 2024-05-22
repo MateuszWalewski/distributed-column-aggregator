@@ -7,23 +7,21 @@
 
 using boost::asio::ip::tcp;
 
-class TCPServer
-{
+class TCPServer {
 public:
-    TCPServer( boost::asio::io_context& io_context );
+    TCPServer(boost::asio::io_context& io_context);
 
     void Accept();
 
     template <typename T>
-    void Read( std::vector<T>& data, const std::vector<int>& dataSize );
+    void Read(std::vector<T>& data, const std::vector<int>& dataSize);
 
-    class Session
-    {
+    class Session {
     public:
-        Session( std::unique_ptr<tcp::socket>&& socket );
+        Session(std::unique_ptr<tcp::socket>&& socket);
 
         template <typename T>
-        void FetchDataFromPeer( std::vector<T>& data, int dataSize, int offset );
+        void FetchDataFromPeer(std::vector<T>& data, int dataSize, int offset);
 
     private:
         std::unique_ptr<tcp::socket> _socket;

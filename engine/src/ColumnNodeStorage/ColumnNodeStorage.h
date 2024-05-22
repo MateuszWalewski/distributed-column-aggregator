@@ -12,8 +12,7 @@ using ColStorage = std::tuple<std::unordered_map<std::string, std::shared_ptr<Co
 template <typename T>
 using TypedStorage = std::unordered_map<std::string, std::shared_ptr<ColumnNode<T>>>;
 
-class ColumnNodeStorage
-{
+class ColumnNodeStorage {
 private:
     ColStorage _colStorage;
 
@@ -22,8 +21,7 @@ public:
     ColStorage GetSuperMap();
 
     template <typename T>
-    inline TypedStorage<T>& GetColumnStorage()
-    {
-        return std::get<TypedStorage<T>>( _colStorage );
+    inline TypedStorage<T>& GetColumnStorage() {
+        return std::get<TypedStorage<T>>(_colStorage);
     }
 };
