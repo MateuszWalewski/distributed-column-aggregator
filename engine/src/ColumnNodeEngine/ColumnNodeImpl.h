@@ -4,14 +4,13 @@
 #include "IColumnNode.h"
 
 template <typename T>
-class ColumnNodeImpl : public IColumnNode
-{
+class ColumnNodeImpl : public IColumnNode {
 public:
     ColumnNodeImpl() = default;
     ~ColumnNodeImpl() = default;
     void Print() override;
-    void LoadData( const std::string& dataFilePath, const size_t begin, const size_t end ) override;
-    void AddElement( const std::any element ) override;
+    void LoadData(const std::string& dataFilePath, const size_t begin, const size_t end) override;
+    void AddElement(const std::any element) override;
 
     std::any Sum() override;
     double SumX2() override;

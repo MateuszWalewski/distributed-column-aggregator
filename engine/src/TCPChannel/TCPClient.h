@@ -4,13 +4,12 @@
 using namespace boost::asio;
 using ip::tcp;
 
-class TCPClient
-{
+class TCPClient {
 public:
-    TCPClient( boost::asio::io_context& io_context );
+    TCPClient(boost::asio::io_context& io_context);
 
     template <typename T>
-    void Send( std::vector<T>& data );
+    void Send(std::vector<T>& data);
 
 private:
     void Connect();

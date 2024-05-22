@@ -10,59 +10,50 @@ template class ColumnNode<float>;
 template class ColumnNode<int>;
 
 template <typename T>
-ColumnNode<T>::ColumnNode( const std::string& colName ) : _name( colName )
-{
+ColumnNode<T>::ColumnNode(const std::string& colName) : _name(colName) {
     auto& Instance = Loki::SingletonHolder<FactoryNode>::Instance();
-    auto gadgetFactory = Instance.GetWidgetFactory( TypeName<T>::name );
+    auto gadgetFactory = Instance.GetWidgetFactory(TypeName<T>::name);
     _columnNodeEngine = gadgetFactory->template Create<IColumnNode>();
     std::cout << _name << " created on node" << std::endl;
 }
 
 template <typename T>
-ColumnNode<T>::~ColumnNode()
-{
+ColumnNode<T>::~ColumnNode() {
     delete _columnNodeEngine;
     std::cout << _name << " destructed on node" << std::endl;
 }
 
 template <typename T>
-void ColumnNode<T>::Print()
-{
+void ColumnNode<T>::Print() {
     _columnNodeEngine->Print();
 }
 
 template <typename T>
-void ColumnNode<T>::LoadData( const std::string& dataFilePath, const size_t begin, const size_t end )
-{
-    _columnNodeEngine->LoadData( dataFilePath, begin, end );
+void ColumnNode<T>::LoadData(const std::string& dataFilePath, const size_t begin, const size_t end) {
+    _columnNodeEngine->LoadData(dataFilePath, begin, end);
 }
 
 template <typename T>
-T ColumnNode<T>::Sum()
-{
-    return std::any_cast<T>( _columnNodeEngine->Sum() );
+T ColumnNode<T>::Sum() {
+    return std::any_cast<T>(_columnNodeEngine->Sum());
 }
 
 template <typename T>
-double ColumnNode<T>::SumX2()
-{
+double ColumnNode<T>::SumX2() {
     return _columnNodeEngine->SumX2();
 }
 
 template <typename T>
-int ColumnNode<T>::Count()
-{
+int ColumnNode<T>::Count() {
     return _columnNodeEngine->Count();
 }
 
 template <typename T>
-void ColumnNode<T>::AddElement( const T element )
-{
-    _columnNodeEngine->AddElement( std::make_any<T>( element ) );
+void ColumnNode<T>::AddElement(const T element) {
+    _columnNodeEngine->AddElement(std::make_any<T>(element));
 }
 
 template <typename T>
-int ColumnNode<T>::Fetch()
-{
+int ColumnNode<T>::Fetch() {
     return _columnNodeEngine->SendDataToHub();
 }

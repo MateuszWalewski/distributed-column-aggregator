@@ -2,8 +2,7 @@
 #include "constants.h"
 
 template <typename T>
-struct TypeName
-{
+struct TypeName {
     static const char* name;
 };
 
