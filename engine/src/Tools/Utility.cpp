@@ -72,7 +72,6 @@ void PrintVector(const std::vector<T>& container, const std::string& label) {
 
 template <typename T>
 void LoadCsvToDataColumn(const std::string& fileName, const size_t begin, const size_t end, std::vector<T>& destination) {
-    T tempValue;
     std::mutex m;
     m.lock();
     std::ifstream myfile(DATA_FILE_PATH + fileName);
@@ -86,7 +85,10 @@ void LoadCsvToDataColumn(const std::string& fileName, const size_t begin, const 
     }
 
     size_t count = 0;
-    while (myfile >> tempValue) {
+    std::string line;
+    while (std::getline(myfile, line)) {
+        std::istringstream iss(line);
+        T value;
         ++count;
         if (count > end) {
             break;
@@ -94,7 +96,11 @@ void LoadCsvToDataColumn(const std::string& fileName, const size_t begin, const 
         if (count <= begin) {
             continue;
         }
-        destination.push_back(tempValue);
+        if (iss >> value) {
+            destination.push_back(value);
+        } else {
+            std::cerr << "Error parsing line: " << line << std::endl;
+        }
     }
 
     m.unlock();

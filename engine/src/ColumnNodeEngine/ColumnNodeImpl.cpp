@@ -19,7 +19,7 @@ void ColumnNodeImpl<T>::Print() {
 
 template <typename T>
 void ColumnNodeImpl<T>::LoadData(const std::string& dataFilePath, const size_t begin, const size_t end) {
-    util::LoadCsvToDataColumn(dataFilePath, begin, end, _data);
+    util::LoadCsvToDataColumn<T>(dataFilePath, begin, end, _data);
 }
 
 template <typename T>
@@ -34,10 +34,10 @@ size_t ColumnNodeImpl<T>::Count() {
 
 template <typename T>
 double ColumnNodeImpl<T>::SumX2() {
-    // should be normalized to multiplicity to avoid overflow for big numbers
+    auto size = _data.size();
     return std::transform_reduce(std::execution::par, _data.cbegin(), _data.cend(), 0.0L, std::plus{},
-                                 [&](auto val) { return static_cast<double>(val) * val / _data.size(); }) *
-           _data.size();
+                                 [size](auto val) { return (static_cast<double>(val) * val) / size; }) *
+           size;
 }
 
 template <typename T>
