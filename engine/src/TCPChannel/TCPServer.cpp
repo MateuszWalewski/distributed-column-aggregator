@@ -26,10 +26,9 @@ TCPServer::TCPServer(boost::asio::io_context& io_context) {
 
 void TCPServer::Accept() {
     auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    int nOfNodes = pCInstance.GetNumberOfNodes();
     auto port = pCInstance.GetTcpPorts();
     try {
-        for (int i = 0; i < nOfNodes; i++) {
+        for (size_t i = 0; i < pCInstance.GetNumberOfNodes(); i++) {
             _session.emplace_back(std::make_unique<tcp::socket>(_acceptor[i].accept()));
             std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
             std::cout << "Session " << i + 1 << " has been established" << std::endl;
@@ -41,16 +40,17 @@ void TCPServer::Accept() {
 
 template <typename T>
 void TCPServer::Read(std::vector<T>& data, const std::vector<int>& dataSize) {
-    try {
-        auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-        int nOfNodes = pCInstance.GetNumberOfNodes();
-        int offset = 0;
-        for (int i = 0; i < nOfNodes; i++) {
-            _session[i].FetchDataFromPeer(data, dataSize[i], offset);
-            offset += dataSize[i];
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Exception in TCPServer::Read(): " << e.what() << std::endl;
+    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+    int offset = 0;
+    std::vector<std::future<void>> futures;
+    for (size_t i = 0; i < pCInstance.GetNumberOfNodes(); ++i) {
+        futures.emplace_back(std::async(std::launch::async, &Session::template FetchDataFromPeer<T>, &_session[i], std::ref(data),
+                                        dataSize[i], offset));
+        offset += dataSize[i];
+    }
+
+    for (auto& future : futures) {
+        future.wait();
     }
 }
 
@@ -66,8 +66,9 @@ void TCPServer::Session::FetchDataFromPeer(std::vector<T>& data, int dataSize, i
         temp.resize(dataSize);
 
         boost::asio::read(*_socket, boost::asio::buffer(temp), error);
-        if (error)
+        if (error) {
             throw boost::system::system_error(error);
+        }
 
         std::copy(temp.begin(), temp.end(), data.begin() + offset);
     } catch (const std::exception& e) {
