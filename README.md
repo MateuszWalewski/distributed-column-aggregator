@@ -1,5 +1,5 @@
 ## Distributed Column Aggregator
-A distributed column aggregation system, enabling basic statistical operations on C++ built-in numeric types. It leverages Docker to set up a multi-machine calculation cluster using a client-server architecture, with one central unit "hub" and multiple calculation nodes operating in parallel through asynchronous RPC technology. Highly parallel, horizontally and vertically scalable, easy to extend.
+A distributed column aggregation system for performing basic statistical operations on C++ built-in numeric types. Utilizes Docker to establish a multi-machine calculation cluster with a client-server architecture, featuring one central "hub" unit and multiple calculation nodes operating in parallel via asynchronous RPC technology. Highly parallel, horizontally & vertically scalable, easy to extend. Natively integrated with Python.
 ### Dependencies
 
 - Loki by Andrei Alexandrescu: https://loki-lib.sourceforge.net/
