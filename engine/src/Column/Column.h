@@ -24,6 +24,8 @@ public:
     double MomentI();
     double MomentII();
     double Stddev();
+    T Min();
+    T Max();
 
 private:
     std::unique_ptr<IColumn> _columnEngine;

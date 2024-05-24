@@ -20,6 +20,8 @@ public:
     double Sum();
     double SumX2();
     size_t Count();
+    T Min();
+    T Max();
 
 private:
     std::unique_ptr<IColumnNode> _columnNodeEngine;

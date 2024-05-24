@@ -30,4 +30,10 @@ double Sum(const std::string& id);
 template <typename T>
 double SumX2(const std::string& id);
 
+template <typename T>
+T Min(const std::string& id);
+
+template <typename T>
+T Max(const std::string& id);
+
 } // namespace calcs

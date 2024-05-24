@@ -28,6 +28,15 @@ def test_count_float_column(start_up):
     result = a.Count() # O(1) complexity
     assert result == 1015823
 
+def test_min_float_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Min)
+    assert result == 0.0
+
+def test_max_float_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Max)
+    assert result == 10.0
 
 def test_momentI_float_column(benchmark, start_up):
     a = start_up

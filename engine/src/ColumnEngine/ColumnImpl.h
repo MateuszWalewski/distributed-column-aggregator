@@ -18,6 +18,8 @@ public:
     double Stddev() override;
     size_t Count() override;
     size_t Fetch() override;
+    std::any Min() override;
+    std::any Max() override;
 
 private:
     std::string _colId;
