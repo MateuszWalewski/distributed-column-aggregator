@@ -24,6 +24,14 @@ template double SumX2<int>(const std::string& id);
 template double SumX2<double>(const std::string& id);
 template double SumX2<float>(const std::string& id);
 
+template int Min<int>(const std::string& id);
+template double Min<double>(const std::string& id);
+template float Min<float>(const std::string& id);
+
+template int Max<int>(const std::string& id);
+template double Max<double>(const std::string& id);
+template float Max<float>(const std::string& id);
+
 template size_t Count<int>(const std::string& id);
 template size_t Count<double>(const std::string& id);
 template size_t Count<float>(const std::string& id);
@@ -101,6 +109,20 @@ size_t Fetch(const std::string& id) {
     auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
     auto& map = cSInstance.GetColumnStorage<T>();
     return map[id]->Fetch();
+}
+
+template <typename T>
+T Min(const std::string& id) {
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Min();
+}
+
+template <typename T>
+T Max(const std::string& id) {
+    auto& cSInstance = Loki::SingletonHolder<ColumnNodeStorage>::Instance();
+    auto& map = cSInstance.GetColumnStorage<T>();
+    return map[id]->Max();
 }
 
 } // namespace calcs

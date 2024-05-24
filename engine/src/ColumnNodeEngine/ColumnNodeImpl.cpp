@@ -41,6 +41,16 @@ double ColumnNodeImpl<T>::SumX2() {
 }
 
 template <typename T>
+std::any ColumnNodeImpl<T>::Min() {
+    return std::make_any<T>(*std::min_element(std::execution::par, _data.cbegin(), _data.cend()));
+}
+
+template <typename T>
+std::any ColumnNodeImpl<T>::Max() {
+    return std::make_any<T>(*std::max_element(std::execution::par, _data.cbegin(), _data.cend()));
+}
+
+template <typename T>
 void ColumnNodeImpl<T>::AddElement(const std::any element) {
     auto elem = std::any_cast<T>(element);
     _data.push_back(std::any_cast<T>(elem));

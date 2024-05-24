@@ -8,6 +8,7 @@
 
 #include <cmath>
 #include <exception>
+#include <execution>
 #include <numeric>
 
 template class ColumnImpl<double>;
@@ -80,6 +81,20 @@ size_t ColumnImpl<T>::Count() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Count", _colId);
     return std::accumulate(results.begin(), results.end(), size_t{0});
+}
+
+template <typename T>
+std::any ColumnImpl<T>::Min() {
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Min", _colId);
+    return std::any_cast<T>(*std::min_element(std::execution::par, results.cbegin(), results.cend()));
+}
+
+template <typename T>
+std::any ColumnImpl<T>::Max() {
+    auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
+    auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Max", _colId);
+    return std::any_cast<T>(*std::max_element(std::execution::par, results.cbegin(), results.cend()));
 }
 
 template <typename T>

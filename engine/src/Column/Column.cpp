@@ -50,6 +50,16 @@ double Column<T>::Sum() {
 }
 
 template <typename T>
+T Column<T>::Min() {
+    return std::any_cast<T>(_columnEngine->Min());
+}
+
+template <typename T>
+T Column<T>::Max() {
+    return std::any_cast<T>(_columnEngine->Max());
+}
+
+template <typename T>
 size_t Column<T>::Count() {
     return _columnEngine->Count();
 }

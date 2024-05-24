@@ -17,6 +17,9 @@ public:
     size_t Count() override;
     size_t Fetch() override;
 
+    std::any Max() override;
+    std::any Min() override;
+
 private:
     std::vector<T> _data;
 };

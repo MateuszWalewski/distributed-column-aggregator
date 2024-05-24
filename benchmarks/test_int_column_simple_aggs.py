@@ -29,6 +29,16 @@ def test_count_int_column(start_up):
     assert result == 1015823
 
 
+def test_min_int_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Min)
+    assert result == 0
+
+def test_max_int_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Max)
+    assert result == 10
+
 def test_momentI_int_column(benchmark, start_up):
     a = start_up
     result = benchmark(a.MomentI)

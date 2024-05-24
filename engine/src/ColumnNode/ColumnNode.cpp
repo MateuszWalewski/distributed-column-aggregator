@@ -43,6 +43,16 @@ double ColumnNode<T>::SumX2() {
 }
 
 template <typename T>
+T ColumnNode<T>::Min() {
+    return std::any_cast<T>(_columnNodeEngine->Min());
+}
+
+template <typename T>
+T ColumnNode<T>::Max() {
+    return std::any_cast<T>(_columnNodeEngine->Max());
+}
+
+template <typename T>
 size_t ColumnNode<T>::Count() {
     return _columnNodeEngine->Count();
 }

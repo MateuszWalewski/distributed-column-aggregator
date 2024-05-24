@@ -11,6 +11,8 @@ public:
     virtual double SumX2() = 0;
     virtual size_t Count() = 0;
     virtual size_t Fetch() = 0;
+    virtual std::any Max() = 0;
+    virtual std::any Min() = 0;
 
     virtual ~IColumnNode() = default;
 };

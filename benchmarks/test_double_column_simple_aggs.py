@@ -28,6 +28,15 @@ def test_count_double_column(start_up):
     result = a.Count() # O(1) complexity
     assert result == 1015823
 
+def test_min_double_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Min)
+    assert result == 0.0
+
+def test_max_double_column(benchmark, start_up):
+    a = start_up
+    result = benchmark(a.Max)
+    assert result == 10.0
 
 def test_momentI_double_column(benchmark, start_up):
     a = start_up

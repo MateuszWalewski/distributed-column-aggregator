@@ -36,6 +36,8 @@ a.LoadData("data4.csv")
 a.Print()
 result = a.Sum()
 result = a.Count()
+result = a.Min()
+result = a.Max()
 result = a.MomentI()
 result = a.MomentII()
 result = a.Stddev()
@@ -73,4 +75,4 @@ To edit configuration:
 This section outlines potential features and ideas that could be added to enhance the project in the future:
 - **GPU Processing**: Extend the system to leverage GPU processing for higher parallelization and significant performance improvement.
 - **Numeric Data Types**: Expand support for a wider range of numeric data types, including arbitrary precision types for full compliance with modern DBMS systems.
-- **Mathematical Operations and Operators**: Implement operators and mathematical operations on columns the enhance data analysis capabilities.
+- **Mathematical Operations and Operators**: Implement operators and mathematical operations on columns to enhance data analysis capabilities.

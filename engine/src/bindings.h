@@ -15,6 +15,8 @@ void performBindings() {
     rpcServer->bind("IntTypeColumn_Sum", &calcs::Sum<int>);
     rpcServer->bind("IntTypeColumn_SumX2", &calcs::SumX2<int>);
     rpcServer->bind("IntTypeColumn_Count", &calcs::Count<int>);
+    rpcServer->bind("IntTypeColumn_Min", &calcs::Min<int>);
+    rpcServer->bind("IntTypeColumn_Max", &calcs::Max<int>);
 
     rpcServer->bind("DoubleTypeColumn_CreateColumn", &calcs::CreateColumn<double>);
     rpcServer->bind("DoubleTypeColumn_DeleteColumn", &calcs::DeleteColumn<double>);
@@ -25,6 +27,8 @@ void performBindings() {
     rpcServer->bind("DoubleTypeColumn_Sum", &calcs::Sum<double>);
     rpcServer->bind("DoubleTypeColumn_SumX2", &calcs::SumX2<double>);
     rpcServer->bind("DoubleTypeColumn_Count", &calcs::Count<double>);
+    rpcServer->bind("DoubleTypeColumn_Min", &calcs::Min<double>);
+    rpcServer->bind("DoubleTypeColumn_Max", &calcs::Max<double>);
 
     rpcServer->bind("FloatTypeColumn_CreateColumn", &calcs::CreateColumn<float>);
     rpcServer->bind("FloatTypeColumn_DeleteColumn", &calcs::DeleteColumn<float>);
@@ -35,4 +39,6 @@ void performBindings() {
     rpcServer->bind("FloatTypeColumn_Sum", &calcs::Sum<float>);
     rpcServer->bind("FloatTypeColumn_SumX2", &calcs::SumX2<float>);
     rpcServer->bind("FloatTypeColumn_Count", &calcs::Count<float>);
+    rpcServer->bind("FloatTypeColumn_Min", &calcs::Min<float>);
+    rpcServer->bind("FloatTypeColumn_Max", &calcs::Max<float>);
 }
