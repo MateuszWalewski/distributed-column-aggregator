@@ -10,6 +10,7 @@ public:
 
     ColumnNode() = delete;                              // not applicable
     ColumnNode& operator=(const ColumnNode&) = delete;  // not applicable as a binding class
+    ColumnNode(const ColumnNode&) = delete;             // ditto
     ColumnNode(ColumnNode&& other) = delete;            // ditto
     ColumnNode& operator=(ColumnNode&& other) = delete; // ditto
 
