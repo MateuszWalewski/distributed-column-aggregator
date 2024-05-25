@@ -24,7 +24,8 @@ void ColumnNodeImpl<T>::LoadData(const std::string& dataFilePath, const size_t b
 
 template <typename T>
 double ColumnNodeImpl<T>::Sum() {
-    return std::accumulate(_data.begin(), _data.end(), 0.0, [](double acc, T val) { return acc + static_cast<double>(val); });
+    return std::transform_reduce(std::execution::par, _data.cbegin(), _data.cend(), 0.0, std::plus{},
+                                 [](auto val) { return static_cast<double>(val); });
 }
 
 template <typename T>
@@ -35,7 +36,7 @@ size_t ColumnNodeImpl<T>::Count() {
 template <typename T>
 double ColumnNodeImpl<T>::SumX2() {
     auto size = _data.size();
-    return std::transform_reduce(std::execution::par, _data.cbegin(), _data.cend(), 0.0L, std::plus{},
+    return std::transform_reduce(std::execution::par, _data.cbegin(), _data.cend(), 0.0, std::plus{},
                                  [size](auto val) { return (static_cast<double>(val) * val) / size; }) *
            size;
 }

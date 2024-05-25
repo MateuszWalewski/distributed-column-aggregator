@@ -73,14 +73,14 @@ template <typename T>
 double ColumnImpl<T>::Sum() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<double>(_typeName + "Sum", _colId);
-    return std::accumulate(results.begin(), results.end(), 0.0);
+    return std::accumulate(results.cbegin(), results.cend(), 0.0);
 }
 
 template <typename T>
 size_t ColumnImpl<T>::Count() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<T>(_typeName + "Count", _colId);
-    return std::accumulate(results.begin(), results.end(), size_t{0});
+    return std::accumulate(results.cbegin(), results.cend(), size_t{0});
 }
 
 template <typename T>
@@ -128,7 +128,7 @@ template <typename T>
 double ColumnImpl<T>::MomentII() {
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
     auto results = rpcInstance.CallRpcMethod<double>(_typeName + "SumX2", _colId);
-    return std::accumulate(results.begin(), results.end(), 0.0) / Count();
+    return std::accumulate(results.cbegin(), results.cend(), 0.0) / Count();
 }
 
 template <typename T>
