@@ -110,11 +110,11 @@ size_t ColumnImpl<T>::Fetch() {
     TCPServer tcpServer(io_context);
     auto tcpAsync = std::async(std::launch::async, &TCPServer::Accept, &tcpServer);
     auto handles = rpcInstance.CallRpcMethodVoid(_typeName + "Fetch", _colId);
+    tcpAsync.get();
     auto dataSize = std::accumulate(results.begin(), results.end(), size_t{0});
     _data.resize(dataSize);
     tcpServer.Read(_data, results);
     rpcInstance.CompleteRpcTasks(handles);
-    tcpAsync.get();
     _isDataFetchedFromNodes = true;
     return dataSize;
 }
