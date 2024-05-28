@@ -1,4 +1,5 @@
 #include "TCPServer.h"
+#include "constants.h"
 #include <boost/asio.hpp>
 #include <iostream>
 #include <memory>
@@ -12,26 +13,22 @@ template void TCPServer::Read<int>(std::vector<int>& data, const std::vector<int
 
 TCPServer::TCPServer(boost::asio::io_context& io_context) {
     try {
-        auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-        auto port = pCInstance.GetTcpPorts();
-        for (auto& p : port) {
-            _acceptor.emplace_back(io_context, tcp::endpoint(tcp::v4(), p));
+        auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
+        for (size_t i = 0; i < std::get<size_t>(cMInstance.getConfigParameter(NUMBER_OF_NODES)); i++) {
+            _acceptor.emplace_back(
+                io_context,
+                tcp::endpoint(tcp::v4(), std::get<uint>(cMInstance.getConfigParameter(TCP_SERVER_PORT + std::to_string(i)))));
         }
     } catch (const std::exception& e) {
         std::cerr << "Exception in TCPServer::TCPServer: " << e.what() << std::endl;
     }
-
-    std::cout << "Server info has been intialized" << std::endl;
 }
 
 void TCPServer::Accept() {
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    auto port = pCInstance.GetTcpPorts();
+    auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
     try {
-        for (size_t i = 0; i < pCInstance.GetNumberOfNodes(); i++) {
+        for (size_t i = 0; i < std::get<size_t>(cMInstance.getConfigParameter(NUMBER_OF_NODES)); i++) {
             _session.emplace_back(std::make_unique<tcp::socket>(_acceptor[i].accept()));
-            std::cout << "Connection from peer on the port: " << port[i] << " accepted" << '\n';
-            std::cout << "Session " << i + 1 << " has been established" << std::endl;
         }
     } catch (const std::exception& e) {
         std::cerr << "Exception in TCPServer::Accept(): " << e.what() << std::endl;
@@ -40,10 +37,10 @@ void TCPServer::Accept() {
 
 template <typename T>
 void TCPServer::Read(std::vector<T>& data, const std::vector<int>& dataSize) {
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+    auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
     int offset = 0;
     std::vector<std::future<void>> futures;
-    for (size_t i = 0; i < pCInstance.GetNumberOfNodes(); ++i) {
+    for (size_t i = 0; i < std::get<size_t>(cMInstance.getConfigParameter(NUMBER_OF_NODES)); ++i) {
         futures.emplace_back(std::async(std::launch::async, &Session::template FetchDataFromPeer<T>, &_session[i], std::ref(data),
                                         dataSize[i], offset));
         offset += dataSize[i];

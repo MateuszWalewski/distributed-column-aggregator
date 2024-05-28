@@ -22,8 +22,7 @@ ADD_SUBDIRECTORY(ColumnEngine)
 ADD_SUBDIRECTORY(ColumnNodeEngine)
 ADD_SUBDIRECTORY(ColumnOperationsNode)
 ADD_SUBDIRECTORY(ColumnNodeStorage)
-ADD_SUBDIRECTORY(ParameterController)
-ADD_SUBDIRECTORY(ParameterControllerNode)
+ADD_SUBDIRECTORY(ConfigurationManager)
 ADD_SUBDIRECTORY(Tools)
 ADD_SUBDIRECTORY(Loki)
 
@@ -33,18 +32,17 @@ ADD_SUBDIRECTORY(Loki)
 add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ParameterController Networking DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+target_link_libraries(interpreter PUBLIC ConfigurationManager Networking DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
 add_executable(node node.cpp)
-target_link_libraries(node PUBLIC ParameterControllerNode Networking TCPChannel ColumnOperationsNode )
+target_link_libraries(node PUBLIC ConfigurationManager Networking TCPChannel ColumnOperationsNode )
 
 # TODO: ditto
 
 INSTALL(TARGETS node RUNTIME DESTINATION bin)
 INSTALL(TARGETS interpreter LIBRARY DESTINATION lib)
 INSTALL(TARGETS ColumnOperationsNode LIBRARY DESTINATION lib)
-INSTALL(TARGETS ParameterController LIBRARY DESTINATION lib)
-INSTALL(TARGETS ParameterControllerNode LIBRARY DESTINATION lib)
+INSTALL(TARGETS ConfigurationManager LIBRARY DESTINATION lib)
 INSTALL(TARGETS Tools LIBRARY DESTINATION lib)

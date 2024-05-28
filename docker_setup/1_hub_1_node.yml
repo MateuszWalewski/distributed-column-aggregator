@@ -6,7 +6,7 @@ services:
       - default
     environment:
       RPC_CONNECTIONS: "node1:8081"
-      TCP_CONNECTIONS: "8108"
+      TCP_PORTS: "8108"
     command: "tail -f /dev/null"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -18,8 +18,7 @@ services:
       - default
     environment:
         RPC_PORT: "8081"
-        TCP_PORT: "8108"
-        HUB_ADDRESS: "hub"
+        TCP_CONNECTION: "hub:8108"
     command: "node"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

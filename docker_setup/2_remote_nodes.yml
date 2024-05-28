@@ -6,8 +6,7 @@ services:
       - default
     environment:
         RPC_PORT: "8083"
-        TCP_PORT: "8110"
-        HUB_ADDRESS: "192.168.1.40"
+        TCP_CONNECTION: "192.168.1.40:8110"
     ports:
       - 8083:8083
     command: "node"
@@ -19,8 +18,7 @@ services:
       - default
     environment:
         RPC_PORT: "8084"
-        TCP_PORT: "8111"
-        HUB_ADDRESS: "192.168.1.40"
+        TCP_CONNECTION: "192.168.1.40:8111"
     ports:
       - 8084:8084
     command: "node"
