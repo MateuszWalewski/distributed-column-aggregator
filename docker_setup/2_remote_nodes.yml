@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   node3:
     image: minidb_1.0

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.12)
 project(distributed-column-aggregator  LANGUAGES CXX)
 
 if(POLICY CMP0135)
@@ -70,11 +70,13 @@ set(CMAKE_CXX_FLAGS_UBSAN
 # Taken from (http://www.stablecoder.ca/2018/02/01/analyzer-build-types.html)
 
 #set(CMAKE_CXX_COMPILER "/usr/bin/clang++-10")
-SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
 
+find_package(Boost 1.83 REQUIRED COMPONENTS python3 system thread)
 include(FetchContent)
 FetchContent_Declare(
   googletest

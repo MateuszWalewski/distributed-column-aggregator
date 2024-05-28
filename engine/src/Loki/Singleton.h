@@ -18,7 +18,10 @@
 // $Id: Singleton.h 834 2007-08-02 19:36:10Z syntheticpp $
 
 #include "LokiExport.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvolatile"
 #include "Threads.h"
+#pragma GCC diagnostic pop
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>

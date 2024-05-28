@@ -7,6 +7,9 @@ services:
     environment:
       RPC_CONNECTIONS: "node1:8081 node2:8082 192.168.1.17:8083 192.168.1.17:8084"
       TCP_CONNECTIONS: "8108 8109 8110 8111"
+    ports:
+      - 8110:8110
+      - 8111:8111
     command: "tail -f /dev/null"
 
   node1:
@@ -19,6 +22,8 @@ services:
         TCP_PORT: "8108"
         HUB_ADDRESS: "hub"
     command: "node"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node2:
     image: minidb_1.0
@@ -30,6 +35,8 @@ services:
         TCP_PORT: "8109"
         HUB_ADDRESS: "hub"
     command: "node"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
   
 
