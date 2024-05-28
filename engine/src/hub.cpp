@@ -1,21 +1,20 @@
+#include "constants.h"
 #include "python_bindings.h"
+#include <ConfigurationManager/ConfigurationManager.h>
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
-#include <ParameterController/ParameterControllerHub.h>
 #include <Tools/Utility.h>
 #include <rpc/client.h>
 
 void InitialiseHub() {
     auto rpcConnectionInfo = util::SplitStringToVector(std::getenv("RPC_CONNECTIONS"));
-    auto tcpConnectionInfo = util::SplitStringToVector(std::getenv("TCP_CONNECTIONS"));
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
-    pCInstance.LoadHubConnectionInfo(rpcConnectionInfo, tcpConnectionInfo);
-    pCInstance.PrintHubConnectionInfo();
+    auto tcpConnectionInfo = util::SplitStringToVector(std::getenv("TCP_PORTS"));
+    auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
+    cMInstance.LoadConnectionInfo(tcpConnectionInfo);
+    cMInstance.setConfigParameter(NUMBER_OF_NODES, rpcConnectionInfo.size());
 
     RpcClientHandlers rpcClientHandlers;
-    auto serverInfo = pCInstance.GetServerInfo();
-
-    for (const auto& info : serverInfo) {
+    for (const auto& info : rpcConnectionInfo) {
         std::istringstream iss(info);
         std::string ipAddress, port;
 

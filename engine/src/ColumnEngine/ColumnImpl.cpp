@@ -1,8 +1,8 @@
 #include "ColumnImpl.h"
 #include "TraitsCol.h"
+#include <ConfigurationManager/ConfigurationManager.h>
 #include <Loki/Singleton.h>
 #include <Networking/RPCManager.h>
-#include <ParameterController/ParameterControllerHub.h>
 #include <TCPChannel/TCPServer.h>
 #include <Tools/Utility.h>
 
@@ -61,9 +61,9 @@ std::any ColumnImpl<T>::GetElement(size_t index) {
 
 template <typename T>
 void ColumnImpl<T>::LoadDataToNode(const std::string& dataFilePath) {
-    auto& pCInstance = Loki::SingletonHolder<ParameterControllerHub>::Instance();
+    auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
     auto& rpcInstance = Loki::SingletonHolder<RPCManager>::Instance();
-    int nOfNodes = pCInstance.GetNumberOfNodes();
+    int nOfNodes = std::get<size_t>(cMInstance.getConfigParameter(NUMBER_OF_NODES));
     auto nOfLines = util::CalculateNumberOfLinesInFile(dataFilePath);
     auto ranges = util::CalculateRangesToLoadDataOnNodes(nOfLines, nOfNodes);
     rpcInstance.CallRpcMethod(_typeName + "LoadCsvData", ranges, dataFilePath, _colId);

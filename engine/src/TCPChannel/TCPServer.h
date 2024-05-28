@@ -1,6 +1,6 @@
 
+#include <ConfigurationManager/ConfigurationManager.h>
 #include <Loki/Singleton.h>
-#include <ParameterController/ParameterControllerHub.h>
 
 #include <boost/asio.hpp>
 #include <memory>
