@@ -1,6 +1,9 @@
 #include "Utility.h"
 #include "constants.h"
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
+#include <boost/asio.hpp>
+#include <boost/lexical_cast.hpp>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -28,6 +31,36 @@ std::vector<std::string> SplitStringToVector(const std::string& stringToSplit) {
     std::istream_iterator<std::string> end;
     std::vector<std::string> vstrings(begin, end);
     return vstrings;
+}
+
+std::optional<std::pair<const std::string, const std::string>> getTcpIpInfo(const std::string& connectionInfo) {
+    std::vector<std::string> addressParts;
+    boost::split(addressParts, connectionInfo, boost::is_any_of(":"));
+    if (addressParts.size() != 2) {
+        std::cerr << "Wrong TCP/IP server connection details " << std::endl;
+        return std::nullopt;
+    } else {
+        return std::make_pair(std::as_const(addressParts[0]), std::as_const(addressParts[1]));
+    }
+}
+
+std::optional<std::string> complyWithIpV4(const std::string& ipAddress) {
+    try {
+        boost::asio::ip::address_v4 ipv4 = boost::asio::ip::address_v4::from_string(ipAddress);
+        return ipv4.to_string();
+    } catch (const boost::system::system_error& e) {
+        std::cerr << "Wrong IpV4 address conversion" << std::endl;
+        return std::nullopt;
+    }
+}
+
+std::optional<uint16_t> convertToTcpPortCompliantType(const std::string& ipPort) {
+    try {
+        return boost::lexical_cast<uint16_t>(ipPort);
+    } catch (const boost::bad_lexical_cast& e) {
+        std::cerr << "Error in cast: " << e.what() << std::endl;
+        return std::nullopt;
+    }
 }
 
 int CalculateNumberOfLinesInFile(const std::string& filePath) {
