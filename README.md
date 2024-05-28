@@ -4,8 +4,7 @@ A distributed column aggregation system for performing basic statistical operati
 
 - Loki by Andrei Alexandrescu: https://loki-lib.sourceforge.net/
 - rpclib by Tamás Szelei: https://github.com/rpclib/rpclib
-- boost-1.71.0
-- clang++ 10
+- boost-1.83.0
 - pytest
 - docker
 

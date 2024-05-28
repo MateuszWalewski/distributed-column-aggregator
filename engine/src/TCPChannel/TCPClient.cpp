@@ -22,7 +22,7 @@ TCPClient::TCPClient(boost::asio::io_context& io_context) : _resolver(io_context
 void TCPClient::Connect() {
     auto& cMInstance = Loki::SingletonHolder<ConfigurationManager>::Instance();
     std::string hubIp = std::get<std::string>(cMInstance.getConfigParameter(TCP_SERVER_IP));
-    std::string hubPort = std::get<std::string>(cMInstance.getConfigParameter(TCP_SERVER_PORT));
+    std::string hubPort = std::to_string(std::get<uint16_t>(cMInstance.getConfigParameter(TCP_SERVER_PORT)));
     boost::asio::ip::tcp::resolver::query query(hubIp, hubPort);
     boost::asio::ip::tcp::resolver::iterator iter = _resolver.resolve(query);
 

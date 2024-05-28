@@ -1,2 +1,2 @@
 
-void InitialiseHub();
+int InitialiseHub();

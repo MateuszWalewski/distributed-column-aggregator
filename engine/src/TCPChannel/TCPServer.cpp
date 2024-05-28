@@ -17,7 +17,7 @@ TCPServer::TCPServer(boost::asio::io_context& io_context) {
         for (size_t i = 0; i < std::get<size_t>(cMInstance.getConfigParameter(NUMBER_OF_NODES)); i++) {
             _acceptor.emplace_back(
                 io_context,
-                tcp::endpoint(tcp::v4(), std::get<uint>(cMInstance.getConfigParameter(TCP_SERVER_PORT + std::to_string(i)))));
+                tcp::endpoint(tcp::v4(), std::get<uint16_t>(cMInstance.getConfigParameter(TCP_SERVER_PORT + std::to_string(i)))));
         }
     } catch (const std::exception& e) {
         std::cerr << "Exception in TCPServer::TCPServer: " << e.what() << std::endl;

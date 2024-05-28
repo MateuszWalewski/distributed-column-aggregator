@@ -49,6 +49,10 @@ std::optional<std::string> complyWithIpV4(const std::string& ipAddress) {
         boost::asio::ip::address_v4 ipv4 = boost::asio::ip::address_v4::from_string(ipAddress);
         return ipv4.to_string();
     } catch (const boost::system::system_error& e) {
+        // white-listing user-defined Docker services
+        if (ipAddress == HUB_NAME || ipAddress.find(NODE_NAME) != std::string::npos) {
+            return ipAddress;
+        }
         std::cerr << "Wrong IpV4 address conversion" << std::endl;
         return std::nullopt;
     }
