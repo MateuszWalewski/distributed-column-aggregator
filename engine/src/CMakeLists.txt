@@ -32,12 +32,12 @@ ADD_SUBDIRECTORY(Loki)
 add_library(interpreter MODULE hub.cpp)
 
 # Set up the libraries and header search paths for this target
-target_link_libraries(interpreter PUBLIC ConfigurationManager Networking DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
+target_link_libraries(interpreter PUBLIC ConfigurationManager DataColumn ${Boost_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(interpreter PRIVATE ${PYTHON_INCLUDE_DIRS})
 
 
 add_executable(node node.cpp)
-target_link_libraries(node PUBLIC ConfigurationManager Networking TCPChannel ColumnOperationsNode )
+target_link_libraries(node PUBLIC ConfigurationManager ColumnOperationsNode )
 
 # TODO: ditto
 
